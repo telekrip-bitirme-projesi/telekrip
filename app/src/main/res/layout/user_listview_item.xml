@@ -6,8 +6,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/ivAvatar"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:layout_weight="2" />
 
@@ -16,9 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/ivAvatar"
-        android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/ivAvatar"
-        android:padding="5dp"
+        android:padding="4dp"
         android:text="kullanıcı adı"
         android:textColor="#000000"
         android:textSize="14sp" />
@@ -31,16 +30,17 @@
         android:layout_marginLeft="15dp"
         android:layout_toEndOf="@+id/ivAvatar"
         android:maxLength="30"
-        android:padding="5dp"
+        android:padding="3dp"
         android:text="konuşmadaki son mesaj"
         android:textColor="#000000"
         android:textSize="12sp" />
 
     <ImageView
         android:id="@+id/ivTalkDetails"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/tvUserName"
+        android:layout_marginTop="5dp"
         android:background="@drawable/talk_details" />
 </RelativeLayout>
