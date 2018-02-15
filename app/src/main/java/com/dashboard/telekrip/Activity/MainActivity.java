@@ -1,5 +1,6 @@
 package com.dashboard.telekrip.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -113,10 +114,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if(isSearch){
-                    System.out.println(tempUser.get(i).getUserName());
+                    Intent chatActivity = new Intent(getApplicationContext(),ChatActivity.class);
+                    chatActivity.putExtra("user",tempUser.get(i));
+                    startActivity(chatActivity);
+                    //System.out.println(tempUser.get(i).getUserName());
                 }
                 else {
-                    System.out.println(listUser.get(i).getUserName());
+                    Intent chatActivity = new Intent(getApplicationContext(),ChatActivity.class);
+                    chatActivity.putExtra("user",listUser.get(i));
+                    startActivity(chatActivity);
+                    //System.out.println(listUser.get(i).getUserName());
                 }
             }
         });
