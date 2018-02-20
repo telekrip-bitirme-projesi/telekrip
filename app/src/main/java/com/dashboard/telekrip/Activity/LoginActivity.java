@@ -25,15 +25,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         uiInitialization();
-    }
-
-    private void uiInitialization() {
-        _etUsername=findViewById(R.id.etUsername);
-        _etPassword=findViewById(R.id.etPassword);
-        _btnLogin=findViewById(R.id.btnLogin);
-        _tvForgetPassword=findViewById(R.id.tvForgetPassword);
-        _fabRegister=findViewById(R.id.fabRegister);
-
 
         _btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,5 +48,13 @@ public class LoginActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void uiInitialization() {
+        _etUsername=findViewById(R.id.etUsername);
+        _etPassword=findViewById(R.id.etPassword);
+        _btnLogin=findViewById(R.id.btnLogin);
+        _tvForgetPassword=findViewById(R.id.tvForgetPassword);
+        _fabRegister=findViewById(R.id.fabRegister);
     }
 }

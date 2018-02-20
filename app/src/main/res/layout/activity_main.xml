@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.dashboard.telekrip.Activity.MainActivity">
 
     <com.miguelcatalan.materialsearchview.MaterialSearchView
@@ -13,5 +14,17 @@
     <ListView
         android:id="@+id/lvUser"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#333333"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="#FFF"
+        app:itemTextColor="#FFF"
+        app:menu="@menu/bottom_navigation_main" />
 </RelativeLayout>

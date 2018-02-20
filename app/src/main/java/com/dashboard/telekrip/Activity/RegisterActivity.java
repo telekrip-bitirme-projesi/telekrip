@@ -23,14 +23,6 @@ public class RegisterActivity extends Activity {
         setContentView(R.layout.activity_register);
 
         uiInitialization();
-    }
-
-    private void uiInitialization() {
-        _etUsername=findViewById(R.id.etUsername);
-        _etPassword=findViewById(R.id.etPassword);
-        _etRepeatPassword=findViewById(R.id.etRepeatPassword);
-        _btnRegister=findViewById(R.id.btnRegister);
-        _fabLogin=findViewById(R.id.fabLogin);
 
         _fabLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,5 +39,13 @@ public class RegisterActivity extends Activity {
                 }
             }
         });
+    }
+
+    private void uiInitialization() {
+        _etUsername=findViewById(R.id.etUsername);
+        _etPassword=findViewById(R.id.etPassword);
+        _etRepeatPassword=findViewById(R.id.etRepeatPassword);
+        _btnRegister=findViewById(R.id.btnRegister);
+        _fabLogin=findViewById(R.id.fabLogin);
     }
 }
