@@ -21,7 +21,8 @@
         <activity android:name=".Activity.RegisterActivity" />
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.ChatActivity" />
-        <activity android:name=".Activity.UserPanelActivity"></activity>
+        <activity android:name=".Activity.UserPanelActivity" />
+        <activity android:name=".Activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>
