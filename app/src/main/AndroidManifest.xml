@@ -11,18 +11,18 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.LoginActivity">
+        <activity  android:launchMode="singleInstance" android:name=".Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.RegisterActivity" />
-        <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.ChatActivity" />
-        <activity android:name=".Activity.UserPanelActivity" />
-        <activity android:name=".Activity.ChangePasswordActivity"></activity>
+        <activity android:launchMode="singleInstance" android:name=".Activity.RegisterActivity" />
+        <activity android:launchMode="singleInstance" android:name=".Activity.MainActivity" />
+        <activity android:launchMode="singleInstance" android:name=".Activity.ChatActivity" />
+        <activity android:launchMode="singleInstance" android:name=".Activity.UserPanelActivity" />
+        <activity android:launchMode="singleInstance" android:name=".Activity.ChangePasswordActivity"></activity>
     </application>
 
 </manifest>

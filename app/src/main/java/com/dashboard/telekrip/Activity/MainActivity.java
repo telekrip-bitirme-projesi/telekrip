@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         uiInitialization();
 
         //fake data
-        User ismail = new User(1, "ismlslck", "https://cdn0.vox-cdn.com/uploads/chorus_asset/file/7783773/kushner.0.png", "akşam gelicem");
+        User ismail = new User(1, "ismlslck", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6cOMCthC7DEhvaYM7KL-XCefMhE00NgKgvkONdu8aWwLz6Yk", "akşam gelicem");
         User ali = new User(2, "Gizem KOÜ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZxsUHYzLhw9TBdsJfhYOKDDuKMH7cJMZ2DSrRk1fQBraoeHoe", "tmmdır");
         User ahmet = new User(3, "onur sınıf", "https://avatars2.githubusercontent.com/u/19731813?s=64&v=4", "notlarıda getirmeyi unutma.");
         User mehmet = new User(4, "mehmet", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRogLfOZDaB8STe3Jyk2k9TJQU8V3xEMvQCs7jjbuZn8x2buU4a", "ekmekte al.");
