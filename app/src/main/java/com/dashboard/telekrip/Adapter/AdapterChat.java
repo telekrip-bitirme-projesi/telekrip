@@ -51,8 +51,6 @@ public class AdapterChat extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy|HH:mm");
         View v;
         if(messages.get(position).getSender()==1){
             v = View.inflate(mContext, R.layout.item_chat_right, null);
