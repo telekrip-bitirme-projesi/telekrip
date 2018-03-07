@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Tools.SharedPrefences;
 import com.dashboard.telekrip.model.User;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -66,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         listUser.add(elif);
         listUser.add(kemal);
         listUser.add(samet);
+
+        SharedPrefences.loggedInUser(getApplicationContext(),ismail);
         //fake data
 
         _svUserList.setHint("Ara...");
@@ -136,7 +139,8 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.add_user: {
-                                System.out.println("kullanıcı ekle");
+                                Intent chatActivity = new Intent(getApplicationContext(), AddUserActivity.class);
+                                startActivity(chatActivity);
                                 break;
                             }
                             case R.id.sign_out: {
@@ -148,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setCancelable(false)
                                         .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
+                                                SharedPrefences.logoutUser(getApplicationContext());
                                                 MainActivity.this.finish();
                                             }
                                         })
@@ -162,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                             case R.id.account: {
                                 Intent chatActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
-                                chatActivity.putExtra("user", listUser.get(0));
                                 startActivity(chatActivity);
                                 break;
                             }

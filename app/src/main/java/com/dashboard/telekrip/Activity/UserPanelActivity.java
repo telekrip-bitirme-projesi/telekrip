@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Tools.SharedPrefences;
 import com.dashboard.telekrip.model.User;
 import com.squareup.picasso.Picasso;
 
@@ -35,14 +36,13 @@ public class UserPanelActivity extends Activity {
     }
 
     private void uiInitialization() {
-        User usr = (User) getIntent().getSerializableExtra("user");
         _ivAvatar=findViewById(R.id.ivAvatar);
         _tvUserName=findViewById(R.id.tvUserName);
         _btnChangePassword=findViewById(R.id.btnChangePassword);
-        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+        Picasso.with(getApplicationContext()).load((String) SharedPrefences.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatar);
-        _tvUserName.setText(usr.getUserName());
+        _tvUserName.setText((String)SharedPrefences.getSharedPrefences(getApplicationContext(),"username",String.class));
     }
 }

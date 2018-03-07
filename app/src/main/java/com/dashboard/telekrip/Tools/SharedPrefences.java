@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
+import com.dashboard.telekrip.model.User;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,6 +61,24 @@ public class SharedPrefences {
         return null;
     }
 
-    //deleeteSharedPrefences yapilicak
+    public static void removeSharedPrefences(Context ctx,String key){
+        if (preferences == null) {
+            preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+            editor = preferences.edit();
+        }
+        editor.remove(key);
+        editor.apply();
+    }
+
+    public static void loggedInUser(Context ctx, User usr){
+        setSharedPrefences(ctx,"id",usr.getId());
+        setSharedPrefences(ctx,"username",usr.getUserName());
+        setSharedPrefences(ctx,"avatar",usr.getAvatar());
+    }
+    public static void logoutUser(Context ctx){
+        removeSharedPrefences(ctx,"id");
+        removeSharedPrefences(ctx,"username");
+        removeSharedPrefences(ctx,"avatar");
+    }
 
 }
