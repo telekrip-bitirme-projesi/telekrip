@@ -142,7 +142,7 @@ public class ChatActivity extends Activity {
         _ivAvatar=findViewById(R.id.ivAvatar);
         _ivAvatarZoom=findViewById(R.id.ivAvatarZoom);
         _tvUsername=findViewById(R.id.tvUserName);
-        _edtTxtMessage = findViewById(R.id.msg_type);
+        _edtTxtMessage = findViewById(R.id.etMessage);
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);
         _lAlt = findViewById(R.id.lin_alt);
