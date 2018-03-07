@@ -15,11 +15,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
-import com.dashboard.telekrip.Tools.SharedPrefences;
+import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.User;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
@@ -68,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         listUser.add(kemal);
         listUser.add(samet);
 
-        SharedPrefences.loggedInUser(getApplicationContext(),ismail);
+        Tools.loggedInUser(getApplicationContext(),ismail);
         //fake data
 
         _svUserList.setHint("Ara...");
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                                         .setCancelable(false)
                                         .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
-                                                SharedPrefences.logoutUser(getApplicationContext());
+                                                Tools.logoutUser(getApplicationContext());
                                                 MainActivity.this.finish();
                                             }
                                         })

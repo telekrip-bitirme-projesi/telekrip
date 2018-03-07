@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.dashboard.telekrip.Adapter.AdapterChat;
 import com.dashboard.telekrip.R;
-import com.dashboard.telekrip.Tools.SharedPrefences;
+import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.User;
 import com.squareup.picasso.Picasso;
@@ -68,11 +68,11 @@ public class ChatActivity extends Activity {
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Message msg = new Message(_edtTxtMessage.getText() + "", 1, SharedPrefences.getDate());
+                Message msg = new Message(_edtTxtMessage.getText() + "", 1, Tools.getDate());
                 chatMessages.add(msg);
                 adapter.notifyDataSetChanged();
                 _edtTxtMessage.setText("");
-                Message receiver = new Message("random cevap", 12, SharedPrefences.getDate());
+                Message receiver = new Message("random cevap", 12, Tools.getDate());
                 chatMessages.add(receiver);
                 adapter.notifyDataSetChanged();
             }
