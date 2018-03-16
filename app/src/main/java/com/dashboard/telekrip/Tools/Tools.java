@@ -2,15 +2,23 @@ package com.dashboard.telekrip.Tools;
 
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 
+import com.dashboard.telekrip.Activity.RegisterActivity;
+import com.dashboard.telekrip.model.Contact;
 import com.dashboard.telekrip.model.User;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Tools {
 
@@ -19,6 +27,7 @@ public class Tools {
     private static Date time = null;
     private static SimpleDateFormat df = null;
     private static AlertDialog.Builder alertDialogBuilder = null;
+    private static ProgressDialog progressDialog;
 
     public static String getDate() {
         if (time == null) {
@@ -95,5 +104,49 @@ public class Tools {
                 .setCancelable(false);
 
         return alertDialogBuilder;
+    }
+
+    public static List<Contact> getContactList(Context ctx) {
+        List<Contact> contactList = new ArrayList<>();
+        ContentResolver cr = ctx.getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+
+        if ((cur != null ? cur.getCount() : 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
+                String id = cur.getString(
+                        cur.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = cur.getString(cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME));
+
+                if (cur.getInt(cur.getColumnIndex(
+                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                    Cursor pCur = cr.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            new String[]{id}, null);
+                    while (pCur.moveToNext()) {
+                        String phoneNo = pCur.getString(pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        contactList.add(new Contact(name,phoneNo));
+                    }
+                    pCur.close();
+                }
+            }
+        }
+        if(cur!=null){
+            cur.close();
+        }
+        return contactList;
+    }
+
+    public static ProgressDialog createProgressDialog(Context ctx,String message){
+        progressDialog = new ProgressDialog(ctx);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage(message);
+        progressDialog.setCancelable(false);
+        return  progressDialog;
+
     }
 }
