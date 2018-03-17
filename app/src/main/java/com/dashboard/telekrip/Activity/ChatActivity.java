@@ -31,7 +31,7 @@ public class ChatActivity extends Activity {
     LinearLayout _lOrta,_lAlt;
     CircleImageView _ivAvatar;
     ImageView _ivAvatarZoom;
-    TextView _tvUsername;
+    TextView _tvNameSurname;
     JSONObject message;
     JSONObject chatData;
     private ListView _listView;
@@ -107,7 +107,7 @@ public class ChatActivity extends Activity {
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatarZoom);
-        _tvUsername.setText(usr.getUserName());
+        _tvNameSurname.setText(usr.getName()+' '+usr.getSurname());
         //gelen user bilgileri
 
         //set ListView adapter first
@@ -141,7 +141,7 @@ public class ChatActivity extends Activity {
         _btnSend = findViewById(R.id.btn_chat_send);
         _ivAvatar=findViewById(R.id.ivAvatar);
         _ivAvatarZoom=findViewById(R.id.ivAvatarZoom);
-        _tvUsername=findViewById(R.id.tvUserName);
+        _tvNameSurname=findViewById(R.id.tvNameSurname);
         _edtTxtMessage = findViewById(R.id.etMessage);
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);

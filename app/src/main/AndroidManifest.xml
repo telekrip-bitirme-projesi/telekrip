@@ -36,7 +36,7 @@
         <activity
             android:name=".Activity.ChangePasswordActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".Activity.AddUserActivity" />
+        <activity android:name=".Activity.StartSpeechActivity" />
         <activity android:name=".Activity.AddUserDetailActivity"></activity>
     </application>
 

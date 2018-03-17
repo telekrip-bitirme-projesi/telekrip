@@ -1,21 +1,13 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -23,10 +15,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,7 +61,21 @@ public class AccountVerificationActivity extends Activity {
                 {
                     @Override
                     public void onResponse(String response) {
-
+                        try {
+                            JSONObject rp = new JSONObject(response);
+                            if(rp.has("msg")){
+                                if(rp.getString("msg").equals("Kod doğrulandı.")){
+                                    Toast.makeText(getApplicationContext(),"Telefon doğrulandı.",Toast.LENGTH_SHORT).show();
+                                    Tools.setSharedPrefences(AccountVerificationActivity.this,"phoneNumber",getIntent().getStringExtra("phoneNumber"));
+                                    Tools.setSharedPrefences(AccountVerificationActivity.this,"isLogin",true);
+                                    Intent mainActivity = new Intent(AccountVerificationActivity.this,MainActivity.class);
+                                    startActivity(mainActivity);
+                                    AccountVerificationActivity.this.finish();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                         progressDialog.dismiss();
                     }
 
@@ -103,6 +107,7 @@ public class AccountVerificationActivity extends Activity {
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("authCode", _etVerificationCode.getText().toString());
+                params.put("phoneNumber", getIntent().getStringExtra("phoneNumber"));
                 return params;
             }
         };

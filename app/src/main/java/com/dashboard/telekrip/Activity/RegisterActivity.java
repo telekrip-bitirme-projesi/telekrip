@@ -1,17 +1,13 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -19,10 +15,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +29,11 @@ public class RegisterActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        if((boolean)Tools.getSharedPrefences(getApplicationContext(),"isLogin",Boolean.class)){
+            Intent mainActivity = new Intent(RegisterActivity.this,MainActivity.class);
+            startActivity(mainActivity);
+            RegisterActivity.this.finish();
+        }
         uiInitialization();
 
         _btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +66,7 @@ public class RegisterActivity extends Activity {
                                 Intent accountVerificationActivity = new Intent(getApplicationContext(), com.dashboard.telekrip.Activity.AccountVerificationActivity.class);
                                 accountVerificationActivity.putExtra("phoneNumber",_etPhoneNumber.getText().toString());
                                 startActivity(accountVerificationActivity);
+                                RegisterActivity.this.finish();
                                 progressDialog.dismiss();
                             }
                         } catch (JSONException e) {

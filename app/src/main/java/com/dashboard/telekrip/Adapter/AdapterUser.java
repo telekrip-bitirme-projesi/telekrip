@@ -17,7 +17,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdapterUser extends BaseAdapter {
-    TextView _tvUserName,_tvLastMessage;
+    TextView _tvNameSurname;
     CircleImageView _ivAvatar;
     private Context ctx;
     private List<User> listUser;
@@ -48,12 +48,10 @@ public class AdapterUser extends BaseAdapter {
             LayoutInflater ınflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             myView= ınflater.inflate(R.layout.user_listview_item,null);
         }
-        _tvUserName=myView.findViewById(R.id.tvUserName);
-        _tvLastMessage=myView.findViewById(R.id.tvLastMessage);
+        _tvNameSurname=myView.findViewById(R.id.tvNameSurname);
         _ivAvatar=myView.findViewById(R.id.ivAvatar);
 
-        _tvUserName.setText(listUser.get(i).getUserName());
-        _tvLastMessage.setText(listUser.get(i).getLastMessage());
+        _tvNameSurname.setText(listUser.get(i).getName()+' '+listUser.get(i).getSurname());
         Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)

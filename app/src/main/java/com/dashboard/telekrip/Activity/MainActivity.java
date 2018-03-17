@@ -1,12 +1,7 @@
 package com.dashboard.telekrip.Activity;
 
-import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -15,17 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.User;
+import com.google.gson.Gson;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,13 +37,11 @@ public class MainActivity extends AppCompatActivity {
             RelativeLayout.LayoutParams.WRAP_CONTENT
     );
     MaterialSearchView _svUserList;
-    ImageView _ivTalkDetails;
     ListView _lvUser;
     List<User> listUser = new ArrayList<>();
     List<User> tempUser = new ArrayList<>();
     boolean isSearch = false;
     BottomNavigationView _bnView;
-    AlertDialog.Builder alertDialogBuilder;
     AdapterUser adapterUser;
 
     @Override
@@ -50,32 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
         uiInitialization();
 
-        //fake data
-        User ismail = new User(1, "ismlslck", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6cOMCthC7DEhvaYM7KL-XCefMhE00NgKgvkONdu8aWwLz6Yk", "akşam gelicem");
-        User ali = new User(2, "Gizem KOÜ", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZxsUHYzLhw9TBdsJfhYOKDDuKMH7cJMZ2DSrRk1fQBraoeHoe", "tmmdır");
-        User ahmet = new User(3, "onur sınıf", "https://avatars2.githubusercontent.com/u/19731813?s=64&v=4", "notlarıda getirmeyi unutma.");
-        User mehmet = new User(4, "mehmet", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRogLfOZDaB8STe3Jyk2k9TJQU8V3xEMvQCs7jjbuZn8x2buU4a", "ekmekte al.");
-        User gizem = new User(5, "gizem", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrw3076_QBkSdGFPyB9R5i5jnfTypw04EJ-AbaT0V_uf7Ins75wg", "ders iptal");
-        User gamze = new User(6, "gamze", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZxsUHYzLhw9TBdsJfhYOKDDuKMH7cJMZ2DSrRk1fQBraoeHoe", "neredesin");
-        User elif = new User(7, "elif", "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx6cOMCthC7DEhvaYM7KL-XCefMhE00NgKgvkONdu8aWwLz6Yk", "iptal oldu.");
-        User kemal = new User(8, "kemal", "https://cdn0.vox-cdn.com/uploads/chorus_asset/file/7783773/kushner.0.png", "deneme mesajı");
-        User samet = new User(9, "samet", "https://cdn0.vox-cdn.com/uploads/chorus_asset/file/7783773/kushner.0.png", "pinterest temeları indiricektin");
-        listUser.add(ismail);
-        listUser.add(ali);
-        listUser.add(ahmet);
-        listUser.add(mehmet);
-        listUser.add(gizem);
-        listUser.add(gamze);
-        listUser.add(elif);
-        listUser.add(kemal);
-        listUser.add(samet);
+        //getListConversations();
 
-        Tools.loggedInUser(getApplicationContext(),ismail);
-        //fake data
+        if (listUser.size() == 0) {
+            Toast.makeText(getApplicationContext(), "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.", Toast.LENGTH_LONG).show();
+        }
 
         _svUserList.setHint("Ara...");
-        adapterUser = new AdapterUser(getApplicationContext(), listUser);
-        _lvUser.setAdapter(adapterUser);
         registerForContextMenu(_lvUser);
         _svUserList.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
@@ -89,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getUserName().contains(newText)) {
+                        if (listUser.get(i).getName().contains(newText) || listUser.get(i).getSurname().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
@@ -141,30 +123,8 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.add_user: {
-                                Intent chatActivity = new Intent(getApplicationContext(), AddUserActivity.class);
+                                Intent chatActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
                                 startActivity(chatActivity);
-                                break;
-                            }
-                            case R.id.sign_out: {
-                                alertDialogBuilder = new AlertDialog.Builder(
-                                        MainActivity.this);
-                                alertDialogBuilder.setTitle("ÇIKIŞ");
-                                alertDialogBuilder
-                                        .setMessage("Hesabınızdan çıkış yapmak istediğinize emin misiniz?")
-                                        .setCancelable(false)
-                                        .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                Tools.logoutUser(getApplicationContext());
-                                                MainActivity.this.finish();
-                                            }
-                                        })
-                                        .setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                dialog.cancel();
-                                            }
-                                        });
-                                AlertDialog alertDialog = alertDialogBuilder.create();
-                                alertDialog.show();
                                 break;
                             }
                             case R.id.account: {
@@ -194,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         int indis = Integer.parseInt(obj.toString());
         if (isSearch) {
             for (int i = 0; i < listUser.size(); i++) {
-                if (tempUser.get(indis).getId() == listUser.get(i).getId()) {
+                if (tempUser.get(indis).getPhoneNumber() == listUser.get(i).getPhoneNumber()) {
                     listUser.remove(i);
                     break;
                 }
@@ -202,12 +162,10 @@ public class MainActivity extends AppCompatActivity {
             tempUser.remove(indis);
             adapterUser = new AdapterUser(this, tempUser);
             _lvUser.setAdapter(adapterUser);
-            //Toast.makeText(getApplicationContext(),tempUser.get(indis).getUserName(),Toast.LENGTH_SHORT).show();
         } else {
             listUser.remove(indis);
             adapterUser = new AdapterUser(this, listUser);
             _lvUser.setAdapter(adapterUser);
-            //Toast.makeText(getApplicationContext(),listUser.get(indis).getUserName(),Toast.LENGTH_SHORT).show();
         }
 
         return true;
@@ -224,10 +182,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void uiInitialization() {
-        getSupportActionBar().setTitle(null);
-        _ivTalkDetails = findViewById(R.id.ivTalkDetails);
+        getSupportActionBar().setTitle("Konuşma listesi");
         _lvUser = findViewById(R.id.lvUser);
         _svUserList = findViewById(R.id.svUserName);
         _bnView = findViewById(R.id.bottom_navigation);
+    }
+
+    private void getListConversations() {
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListString(MainActivity.this),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        listUser = new LinkedList<User>(Arrays.asList(gson.fromJson(response, User[].class)));
+                        adapterUser = new AdapterUser(getApplicationContext(), listUser);
+                        _lvUser.setAdapter(adapterUser);
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+
+        );
+        Volley.newRequestQueue(this).add(postRequest);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        MainActivity.this.finish();
     }
 }

@@ -1,35 +1,42 @@
 package com.dashboard.telekrip.model;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private int id;
-    private String userName;
+
+    @SerializedName("first_name")
+    private String name;
+    @SerializedName("last_name")
+    private String surname;
+    @SerializedName("avatar")
     private String avatar;
-    private String lastMessage;
+    @SerializedName("phone")
+    private String phoneNumber;
 
-    public User(int id, String userName, String avatar, String lastMessage) {
-        this.id = id;
-        this.userName = userName;
+    public User(String name, String surname, String avatar, String phoneNumber) {
+        this.name = name;
+        this.surname = surname;
         this.avatar = avatar;
-        this.lastMessage = lastMessage;
+        this.phoneNumber = phoneNumber;
     }
 
-    public int getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getAvatar() {
@@ -40,11 +47,11 @@ public class User implements Serializable {
         this.avatar = avatar;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }

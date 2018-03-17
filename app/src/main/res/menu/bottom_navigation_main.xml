@@ -8,12 +8,6 @@
         android:title="Konuşma Başlat"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/sign_out"
-        android:enabled="true"
-        android:icon="@drawable/sign_out"
-        android:title="Çıkış"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/account"
         android:enabled="true"
         android:icon="@drawable/account_settings"

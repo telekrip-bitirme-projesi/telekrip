@@ -40,10 +40,8 @@ public class Tools {
     }
 
     public static void setSharedPrefences(Context ctx, String key, Object value) {
-        if (preferences == null) {
-            preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-            editor = preferences.edit();
-        }
+        preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        editor = preferences.edit();
         if (value instanceof String) {
             editor.putString(key, (String) value);
         } else if (value instanceof Boolean) {
@@ -57,9 +55,7 @@ public class Tools {
     }
 
     public static Object getSharedPrefences(Context ctx, String key, Class<?> type) {
-        if (preferences == null) {
-            preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-        }
+        preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
         if (type == String.class) {
             return preferences.getString(key, null);
         } else if (type == Boolean.class) {
@@ -73,19 +69,12 @@ public class Tools {
     }
 
     public static void removeSharedPrefences(Context ctx, String key) {
-        if (preferences == null) {
-            preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
-            editor = preferences.edit();
-        }
+        preferences = PreferenceManager.getDefaultSharedPreferences(ctx);
+        editor = preferences.edit();
         editor.remove(key);
         editor.apply();
     }
 
-    public static void loggedInUser(Context ctx, User usr) {
-        setSharedPrefences(ctx, "id", usr.getId());
-        setSharedPrefences(ctx, "username", usr.getUserName());
-        setSharedPrefences(ctx, "avatar", usr.getAvatar());
-    }
 
     public static void logoutUser(Context ctx) {
         removeSharedPrefences(ctx, "id");
@@ -139,6 +128,42 @@ public class Tools {
             cur.close();
         }
         return contactList;
+    }
+
+    public static String getContactListString(Context ctx) {
+        String contactListString="";
+        ContentResolver cr = ctx.getContentResolver();
+        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+
+        if ((cur != null ? cur.getCount() : 0) > 0) {
+            while (cur != null && cur.moveToNext()) {
+                String id = cur.getString(
+                        cur.getColumnIndex(ContactsContract.Contacts._ID));
+                String name = cur.getString(cur.getColumnIndex(
+                        ContactsContract.Contacts.DISPLAY_NAME));
+
+                if (cur.getInt(cur.getColumnIndex(
+                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
+                    Cursor pCur = cr.query(
+                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                            null,
+                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
+                            new String[]{id}, null);
+                    while (pCur.moveToNext()) {
+                        String phoneNo = pCur.getString(pCur.getColumnIndex(
+                                ContactsContract.CommonDataKinds.Phone.NUMBER));
+                        contactListString+=phoneNo.replace("(","").replace(")","").replace("-","").replace(" ","")+",";
+                    }
+                    pCur.close();
+                }
+            }
+        }
+        if(cur!=null){
+            cur.close();
+        }
+        contactListString=contactListString.substring(0, contactListString.length() - 1);
+        return contactListString;
     }
 
     public static ProgressDialog createProgressDialog(Context ctx,String message){

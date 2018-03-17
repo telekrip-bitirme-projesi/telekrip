@@ -18,7 +18,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AddUserDetailActivity extends Activity {
     CircleImageView _ivAvatar;
-    TextView _tvUserName;
+    TextView _tvNameSurname;
     Button _btnAddUser;
 
     @Override
@@ -34,7 +34,7 @@ public class AddUserDetailActivity extends Activity {
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatar);
-        _tvUserName.setText(usr.getUserName());
+        _tvNameSurname.setText(usr.getName());
         //gelen user bilgileri
 
         _btnAddUser.setOnClickListener(new View.OnClickListener() {
@@ -60,11 +60,11 @@ public class AddUserDetailActivity extends Activity {
     private void uiInitialization() {
         _ivAvatar = findViewById(R.id.ivAvatar);
         _btnAddUser = findViewById(R.id.btnUserAdd);
-        _tvUserName = findViewById(R.id.tvUserName);
+        _tvNameSurname = findViewById(R.id.tvNameSurname);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(), "avatar", String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatar);
-        _tvUserName.setText((String) Tools.getSharedPrefences(getApplicationContext(), "username", String.class));
+        _tvNameSurname.setText((String) Tools.getSharedPrefences(getApplicationContext(), "username", String.class));
     }
 }
