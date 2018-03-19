@@ -130,7 +130,7 @@ public class Tools {
         return contactList;
     }
 
-    public static String getContactListString(Context ctx) {
+    public static String getContactListComma(Context ctx) {
         String contactListString="";
         ContentResolver cr = ctx.getContentResolver();
         Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,

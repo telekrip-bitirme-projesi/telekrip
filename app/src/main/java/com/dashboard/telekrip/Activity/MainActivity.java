@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getListConversations() {
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListString(MainActivity.this),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListComma(MainActivity.this),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

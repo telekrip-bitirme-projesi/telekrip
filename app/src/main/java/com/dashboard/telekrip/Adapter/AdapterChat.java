@@ -11,7 +11,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import com.dashboard.telekrip.Activity.ChatActivity;
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.*;
 
 
@@ -52,7 +54,7 @@ public class AdapterChat extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v;
-        if(messages.get(position).getSender()==1){
+        if(messages.get(position).getSender().equals((String) Tools.getSharedPrefences(mContext,"phoneNumber",String.class))){
             v = View.inflate(mContext, R.layout.item_chat_right, null);
         }
         else{

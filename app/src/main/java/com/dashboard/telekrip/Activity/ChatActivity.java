@@ -1,6 +1,7 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,17 +13,29 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterChat;
+import com.dashboard.telekrip.Adapter.AdapterStartSpeech;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.User;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,16 +45,12 @@ public class ChatActivity extends Activity {
     CircleImageView _ivAvatar;
     ImageView _ivAvatarZoom;
     TextView _tvNameSurname;
-    JSONObject message;
-    JSONObject chatData;
     private ListView _listView;
     private View _btnSend;
     private EditText _edtTxtMessage;
     private List<Message> chatMessages;
     private AdapterChat adapter;
-    Integer user_id = 1;
-    Integer birinciKanal, ikinciKanal;
-    Integer anonimDeger;
+    User usr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +59,29 @@ public class ChatActivity extends Activity {
 
         uiInitialization();
 
+        //gelen user bilgileri
+        usr = (User) getIntent().getSerializableExtra("user");
+        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+                .placeholder(R.drawable.default_avatar)
+                .error(R.drawable.default_avatar)
+                .into(_ivAvatar);
+        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+                .placeholder(R.drawable.default_avatar)
+                .error(R.drawable.default_avatar)
+                .into(_ivAvatarZoom);
+        _tvNameSurname.setText(usr.getName()+' '+usr.getSurname());
+        //gelen user bilgileri
+
+
+        makeRequestPostcheckMessage();
 
         //fake data
         chatMessages = new ArrayList<>();
-        Message deneme1 = new Message("aaaa", 12, "12.06.2018");
-        Message deneme2 = new Message("bbbb", 1, "12.06.2018");
-        Message deneme3 = new Message("cccc", 12, "12.06.2018");
-        Message deneme4 = new Message("dddd", 1, "12.06.2018");
-        Message deneme5 = new Message("eeee", 12, "12.06.2018");
+        Message deneme1 = new Message("aaaa", "5389784533", "12.06.2018");
+        Message deneme2 = new Message("bbbb", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), "12.06.2018");
+        Message deneme3 = new Message("cccc", "5443452354", "12.06.2018");
+        Message deneme4 = new Message("dddd", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), "12.06.2018");
+        Message deneme5 = new Message("eeee", "5327865436", "12.06.2018");
         chatMessages.add(deneme1);
         chatMessages.add(deneme2);
         chatMessages.add(deneme3);
@@ -68,11 +92,11 @@ public class ChatActivity extends Activity {
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Message msg = new Message(_edtTxtMessage.getText() + "", 1, Tools.getDate());
+                Message msg = new Message(_edtTxtMessage.getText() + "", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), Tools.getDate());
                 chatMessages.add(msg);
                 adapter.notifyDataSetChanged();
                 _edtTxtMessage.setText("");
-                Message receiver = new Message("random cevap", 12, Tools.getDate());
+                Message receiver = new Message("random cevap", "5342312367", Tools.getDate());
                 chatMessages.add(receiver);
                 adapter.notifyDataSetChanged();
             }
@@ -97,18 +121,6 @@ public class ChatActivity extends Activity {
 
             }
         });
-        //gelen user bilgileri
-        User usr = (User) getIntent().getSerializableExtra("user");
-        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
-                .placeholder(R.drawable.default_avatar)
-                .error(R.drawable.default_avatar)
-                .into(_ivAvatar);
-        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
-                .placeholder(R.drawable.default_avatar)
-                .error(R.drawable.default_avatar)
-                .into(_ivAvatarZoom);
-        _tvNameSurname.setText(usr.getName()+' '+usr.getSurname());
-        //gelen user bilgileri
 
         //set ListView adapter first
         adapter = new AdapterChat(getApplicationContext(), chatMessages);
@@ -136,6 +148,48 @@ public class ChatActivity extends Activity {
 
     }
 
+    private void makeRequestPostcheckMessage() {
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/chat/checkMessage/",
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject rp = new JSONObject(response);
+                            if(rp.has("new")){
+                                System.out.println("konuşma listesini yükleme.");
+                            }
+                            else if(rp.has("exist")){
+                                System.out.println("konuşma listesini yükle.");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+
+        ) {
+
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("sender", (String)Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class));
+                params.put("receiver", usr.getPhoneNumber());
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postRequest);
+
+    }
     private void uiInitialization() {
         _listView = findViewById(R.id.list_msg);
         _btnSend = findViewById(R.id.btn_chat_send);

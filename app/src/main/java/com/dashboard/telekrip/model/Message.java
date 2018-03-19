@@ -3,14 +3,15 @@ package com.dashboard.telekrip.model;
 public class Message {
 
     private String message;
-    private Integer sender;
+    private String sender;
     private String datetime;
 
-    public Message(String message, Integer sender, String datetime) {
+    public Message(String message, String sender, String datetime) {
         this.message = message;
-        this.sender=sender;
-        this.datetime=datetime;
+        this.sender = sender;
+        this.datetime = datetime;
     }
+
     public String getMessage() {
         return message;
     }
@@ -19,11 +20,11 @@ public class Message {
         this.message = message;
     }
 
-    public Integer getSender() {
+    public String getSender() {
         return sender;
     }
 
-    public void setSender(Integer sender) {
+    public void setSender(String sender) {
         this.sender = sender;
     }
 
@@ -34,5 +35,4 @@ public class Message {
     public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
-
 }

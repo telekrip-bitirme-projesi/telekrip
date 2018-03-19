@@ -126,7 +126,7 @@ public class StartSpeechActivity extends AppCompatActivity {
     }
 
     private void getSpeechList() {
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListString(StartSpeechActivity.this),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListComma(StartSpeechActivity.this),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
