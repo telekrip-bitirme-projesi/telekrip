@@ -19,7 +19,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterChat;
-import com.dashboard.telekrip.Adapter.AdapterStartSpeech;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
@@ -27,13 +26,15 @@ import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends Activity {
     RelativeLayout _lUst;
-    LinearLayout _lOrta,_lAlt;
+    LinearLayout _lOrta, _lAlt;
     CircleImageView _ivAvatar;
     ImageView _ivAvatarZoom;
     TextView _tvNameSurname;
@@ -49,8 +50,10 @@ public class ChatActivity extends Activity {
     private View _btnSend;
     private EditText _edtTxtMessage;
     private List<Message> chatMessages;
-    private AdapterChat adapter;
+    private AdapterChat adapter = null;
+    String chatKey;
     User usr;
+    private WebSocketClient mWebSocketClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,36 +72,23 @@ public class ChatActivity extends Activity {
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatarZoom);
-        _tvNameSurname.setText(usr.getName()+' '+usr.getSurname());
+        _tvNameSurname.setText(usr.getName() + ' ' + usr.getSurname());
         //gelen user bilgileri
 
 
         makeRequestPostcheckMessage();
 
-        //fake data
-        chatMessages = new ArrayList<>();
-        Message deneme1 = new Message("aaaa", "5389784533", "12.06.2018");
-        Message deneme2 = new Message("bbbb", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), "12.06.2018");
-        Message deneme3 = new Message("cccc", "5443452354", "12.06.2018");
-        Message deneme4 = new Message("dddd", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), "12.06.2018");
-        Message deneme5 = new Message("eeee", "5327865436", "12.06.2018");
-        chatMessages.add(deneme1);
-        chatMessages.add(deneme2);
-        chatMessages.add(deneme3);
-        chatMessages.add(deneme4);
-        chatMessages.add(deneme5);
-        //fake data
-
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Message msg = new Message(_edtTxtMessage.getText() + "", (String) Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class), Tools.getDate());
-                chatMessages.add(msg);
-                adapter.notifyDataSetChanged();
+                mWebSocketClient.send("{\"sender\": " + (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class) + ", \"text\": \"" + _edtTxtMessage.getText().toString() + "\"}");
+                if (adapter == null) {
+                    adapter = new AdapterChat(ChatActivity.this, chatMessages);
+                    _listView.setAdapter(adapter);
+                } else {
+                    adapter.notifyDataSetChanged();
+                }
                 _edtTxtMessage.setText("");
-                Message receiver = new Message("random cevap", "5342312367", Tools.getDate());
-                chatMessages.add(receiver);
-                adapter.notifyDataSetChanged();
             }
         });
         _edtTxtMessage.addTextChangedListener(new TextWatcher() {
@@ -123,8 +113,8 @@ public class ChatActivity extends Activity {
         });
 
         //set ListView adapter first
-        adapter = new AdapterChat(getApplicationContext(), chatMessages);
-        _listView.setAdapter(adapter);
+        //adapter = new AdapterChat(getApplicationContext(), chatMessages);
+        //_listView.setAdapter(adapter);
 
         _ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,26 +140,24 @@ public class ChatActivity extends Activity {
 
     private void makeRequestPostcheckMessage() {
         StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/chat/checkMessage/",
-                new Response.Listener<String>()
-                {
+                new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
                             JSONObject rp = new JSONObject(response);
-                            if(rp.has("new")){
-                                System.out.println("konuşma listesini yükleme.");
-                            }
-                            else if(rp.has("exist")){
-                                System.out.println("konuşma listesini yükle.");
+                            if (rp.has("new")) {
+                                chatKey = rp.getString("key");
+                            } else if (rp.has("exist")) {
+                                chatKey = rp.getString("key");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        connectWebSocket();
                     }
 
                 },
-                new Response.ErrorListener()
-                {
+                new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
 
@@ -179,10 +167,9 @@ public class ChatActivity extends Activity {
         ) {
 
             @Override
-            protected Map<String, String> getParams()
-            {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("sender", (String)Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class));
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("sender", (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class));
                 params.put("receiver", usr.getPhoneNumber());
                 return params;
             }
@@ -190,12 +177,60 @@ public class ChatActivity extends Activity {
         Volley.newRequestQueue(this).add(postRequest);
 
     }
+
+    private void connectWebSocket() {
+        chatMessages = new ArrayList<>();
+
+        URI uri;
+        try {
+            uri = new URI("http://yazlab.xyz:8000/chat/message/" + chatKey);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        mWebSocketClient = new WebSocketClient(uri) {
+            @Override
+            public void onOpen(ServerHandshake serverHandshake) {
+                //önceki konuşmaları listele
+            }
+
+            @Override
+            public void onMessage(final String s) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        //add message to list
+                        Gson gson = new Gson();
+                        Message message = gson.fromJson(s, Message.class);
+                        chatMessages.add(message);
+                        adapter = new AdapterChat(getApplicationContext(), chatMessages);
+                        _listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+                    }
+
+                });
+            }
+
+            @Override
+            public void onClose(int i, String s, boolean b) {
+                System.out.println("closed");
+            }
+
+            @Override
+            public void onError(Exception e) {
+                System.out.println("error");
+            }
+        };
+        mWebSocketClient.connect();
+    }
+
     private void uiInitialization() {
         _listView = findViewById(R.id.list_msg);
         _btnSend = findViewById(R.id.btn_chat_send);
-        _ivAvatar=findViewById(R.id.ivAvatar);
-        _ivAvatarZoom=findViewById(R.id.ivAvatarZoom);
-        _tvNameSurname=findViewById(R.id.tvNameSurname);
+        _ivAvatar = findViewById(R.id.ivAvatar);
+        _ivAvatarZoom = findViewById(R.id.ivAvatarZoom);
+        _tvNameSurname = findViewById(R.id.tvNameSurname);
         _edtTxtMessage = findViewById(R.id.etMessage);
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);

@@ -62,8 +62,8 @@ public class AdapterChat extends BaseAdapter {
         }
         TextView txt_msg =v.findViewById(R.id.txt_msg);
         TextView tarih =v.findViewById(R.id.txtTarih);
-        txt_msg.setText(messages.get(position).getMessage());
-        tarih.setText(messages.get(position).getDatetime());
+        txt_msg.setText(messages.get(position).getText());
+        tarih.setText(messages.get(position).getDateTime());
         //Save product id to tag
         return v;
     }

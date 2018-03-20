@@ -1,38 +1,63 @@
 package com.dashboard.telekrip.model;
 
-public class Message {
 
-    private String message;
-    private String sender;
-    private String datetime;
+import com.google.gson.annotations.SerializedName;
 
-    public Message(String message, String sender, String datetime) {
-        this.message = message;
-        this.sender = sender;
-        this.datetime = datetime;
-    }
 
-    public String getMessage() {
-        return message;
-    }
+public class Message{
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	@SerializedName("dateTime")
+	private String dateTime;
 
-    public String getSender() {
-        return sender;
-    }
+	@SerializedName("sender")
+	private String sender;
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
+	@SerializedName("text")
+	private String text;
 
-    public String getDatetime() {
-        return datetime;
-    }
+	@SerializedName("senderNameSurname")
+	private String senderNameSurname;
 
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
-    }
+	public void setDateTime(String dateTime){
+		this.dateTime = dateTime;
+	}
+
+	public String getDateTime(){
+		return dateTime;
+	}
+
+	public void setSender(String sender){
+		this.sender = sender;
+	}
+
+	public String getSender(){
+		return sender;
+	}
+
+	public void setText(String text){
+		this.text = text;
+	}
+
+	public String getText(){
+		return text;
+	}
+
+	public void setSenderNameSurname(String senderNameSurname){
+		this.senderNameSurname = senderNameSurname;
+	}
+
+	public String getSenderNameSurname(){
+		return senderNameSurname;
+	}
+
+	@Override
+ 	public String toString(){
+		return 
+			"Message{" + 
+			"dateTime = '" + dateTime + '\'' + 
+			",sender = '" + sender + '\'' + 
+			",text = '" + text + '\'' + 
+			",senderNameSurname = '" + senderNameSurname + '\'' + 
+			"}";
+		}
 }
