@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -64,6 +65,10 @@ public class AdapterChat extends BaseAdapter {
         TextView tarih =v.findViewById(R.id.txtTarih);
         txt_msg.setText(messages.get(position).getText());
         tarih.setText(messages.get(position).getDateTime());
+        ImageView _ivSaveNoSave =v.findViewById(R.id.ivSaveNoSave);
+        if(!messages.get(position).isSave()){
+            _ivSaveNoSave.setVisibility(View.VISIBLE);
+        }
         //Save product id to tag
         return v;
     }

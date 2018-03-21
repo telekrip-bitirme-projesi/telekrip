@@ -1,17 +1,18 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -46,6 +47,7 @@ public class ChatActivity extends Activity {
     CircleImageView _ivAvatar;
     ImageView _ivAvatarZoom;
     TextView _tvNameSurname;
+    android.support.v7.widget.SwitchCompat _switchSaveNoSave;
     private ListView _listView;
     private View _btnSend;
     private EditText _edtTxtMessage;
@@ -54,6 +56,7 @@ public class ChatActivity extends Activity {
     String chatKey;
     User usr;
     private WebSocketClient mWebSocketClient;
+    private boolean isSave=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,10 +115,6 @@ public class ChatActivity extends Activity {
             }
         });
 
-        //set ListView adapter first
-        //adapter = new AdapterChat(getApplicationContext(), chatMessages);
-        //_listView.setAdapter(adapter);
-
         _ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +131,20 @@ public class ChatActivity extends Activity {
                 _lUst.setVisibility(View.VISIBLE);
                 _lOrta.setVisibility(View.VISIBLE);
                 _lAlt.setVisibility(View.VISIBLE);
+            }
+        });
+
+        _switchSaveNoSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    isSave=false;
+                    Toast.makeText(ChatActivity.this,"Gönderdiğin mesajlar artık kaydedilmeyecektir.",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    isSave=true;
+                    Toast.makeText(ChatActivity.this,"Gönderdiğin mesajlar kaydedilecektir.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -203,6 +216,12 @@ public class ChatActivity extends Activity {
                         //add message to list
                         Gson gson = new Gson();
                         Message message = gson.fromJson(s, Message.class);
+                        if(!isSave){
+                         message.setSave(false);
+                        }
+                        else {
+                            message.setSave(true);
+                        }
                         chatMessages.add(message);
                         adapter = new AdapterChat(getApplicationContext(), chatMessages);
                         _listView.setAdapter(adapter);
@@ -235,5 +254,7 @@ public class ChatActivity extends Activity {
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);
         _lAlt = findViewById(R.id.lin_alt);
+        _switchSaveNoSave = findViewById(R.id.switchSave);
+
     }
 }

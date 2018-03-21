@@ -4,60 +4,70 @@ package com.dashboard.telekrip.model;
 import com.google.gson.annotations.SerializedName;
 
 
-public class Message{
+public class Message {
 
-	@SerializedName("dateTime")
-	private String dateTime;
+    @SerializedName("dateTime")
+    private String dateTime;
 
-	@SerializedName("sender")
-	private String sender;
+    @SerializedName("sender")
+    private String sender;
 
-	@SerializedName("text")
-	private String text;
+    @SerializedName("text")
+    private String text;
 
-	@SerializedName("senderNameSurname")
-	private String senderNameSurname;
+    @SerializedName("senderNameSurname")
+    private String senderNameSurname;
 
-	public void setDateTime(String dateTime){
-		this.dateTime = dateTime;
-	}
+    private boolean isSave;
 
-	public String getDateTime(){
-		return dateTime;
-	}
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
 
-	public void setSender(String sender){
-		this.sender = sender;
-	}
+    public String getDateTime() {
+        return dateTime;
+    }
 
-	public String getSender(){
-		return sender;
-	}
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
 
-	public void setText(String text){
-		this.text = text;
-	}
+    public String getSender() {
+        return sender;
+    }
 
-	public String getText(){
-		return text;
-	}
+    public void setText(String text) {
+        this.text = text;
+    }
 
-	public void setSenderNameSurname(String senderNameSurname){
-		this.senderNameSurname = senderNameSurname;
-	}
+    public String getText() {
+        return text;
+    }
 
-	public String getSenderNameSurname(){
-		return senderNameSurname;
-	}
+    public void setSenderNameSurname(String senderNameSurname) {
+        this.senderNameSurname = senderNameSurname;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"Message{" + 
-			"dateTime = '" + dateTime + '\'' + 
-			",sender = '" + sender + '\'' + 
-			",text = '" + text + '\'' + 
-			",senderNameSurname = '" + senderNameSurname + '\'' + 
-			"}";
-		}
+    public String getSenderNameSurname() {
+        return senderNameSurname;
+    }
+
+    public boolean isSave() {
+        return isSave;
+    }
+
+    public void setSave(boolean save) {
+        isSave = save;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Message{" +
+                        "dateTime = '" + dateTime + '\'' +
+                        ",sender = '" + sender + '\'' +
+                        ",text = '" + text + '\'' +
+                        ",senderNameSurname = '" + senderNameSurname + '\'' +
+                        "}";
+    }
 }
