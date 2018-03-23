@@ -26,16 +26,16 @@
             android:launchMode="singleInstance" />
         <activity
             android:name=".Activity.MainActivity"
-            android:launchMode="singleInstance" />
+            />
         <activity
             android:name=".Activity.ChatActivity"
-            android:launchMode="singleInstance" />
+            />
         <activity
             android:name=".Activity.UserPanelActivity"
-            android:launchMode="singleInstance" />
+            />
         <activity
             android:name=".Activity.ChangePasswordActivity"
-            android:launchMode="singleInstance" />
+            />
         <activity android:name=".Activity.StartSpeechActivity" />
         <activity android:name=".Activity.AddUserDetailActivity"></activity>
     </application>

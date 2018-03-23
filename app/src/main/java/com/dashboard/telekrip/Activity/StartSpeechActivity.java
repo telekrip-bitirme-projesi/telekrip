@@ -132,6 +132,11 @@ public class StartSpeechActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Gson gson = new Gson();
                         listUser = new LinkedList<User>(Arrays.asList(gson.fromJson(response, User[].class)));
+                        for(User u : listUser){
+                            if(u.getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
+                                listUser.remove(u);
+                            }
+                        }
                         adapterUser = new AdapterStartSpeech(getApplicationContext(), listUser);
                         _lvUser.setAdapter(adapterUser);
                         progressDialog.dismiss();

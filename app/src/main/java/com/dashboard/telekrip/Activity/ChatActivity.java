@@ -42,6 +42,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends Activity {
+
     RelativeLayout _lUst;
     LinearLayout _lOrta, _lAlt;
     CircleImageView _ivAvatar;
@@ -213,7 +214,6 @@ public class ChatActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        //add message to list
                         Gson gson = new Gson();
                         Message message = gson.fromJson(s, Message.class);
                         if(!isSave){
@@ -226,6 +226,7 @@ public class ChatActivity extends Activity {
                         adapter = new AdapterChat(getApplicationContext(), chatMessages);
                         _listView.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
+                        _listView.setSelection(_listView.getCount() - 1);
                     }
 
                 });
