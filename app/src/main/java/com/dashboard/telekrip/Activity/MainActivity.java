@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
+
 public class MainActivity extends AppCompatActivity {
     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT,
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isSearch = false;
     BottomNavigationView _bnView;
     AdapterOldUserMessage adapterOldUserMessage;
+    SpotsDialog spotsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +60,6 @@ public class MainActivity extends AppCompatActivity {
         uiInitialization();
 
         getListConversations();
-
-        if (listUser.size() == 0) {
-            Toast.makeText(getApplicationContext(), "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.", Toast.LENGTH_LONG).show();
-        }
 
         _svUserList.setHint("Ara...");
         registerForContextMenu(_lvUser);
@@ -194,6 +193,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getListConversations() {
+        spotsDialog = Tools.createDialog(MainActivity.this, "Yükleniyor...");
+        spotsDialog.show();
         StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/eskiMesajlar/"+Tools.getSharedPrefences(MainActivity.this,"phoneNumber",String.class),
                 new Response.Listener<String>() {
                     @Override
@@ -204,13 +205,18 @@ public class MainActivity extends AppCompatActivity {
                                 }.getType());
                         adapterOldUserMessage = new AdapterOldUserMessage(getApplicationContext(), listUser);
                         _lvUser.setAdapter(adapterOldUserMessage);
+
+                        if (listUser.size() == 0) {
+                            Toast.makeText(getApplicationContext(), "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.", Toast.LENGTH_LONG).show();
+                        }
+                        spotsDialog.dismiss();
                     }
 
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        spotsDialog.dismiss();
                     }
                 }
 

@@ -53,10 +53,10 @@ public class AdapterOldUserMessage extends BaseAdapter {
         _ivAvatar=myView.findViewById(R.id.ivAvatar);
 
         if(listUser.get(i).getSenderName().equals("")){
-            _tvNameSurname.setText(listUser.get(i).getSenderPhone());
+            _tvNameSurname.setText(listUser.get(i).getReceiverPhone());
         }
         else {
-            _tvNameSurname.setText(listUser.get(i).getSenderName());
+            _tvNameSurname.setText(listUser.get(i).getReceiverName());
         }
         /*Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)

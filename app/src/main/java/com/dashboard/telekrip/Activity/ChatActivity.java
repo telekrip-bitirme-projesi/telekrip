@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 
 public class ChatActivity extends Activity {
 
@@ -63,7 +64,8 @@ public class ChatActivity extends Activity {
     OldMessage oldUser;
     User usr;
     private WebSocketClient mWebSocketClient;
-    private boolean isSave=true;
+    private boolean isSave = true;
+    SpotsDialog spotsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +74,13 @@ public class ChatActivity extends Activity {
 
         uiInitialization();
 
+        spotsDialog = Tools.createDialog(ChatActivity.this, "Yükleniyor...");
+        spotsDialog.show();
+
         //gelen user bilgileri
-        if(getIntent().hasExtra("user")){
+        if (getIntent().hasExtra("user")) {
             oldUser = (OldMessage) getIntent().getSerializableExtra("user");
-        }
-        else {
+        } else {
             usr = (User) getIntent().getSerializableExtra("old");
 
         }
@@ -90,10 +94,9 @@ public class ChatActivity extends Activity {
                 .into(_ivAvatarZoom);*/
 
 
-        if(getIntent().hasExtra("user")){
+        if (getIntent().hasExtra("user")) {
             _tvNameSurname.setText(oldUser.getSenderName());
-        }
-        else {
+        } else {
             _tvNameSurname.setText(usr.getName());
 
         }
@@ -106,10 +109,10 @@ public class ChatActivity extends Activity {
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String phoneNumber=(String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class);
-                String message= _edtTxtMessage.getText().toString();
+                String phoneNumber = (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class);
+                String message = _edtTxtMessage.getText().toString();
                 System.out.println("f");
-                mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":"+isSave+"}");
+                mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
                 if (adapter == null) {
                     adapter = new AdapterChat(ChatActivity.this, chatMessages);
                     _listView.setAdapter(adapter);
@@ -162,13 +165,12 @@ public class ChatActivity extends Activity {
         _switchSaveNoSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    isSave=false;
-                    Toast.makeText(ChatActivity.this,"Gönderdiğin mesajlar artık kaydedilmeyecektir.",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    isSave=true;
-                    Toast.makeText(ChatActivity.this,"Gönderdiğin mesajlar kaydedilecektir.",Toast.LENGTH_SHORT).show();
+                if (b) {
+                    isSave = false;
+                    Toast.makeText(ChatActivity.this, "Gönderdiğin mesajlar artık kaydedilmeyecektir.", Toast.LENGTH_SHORT).show();
+                } else {
+                    isSave = true;
+                    Toast.makeText(ChatActivity.this, "Gönderdiğin mesajlar kaydedilecektir.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -198,7 +200,6 @@ public class ChatActivity extends Activity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }
 
@@ -209,12 +210,11 @@ public class ChatActivity extends Activity {
                 Map<String, String> params = new HashMap<String, String>();
 
 
-                if(getIntent().hasExtra("user")){
+                if (getIntent().hasExtra("user")) {
                     params.put("sender", oldUser.getSenderPhone());
                     params.put("receiver", oldUser.getReceiverPhone());
-                }
-                else {
-                    params.put("sender",(String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class));
+                } else {
+                    params.put("sender", (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class));
                     params.put("receiver", usr.getPhoneNumber());
                 }
 
@@ -250,10 +250,9 @@ public class ChatActivity extends Activity {
                     public void run() {
                         Gson gson = new Gson();
                         Message message = gson.fromJson(s, Message.class);
-                        if(!isSave){
-                         message.setSave(false);
-                        }
-                        else {
+                        if (!isSave) {
+                            message.setSave(false);
+                        } else {
                             message.setSave(true);
                         }
                         chatMessages.add(message);
@@ -278,8 +277,10 @@ public class ChatActivity extends Activity {
         };
         mWebSocketClient.connect();
     }
-    private void previousTalk(){
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/mesajlar/"+chatKey,
+
+    private void previousTalk() {
+        String url="http://yazlab.xyz:8000/chat/mesajlar/"+chatKey;
+        StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -290,12 +291,14 @@ public class ChatActivity extends Activity {
                         adapter = new AdapterChat(getApplicationContext(), chatMessages);
                         _listView.setAdapter(adapter);
                         _listView.setSelection(_listView.getCount() - 1);
-                    }
 
+                        spotsDialog.dismiss();
+                    }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        spotsDialog.dismiss();
 
                     }
                 }

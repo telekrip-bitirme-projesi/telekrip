@@ -20,6 +20,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import dmax.dialog.SpotsDialog;
+
 public class Tools {
 
     private static SharedPreferences preferences = null;
@@ -173,5 +175,10 @@ public class Tools {
         progressDialog.setCancelable(false);
         return  progressDialog;
 
+    }
+    public static SpotsDialog createDialog(Context context, String title) {
+        SpotsDialog spotsDialog = new SpotsDialog(context);
+        spotsDialog.setTitle(title);
+        return spotsDialog;
     }
 }

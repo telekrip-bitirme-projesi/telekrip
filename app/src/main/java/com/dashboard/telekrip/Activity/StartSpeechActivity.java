@@ -1,6 +1,5 @@
 package com.dashboard.telekrip.Activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,17 +17,16 @@ import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterStartSpeech;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
-import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import dmax.dialog.SpotsDialog;
 
 public class StartSpeechActivity extends AppCompatActivity {
     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -41,7 +39,7 @@ public class StartSpeechActivity extends AppCompatActivity {
     List<User> tempUser = new ArrayList<>();
     boolean isSearch = false;
     AdapterStartSpeech adapterUser;
-    ProgressDialog progressDialog;
+    SpotsDialog spotsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +47,6 @@ public class StartSpeechActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_speech);
 
         uiInitialization();
-        progressDialog= Tools.createProgressDialog(StartSpeechActivity.this,"Kullanıcılar yükleniyor...");
-        progressDialog.show();
         getSpeechList();
 
         _svUserList.setHint("Ara...");
@@ -130,6 +126,8 @@ public class StartSpeechActivity extends AppCompatActivity {
     }
 
     private void getSpeechList() {
+        spotsDialog = Tools.createDialog(StartSpeechActivity.this, "Yükleniyor...");
+        spotsDialog.show();
         final String speecList=Tools.getContactListComma(StartSpeechActivity.this).replace("+90","").replace(",0",",");
         StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/users/checkUsers/",
                 new Response.Listener<String>() {
@@ -140,24 +138,21 @@ public class StartSpeechActivity extends AppCompatActivity {
                         listUser = new Gson().fromJson(response,
                                 new TypeToken<List<User>>() {
                                 }.getType());
-
-                        System.out.println(listUser.size());
-                        /*for(User u : listUser){
+                        for(User u : listUser){
                             if(u.getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
                                 listUser.remove(u);
                             }
-                        }*/
+                        }
                         adapterUser = new AdapterStartSpeech(getApplicationContext(), listUser);
                         _lvUser.setAdapter(adapterUser);
-                        progressDialog.dismiss();
+                        spotsDialog.dismiss();
                     }
 
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        progressDialog.dismiss();
-                        System.out.println("xx"+error.getMessage());
+                        spotsDialog.dismiss();
                     }
                 })
 
