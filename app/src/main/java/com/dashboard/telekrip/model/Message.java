@@ -18,6 +18,7 @@ public class Message {
     @SerializedName("senderNameSurname")
     private String senderNameSurname;
 
+    @SerializedName("isSave")
     private boolean isSave;
 
     public void setDateTime(String dateTime) {

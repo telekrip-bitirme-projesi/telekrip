@@ -52,10 +52,10 @@ public class AdapterUser extends BaseAdapter {
         _ivAvatar=myView.findViewById(R.id.ivAvatar);
 
         _tvNameSurname.setText(listUser.get(i).getName()+' '+listUser.get(i).getSurname());
-        Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
+        /*Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
-                .into(_ivAvatar);
+                .into(_ivAvatar);*/
 
 
         return myView;

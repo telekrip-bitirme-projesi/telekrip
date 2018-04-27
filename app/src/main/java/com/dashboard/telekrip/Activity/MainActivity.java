@@ -19,11 +19,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.dashboard.telekrip.Adapter.AdapterChat;
+import com.dashboard.telekrip.Adapter.AdapterOldUserMessage;
 import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
+import com.dashboard.telekrip.model.Message;
+import com.dashboard.telekrip.model.OldMessage;
 import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
@@ -38,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
     );
     MaterialSearchView _svUserList;
     ListView _lvUser;
-    List<User> listUser = new ArrayList<>();
-    List<User> tempUser = new ArrayList<>();
+    List<OldMessage> listUser = new ArrayList<>();
+    List<OldMessage> tempUser = new ArrayList<>();
     boolean isSearch = false;
     BottomNavigationView _bnView;
-    AdapterUser adapterUser;
+    AdapterOldUserMessage adapterOldUserMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         uiInitialization();
 
-        //getListConversations();
+        getListConversations();
 
         if (listUser.size() == 0) {
             Toast.makeText(getApplicationContext(), "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.", Toast.LENGTH_LONG).show();
@@ -71,16 +76,16 @@ public class MainActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getName().contains(newText) || listUser.get(i).getSurname().contains(newText)) {
+                        if (listUser.get(i).getSenderName().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
-                    adapterUser = new AdapterUser(getApplicationContext(), tempUser);
-                    _lvUser.setAdapter(adapterUser);
+                    adapterOldUserMessage = new AdapterOldUserMessage(getApplicationContext(), tempUser);
+                    _lvUser.setAdapter(adapterOldUserMessage);
                 } else {
                     isSearch = false;
-                    adapterUser = new AdapterUser(getApplicationContext(), listUser);
-                    _lvUser.setAdapter(adapterUser);
+                    adapterOldUserMessage = new AdapterOldUserMessage(getApplicationContext(), listUser);
+                    _lvUser.setAdapter(adapterOldUserMessage);
                 }
                 return false;
             }
@@ -154,18 +159,18 @@ public class MainActivity extends AppCompatActivity {
         int indis = Integer.parseInt(obj.toString());
         if (isSearch) {
             for (int i = 0; i < listUser.size(); i++) {
-                if (tempUser.get(indis).getPhoneNumber() == listUser.get(i).getPhoneNumber()) {
+                if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
                     listUser.remove(i);
                     break;
                 }
             }
             tempUser.remove(indis);
-            adapterUser = new AdapterUser(this, tempUser);
-            _lvUser.setAdapter(adapterUser);
+            adapterOldUserMessage = new AdapterOldUserMessage(this, tempUser);
+            _lvUser.setAdapter(adapterOldUserMessage);
         } else {
             listUser.remove(indis);
-            adapterUser = new AdapterUser(this, listUser);
-            _lvUser.setAdapter(adapterUser);
+            adapterOldUserMessage = new AdapterOldUserMessage(this, listUser);
+            _lvUser.setAdapter(adapterOldUserMessage);
         }
 
         return true;
@@ -189,14 +194,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getListConversations() {
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListComma(MainActivity.this),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/eskiMesajlar/"+Tools.getSharedPrefences(MainActivity.this,"phoneNumber",String.class),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Gson gson = new Gson();
-                        listUser = new LinkedList<User>(Arrays.asList(gson.fromJson(response, User[].class)));
-                        adapterUser = new AdapterUser(getApplicationContext(), listUser);
-                        _lvUser.setAdapter(adapterUser);
+                        listUser = new Gson().fromJson(response,
+                                new TypeToken<List<OldMessage>>() {
+                                }.getType());
+                        adapterOldUserMessage = new AdapterOldUserMessage(getApplicationContext(), listUser);
+                        _lvUser.setAdapter(adapterOldUserMessage);
                     }
 
                 },

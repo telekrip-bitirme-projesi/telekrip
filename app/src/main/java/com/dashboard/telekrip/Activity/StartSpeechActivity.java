@@ -18,13 +18,17 @@ import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterStartSpeech;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
+import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class StartSpeechActivity extends AppCompatActivity {
     RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
@@ -95,12 +99,12 @@ public class StartSpeechActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 if (isSearch) {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
-                    chatActivity.putExtra("user", tempUser.get(i));
+                    chatActivity.putExtra("old", tempUser.get(i));
                     startActivity(chatActivity);
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
-                    chatActivity.putExtra("user", listUser.get(i));
+                    chatActivity.putExtra("old", listUser.get(i));
                     startActivity(chatActivity);
                     //System.out.println(listUser.get(i).getUserName());
                 }
@@ -126,17 +130,23 @@ public class StartSpeechActivity extends AppCompatActivity {
     }
 
     private void getSpeechList() {
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/users/checkUsers/" + Tools.getContactListComma(StartSpeechActivity.this),
+        final String speecList=Tools.getContactListComma(StartSpeechActivity.this).replace("+90","").replace(",0",",");
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/users/checkUsers/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        System.out.println(response);
                         Gson gson = new Gson();
-                        listUser = new LinkedList<User>(Arrays.asList(gson.fromJson(response, User[].class)));
-                        for(User u : listUser){
+                        listUser = new Gson().fromJson(response,
+                                new TypeToken<List<User>>() {
+                                }.getType());
+
+                        System.out.println(listUser.size());
+                        /*for(User u : listUser){
                             if(u.getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
                                 listUser.remove(u);
                             }
-                        }
+                        }*/
                         adapterUser = new AdapterStartSpeech(getApplicationContext(), listUser);
                         _lvUser.setAdapter(adapterUser);
                         progressDialog.dismiss();
@@ -147,12 +157,17 @@ public class StartSpeechActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
+                        System.out.println("xx"+error.getMessage());
                     }
-                }){
+                })
+
+
+        {
             @Override
-            public String getBodyContentType()
-            {
-                return "application/json; charset=utf-8";
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("data", speecList);
+                return params;
             }
         };
         Volley.newRequestQueue(this).add(postRequest);

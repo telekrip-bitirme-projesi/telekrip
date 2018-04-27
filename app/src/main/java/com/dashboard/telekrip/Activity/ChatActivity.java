@@ -20,11 +20,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterChat;
+import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
+import com.dashboard.telekrip.model.OldMessage;
 import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.squareup.picasso.Picasso;
 
 import org.java_websocket.client.WebSocketClient;
@@ -35,7 +38,9 @@ import org.json.JSONObject;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +60,7 @@ public class ChatActivity extends Activity {
     private List<Message> chatMessages;
     private AdapterChat adapter = null;
     String chatKey;
+    OldMessage oldUser;
     User usr;
     private WebSocketClient mWebSocketClient;
     private boolean isSave=true;
@@ -67,16 +73,31 @@ public class ChatActivity extends Activity {
         uiInitialization();
 
         //gelen user bilgileri
-        usr = (User) getIntent().getSerializableExtra("user");
-        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+        if(getIntent().hasExtra("user")){
+            oldUser = (OldMessage) getIntent().getSerializableExtra("user");
+        }
+        else {
+            usr = (User) getIntent().getSerializableExtra("old");
+
+        }
+        /*Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatar);
         Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
-                .into(_ivAvatarZoom);
-        _tvNameSurname.setText(usr.getName() + ' ' + usr.getSurname());
+                .into(_ivAvatarZoom);*/
+
+
+        if(getIntent().hasExtra("user")){
+            _tvNameSurname.setText(oldUser.getSenderName());
+        }
+        else {
+            _tvNameSurname.setText(usr.getName());
+
+        }
+
         //gelen user bilgileri
 
 
@@ -85,7 +106,10 @@ public class ChatActivity extends Activity {
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mWebSocketClient.send("{\"sender\": " + (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class) + ", \"text\": \"" + _edtTxtMessage.getText().toString() + "\"}");
+                String phoneNumber=(String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class);
+                String message= _edtTxtMessage.getText().toString();
+                System.out.println("f");
+                mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":"+isSave+"}");
                 if (adapter == null) {
                     adapter = new AdapterChat(ChatActivity.this, chatMessages);
                     _listView.setAdapter(adapter);
@@ -183,8 +207,17 @@ public class ChatActivity extends Activity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("sender", (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class));
-                params.put("receiver", usr.getPhoneNumber());
+
+
+                if(getIntent().hasExtra("user")){
+                    params.put("sender", oldUser.getSenderPhone());
+                    params.put("receiver", oldUser.getReceiverPhone());
+                }
+                else {
+                    params.put("sender",(String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class));
+                    params.put("receiver", usr.getPhoneNumber());
+                }
+
                 return params;
             }
         };
@@ -207,6 +240,7 @@ public class ChatActivity extends Activity {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
                 //önceki konuşmaları listele
+                previousTalk();
             }
 
             @Override
@@ -243,6 +277,31 @@ public class ChatActivity extends Activity {
             }
         };
         mWebSocketClient.connect();
+    }
+    private void previousTalk(){
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/mesajlar/"+chatKey,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Gson gson = new Gson();
+                        chatMessages = new Gson().fromJson(response,
+                                new TypeToken<List<Message>>() {
+                                }.getType());
+                        adapter = new AdapterChat(getApplicationContext(), chatMessages);
+                        _listView.setAdapter(adapter);
+                        _listView.setSelection(_listView.getCount() - 1);
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+
+        );
+        Volley.newRequestQueue(this).add(postRequest);
     }
 
     private void uiInitialization() {
