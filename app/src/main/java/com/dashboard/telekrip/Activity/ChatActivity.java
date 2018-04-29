@@ -80,18 +80,38 @@ public class ChatActivity extends Activity {
         //gelen user bilgileri
         if (getIntent().hasExtra("user")) {
             oldUser = (OldMessage) getIntent().getSerializableExtra("user");
+            if(oldUser.getAvatar()!=null && !oldUser.getAvatar().equals("")){
+                Picasso.with(getApplicationContext()).load(oldUser.getAvatar()).fit().centerCrop()
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar)
+                        .into(_ivAvatar);
+                Picasso.with(getApplicationContext()).load(oldUser.getAvatar()).fit().centerCrop()
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar)
+                        .into(_ivAvatarZoom);
+            }
+            else {
+                _ivAvatar.setImageResource(R.drawable.default_avatar);
+                _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
+            }
         } else {
             usr = (User) getIntent().getSerializableExtra("old");
+            if(usr.getAvatar()!=null && !usr.getAvatar().equals("")){
+                Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar)
+                        .into(_ivAvatar);
+                Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
+                        .placeholder(R.drawable.default_avatar)
+                        .error(R.drawable.default_avatar)
+                        .into(_ivAvatarZoom);
+            }
+            else {
+                _ivAvatar.setImageResource(R.drawable.default_avatar);
+                _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
+            }
 
         }
-        /*Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
-                .placeholder(R.drawable.default_avatar)
-                .error(R.drawable.default_avatar)
-                .into(_ivAvatar);
-        Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
-                .placeholder(R.drawable.default_avatar)
-                .error(R.drawable.default_avatar)
-                .into(_ivAvatarZoom);*/
 
 
         if (getIntent().hasExtra("user")) {

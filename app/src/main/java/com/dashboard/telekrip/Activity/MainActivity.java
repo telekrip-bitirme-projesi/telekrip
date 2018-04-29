@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getSenderName().contains(newText)) {
+                        if (listUser.get(i).getReceiverName().contains(newText) || listUser.get(i).getReceiverPhone().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void uiInitialization() {
-        getSupportActionBar().setTitle("Konuşma listesi");
+        getSupportActionBar().setTitle("Son Konuşmalar");
         _lvUser = findViewById(R.id.lvUser);
         _svUserList = findViewById(R.id.svUserName);
         _bnView = findViewById(R.id.bottom_navigation);

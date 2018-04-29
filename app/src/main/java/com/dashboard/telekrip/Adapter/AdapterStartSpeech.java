@@ -57,12 +57,15 @@ public class AdapterStartSpeech extends BaseAdapter {
         else {
             _tvNameSurname.setText(listUser.get(i).getName()+' '+listUser.get(i).getSurname());
         }
-       /* if(listUser.get(i).getAvatar()!=""){
+        if(listUser.get(i).getAvatar()!=null && !listUser.get(i).getAvatar().equals("")){
             Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
                     .placeholder(R.drawable.default_avatar)
                     .error(R.drawable.default_avatar)
                     .into(_ivAvatar);
-        }*/
+        }
+        else {
+            _ivAvatar.setImageResource(R.drawable.default_avatar);
+        }
 
 
         return myView;
