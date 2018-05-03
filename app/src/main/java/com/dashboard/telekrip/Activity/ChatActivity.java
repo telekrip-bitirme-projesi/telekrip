@@ -35,8 +35,13 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -44,8 +49,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
+import se.simbio.encryption.Encryption;
+import third.part.android.util.Base64;
 
 public class ChatActivity extends Activity {
 
@@ -66,13 +77,14 @@ public class ChatActivity extends Activity {
     private WebSocketClient mWebSocketClient;
     private boolean isSave = true;
     SpotsDialog spotsDialog;
-
+    Encryption encryption = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
         uiInitialization();
+
 
         spotsDialog = Tools.createDialog(ChatActivity.this, "Yükleniyor...");
         spotsDialog.show();
@@ -129,10 +141,55 @@ public class ChatActivity extends Activity {
         _btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])
+                            .setIterationCount(1) // use 1 instead the default of 65536
+                            .build();
+                } catch (NoSuchAlgorithmException e) {
+
+                }
+                try {
+                    encryption = new Encryption.Builder()
+                            .setKeyLength(128)
+                            .setKeyAlgorithm("AES")
+                            .setCharsetName("UTF8")
+                            .setIterationCount(100)
+                            .setKey("mor€Z€cr€tKYss")
+                            .setDigestAlgorithm("SHA1")
+                            .setSalt("tuzluk")
+                            .setBase64Mode(Base64.DEFAULT)
+                            .setAlgorithm("AES/CBC/PKCS5Padding")
+                            .setSecureRandomAlgorithm("SHA1PRNG")
+                            .setSecretKeyType("PBKDF2WithHmacSHA1")
+                            .setIv(new byte[] { 29, 88, -79, -101, -108, -38, -126, 90, 52, 101, -35, 114, 12, -48, -66, -30 })
+                            .build();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                }
                 String phoneNumber = (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class);
                 String message = _edtTxtMessage.getText().toString();
-                System.out.println("f");
+                try {
+                    message=encryption.encrypt(message);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                } catch (NoSuchPaddingException e) {
+                    e.printStackTrace();
+                } catch (InvalidAlgorithmParameterException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeyException e) {
+                    e.printStackTrace();
+                } catch (InvalidKeySpecException e) {
+                    e.printStackTrace();
+                } catch (BadPaddingException e) {
+                    e.printStackTrace();
+                } catch (IllegalBlockSizeException e) {
+                    e.printStackTrace();
+                }
+                message=message.replace("\n","");
                 mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
+
                 if (adapter == null) {
                     adapter = new AdapterChat(ChatActivity.this, chatMessages);
                     _listView.setAdapter(adapter);
@@ -259,7 +316,6 @@ public class ChatActivity extends Activity {
         mWebSocketClient = new WebSocketClient(uri) {
             @Override
             public void onOpen(ServerHandshake serverHandshake) {
-                //önceki konuşmaları listele
                 previousTalk();
             }
 
@@ -268,13 +324,41 @@ public class ChatActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])
+                                    .setIterationCount(1) // use 1 instead the default of 65536
+                                    .build();
+                        } catch (NoSuchAlgorithmException e) {
+
+                        }
+                        try {
+                            encryption = new Encryption.Builder()
+                                    .setKeyLength(128)
+                                    .setKeyAlgorithm("AES")
+                                    .setCharsetName("UTF8")
+                                    .setIterationCount(100)
+                                    .setKey("mor€Z€cr€tKYss")
+                                    .setDigestAlgorithm("SHA1")
+                                    .setSalt("tuzluk")
+                                    .setBase64Mode(Base64.DEFAULT)
+                                    .setAlgorithm("AES/CBC/PKCS5Padding")
+                                    .setSecureRandomAlgorithm("SHA1PRNG")
+                                    .setSecretKeyType("PBKDF2WithHmacSHA1")
+                                    .setIv(new byte[] { 29, 88, -79, -101, -108, -38, -126, 90, 52, 101, -35, 114, 12, -48, -66, -30 })
+                                    .build();
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
                         Gson gson = new Gson();
                         Message message = gson.fromJson(s, Message.class);
+
                         if (!isSave) {
                             message.setSave(false);
                         } else {
                             message.setSave(true);
                         }
+
+
                         chatMessages.add(message);
                         adapter = new AdapterChat(getApplicationContext(), chatMessages);
                         _listView.setAdapter(adapter);

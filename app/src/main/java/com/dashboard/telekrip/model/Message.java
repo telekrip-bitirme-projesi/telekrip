@@ -21,6 +21,10 @@ public class Message {
     @SerializedName("isSave")
     private boolean isSave;
 
+    public Message() {
+        this.isSave=false;
+    }
+
     public void setDateTime(String dateTime) {
         this.dateTime = dateTime;
     }
