@@ -26,6 +26,7 @@ import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
 import se.simbio.encryption.Encryption;
 import third.part.android.util.Base64;
 
@@ -77,7 +78,7 @@ public class AdapterChat extends BaseAdapter {
         else{
             v = View.inflate(mContext, R.layout.item_chat_left, null);
         }
-        TextView txt_msg =v.findViewById(R.id.txt_msg);
+        EmojiconTextView txt_msg =v.findViewById(R.id.txt_msg);
         TextView tarih =v.findViewById(R.id.txtTarih);
         try {
             encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])

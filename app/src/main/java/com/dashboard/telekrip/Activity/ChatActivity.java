@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -20,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Adapter.AdapterChat;
-import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
@@ -43,9 +43,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -55,20 +53,20 @@ import javax.crypto.NoSuchPaddingException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
+import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
 import se.simbio.encryption.Encryption;
 import third.part.android.util.Base64;
 
 public class ChatActivity extends Activity {
 
     RelativeLayout _lUst;
-    LinearLayout _lOrta, _lAlt;
+    LinearLayout _lOrta;
     CircleImageView _ivAvatar;
     ImageView _ivAvatarZoom;
     TextView _tvNameSurname;
     android.support.v7.widget.SwitchCompat _switchSaveNoSave;
     private ListView _listView;
-    private View _btnSend;
-    private EditText _edtTxtMessage;
     private List<Message> chatMessages;
     private AdapterChat adapter = null;
     String chatKey;
@@ -78,6 +76,13 @@ public class ChatActivity extends Activity {
     private boolean isSave = true;
     SpotsDialog spotsDialog;
     Encryption encryption = null;
+
+
+    EmojiconEditText _edtTxtMessage, _edtTxtMessage2;
+    ImageView _btnSend;
+    ImageView submitButton;
+    View rootView;
+    EmojIconActions emojIcon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +143,7 @@ public class ChatActivity extends Activity {
 
         makeRequestPostcheckMessage();
 
-        _btnSend.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -208,9 +213,9 @@ public class ChatActivity extends Activity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (_edtTxtMessage.getText().toString().trim().equals("")) {
-                    _btnSend.setEnabled(false);
+                    submitButton.setEnabled(false);
                 } else {
-                    _btnSend.setEnabled(true);
+                    submitButton.setEnabled(true);
                 }
             }
 
@@ -226,7 +231,7 @@ public class ChatActivity extends Activity {
                 _ivAvatarZoom.setVisibility(View.VISIBLE);
                 _lUst.setVisibility(View.INVISIBLE);
                 _lOrta.setVisibility(View.INVISIBLE);
-                _lAlt.setVisibility(View.INVISIBLE);
+
             }
         });
         _ivAvatarZoom.setOnClickListener(new View.OnClickListener() {
@@ -235,7 +240,7 @@ public class ChatActivity extends Activity {
                 _ivAvatarZoom.setVisibility(View.INVISIBLE);
                 _lUst.setVisibility(View.VISIBLE);
                 _lOrta.setVisibility(View.VISIBLE);
-                _lAlt.setVisibility(View.VISIBLE);
+
             }
         });
 
@@ -412,15 +417,37 @@ public class ChatActivity extends Activity {
     }
 
     private void uiInitialization() {
+
+        rootView = findViewById(R.id.root_view);
+        _btnSend = findViewById(R.id.emoji_btn);
+        submitButton = findViewById(R.id.btnSend);
+        _edtTxtMessage =findViewById(R.id.etMessage);
+        _edtTxtMessage2 =findViewById(R.id.emojicon_edit_text2);
+        emojIcon = new EmojIconActions(this, rootView, _edtTxtMessage, _btnSend);
+        emojIcon.ShowEmojIcon();
+        emojIcon.setKeyboardListener(new EmojIconActions.KeyboardListener() {
+            @Override
+            public void onKeyboardOpen() {
+                Log.e("Keyboard", "open");
+            }
+
+            @Override
+            public void onKeyboardClose() {
+                Log.e("Keyboard", "close");
+            }
+        });
+        emojIcon.addEmojiconEditTextList(_edtTxtMessage2);
+
+
         _listView = findViewById(R.id.list_msg);
-        _btnSend = findViewById(R.id.btn_chat_send);
+
         _ivAvatar = findViewById(R.id.ivAvatar);
         _ivAvatarZoom = findViewById(R.id.ivAvatarZoom);
         _tvNameSurname = findViewById(R.id.tvNameSurname);
-        _edtTxtMessage = findViewById(R.id.etMessage);
+
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);
-        _lAlt = findViewById(R.id.lin_alt);
+
         _switchSaveNoSave = findViewById(R.id.switchSave);
 
     }

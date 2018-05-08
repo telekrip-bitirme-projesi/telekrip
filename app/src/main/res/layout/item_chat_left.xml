@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingBottom="10dp">
 
-        <TextView
+        <hani.momanii.supernova_emoji_library.Helper.EmojiconTextView
             android:id="@+id/txt_msg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
