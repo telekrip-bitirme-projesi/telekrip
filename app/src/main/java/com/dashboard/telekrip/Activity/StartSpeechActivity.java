@@ -62,7 +62,7 @@ public class StartSpeechActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getName().contains(newText) || listUser.get(i).getSurname().contains(newText) || listUser.get(i).getPhoneNumber().contains(newText)) {
+                        if (listUser.get(i).getName().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getSurname().toLowerCase().contains(newText) || listUser.get(i).getPhoneNumber().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
@@ -138,9 +138,9 @@ public class StartSpeechActivity extends AppCompatActivity {
                         listUser = new Gson().fromJson(response,
                                 new TypeToken<List<User>>() {
                                 }.getType());
-                        for(User u : listUser){
-                            if(u.getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
-                                listUser.remove(u);
+                        for(int i=0;i<listUser.size();i++){
+                            if(listUser.get(i).getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
+                                listUser.remove(listUser.get(i));
                             }
                         }
                         adapterUser = new AdapterStartSpeech(getApplicationContext(), listUser);

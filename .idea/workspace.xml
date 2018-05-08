@@ -10,7 +10,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Sys" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -18,145 +17,17 @@
     <list default="true" id="ba0edaa1-b1b8-45d1-886b-6f8916bef0cb" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ekran Resmi 2018-02-21 16.00.16.png" afterPath="$PROJECT_DIR$/Ekran Resmi 2018-02-21 16.00.16.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Ekran Resmi 2018-02-21 16.00.33.png" afterPath="$PROJECT_DIR$/Ekran Resmi 2018-02-21 16.00.33.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/account_settings.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/account_settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/add_user.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/add_user.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/bubble_in.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/bubble_in.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/bubble_out.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/bubble_out.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/change_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/change_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/default_avatar.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/default_avatar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_signup.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_signup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/nomessagesave.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/nomessagesave.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/plus_x.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/plus_x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/send_message.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/send_message.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/sign_out.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/sign_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/start_speech.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/start_speech.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/talk_details.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/talk_details.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/account_settings.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/account_settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/add_user.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/add_user.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/bubble_in.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/bubble_in.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/bubble_out.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/bubble_out.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/change_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/change_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/default_avatar.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/default_avatar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_signup.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_signup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/nomessagesave.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/nomessagesave.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/plus_x.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/plus_x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/send_message.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/send_message.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/sign_out.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/sign_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/start_speech.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/start_speech.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/talk_details.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/talk_details.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/account_settings.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/account_settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/add_user.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/add_user.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/bubble_in.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/bubble_in.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/bubble_out.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/bubble_out.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/change_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/change_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/default_avatar.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/default_avatar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_signup.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_signup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/nomessagesave.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/nomessagesave.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/plus_x.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/plus_x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/send_message.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/send_message.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/sign_out.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/sign_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/start_speech.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/start_speech.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/talk_details.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/talk_details.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/account_settings.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/account_settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/add_user.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/add_user.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bubble_in.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bubble_in.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bubble_out.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/bubble_out.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/change_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/change_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/default_avatar.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/default_avatar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_signup.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_signup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/nomessagesave.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/nomessagesave.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/plus_x.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/plus_x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/send_message.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/send_message.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/sign_out.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/sign_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/start_speech.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/start_speech.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/talk_details.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/talk_details.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/account_settings.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/account_settings.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/add_user.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/add_user.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/bubble_in.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/bubble_in.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/bubble_out.9.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/bubble_out.9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/change_password.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/change_password.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/default_avatar.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/default_avatar.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_signup.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/ic_signup.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/nomessagesave.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/nomessagesave.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/plus_x.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/plus_x.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/send_message.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/send_message.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/sign_out.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/sign_out.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/start_speech.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/start_speech.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/talk_details.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/talk_details.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-29-178.rawproto" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-29-178.rawproto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-49-804.rawproto" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-49-804.rawproto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-37-46-055.rawproto" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-37-46-055.rawproto" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/.gitignore" afterPath="$PROJECT_DIR$/app/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/proguard-rules.pro" afterPath="$PROJECT_DIR$/app/proguard-rules.pro" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/dashboard/telekrip/ExampleInstrumentedTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/dashboard/telekrip/ExampleInstrumentedTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/AccountVerificationActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/AccountVerificationActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/AddUserDetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/AddUserDetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChangePasswordActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChangePasswordActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/RegisterActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/RegisterActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/StartSpeechActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/StartSpeechActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/UserPanelActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/UserPanelActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterChat.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterChat.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Tools/Tools.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Tools/Tools.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/Contact.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/Contact.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/Message.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/OldMessage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/OldMessage.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bg_input_cursor.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bg_input_cursor.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/bt_shape.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bt_shape.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/btn_userpanel.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/btn_userpanel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/selector_bg_edit.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_bg_edit.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/state_list_animator_z.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/state_list_animator_z.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_verification.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_account_verification.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_user_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_user_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_change_password.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_chat.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_start_speech.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_start_speech.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_userpanel.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_userpanel.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_chat_left.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_chat_left.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_chat_right.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_chat_right.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/start_speech_listview_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/start_speech_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/user_listview_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/user_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/user_old_message_listview_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/user_old_message_listview_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/bottom_navigation_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/test/java/com/dashboard/telekrip/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/app/src/test/java/com/dashboard/telekrip/ExampleUnitTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-29-178.json" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-29-178.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-49-804.json" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-36-49-804.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-37-46-055.json" afterPath="$PROJECT_DIR$/build/android-profile/profile-2018-05-03-23-37-46-055.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradlew.bat" afterPath="$PROJECT_DIR$/gradlew.bat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/telekrip.iml" afterPath="$PROJECT_DIR$/telekrip.iml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -195,49 +66,7 @@
     </system>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1275">
-              <caret line="123" column="16" lean-forward="false" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
-              <folding>
-                <marker date="1525345078000" expanded="true" signature="7314:7477" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="7519:9043" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="7865:8735" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="7957:8716" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="8138:8173" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="8782:8969" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="8880:8907" ph=" { " />
-                <marker date="1525345078000" expanded="true" signature="8929:8951" ph=" }" />
-                <marker date="1525345078000" expanded="true" signature="8929:8969" ph="{...}" />
-                <marker date="1525345078000" expanded="true" signature="9091:9165" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ChatActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-173">
-              <caret line="334" column="44" lean-forward="false" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdapterChat.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterChat.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="113" column="32" lean-forward="true" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -251,10 +80,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new Type</find>
-      <find>new StringRequest</find>
-      <find>A</find>
-      <find>Adapter</find>
       <find>AdapterUse</find>
       <find>AdapterUser</find>
       <find>listUser</find>
@@ -281,6 +106,10 @@
       <find>previousTalk</find>
       <find>spoa</find>
       <find>100</find>
+      <find>adap</find>
+      <find>_tvNameSurname</find>
+      <find>adapter</find>
+      <find>contai</find>
     </findStrings>
     <replaceStrings>
       <replace>adapterAddUser</replace>
@@ -2055,15 +1884,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/ECCKeyAgreement.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterMessage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/Message.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/OldMessage.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Tools/Tools.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/StartSpeechActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java" />
       </list>
     </option>
   </component>
@@ -2173,7 +2002,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.android.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Adapter" />
+              <option name="myItemId" value="Activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2300,7 +2129,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525807617966" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525812608655" />
       </method>
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests">
@@ -2348,7 +2177,7 @@
       </Profilers>
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525807617966" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525812608655" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -2510,7 +2339,7 @@
       <option name="ACTIVITY_CLASS" value="" />
       <method>
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
-        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525807617967" />
+        <option name="com.android.instantApps.provision.BeforeRunTask" enabled="true" clearCache="false" clearProvisionedDevices="false" myTimestamp="1525812608656" />
       </method>
     </configuration>
     <list size="1">
@@ -2565,15 +2394,15 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32744783" sideWeight="0.49676898" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32744783" sideWeight="0.49676898" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19709209" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19709209" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39967898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39967898" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -2619,22 +2448,18 @@
           <properties />
           <option name="timeStamp" value="103" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="136" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="104" />
+      <option name="time" value="137" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_account_verification.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Library/Android/sdk/platforms/android-26/android.jar!/android/app/Activity.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -2842,38 +2667,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="24" lean-forward="true" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/OldMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="7" column="47" lean-forward="false" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="394">
-          <caret line="57" column="35" lean-forward="false" selection-start-line="57" selection-start-column="35" selection-end-line="57" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="51" column="39" lean-forward="false" selection-start-line="51" selection-start-column="39" selection-end-line="51" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="57" column="14" lean-forward="false" selection-start-line="57" selection-start-column="14" selection-end-line="57" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -2897,46 +2694,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/StartSpeechActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterChat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="23" column="27" lean-forward="false" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+        <state relative-caret-position="128">
+          <caret line="75" column="9" lean-forward="true" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/ChatActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-173">
-          <caret line="334" column="44" lean-forward="false" selection-start-line="334" selection-start-column="44" selection-end-line="334" selection-end-column="44" />
+        <state relative-caret-position="185">
+          <caret line="355" column="51" lean-forward="true" selection-start-line="355" selection-start-column="51" selection-end-line="355" selection-end-column="51" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="14" column="26" lean-forward="true" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/user_old_message_listview_item.xml">
+      <provider selected="true" editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterStartSpeech.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="53" column="47" lean-forward="false" selection-start-line="53" selection-start-column="47" selection-end-line="53" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterOldUserMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="67" column="0" lean-forward="false" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/StartSpeechActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="60" column="33" lean-forward="true" selection-start-line="60" selection-start-column="33" selection-end-line="60" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Activity/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="123" column="16" lean-forward="false" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+        <state relative-caret-position="102">
+          <caret line="74" column="43" lean-forward="false" selection-start-line="74" selection-start-column="43" selection-end-line="74" selection-end-column="43" />
           <folding>
-            <marker date="1525345078000" expanded="true" signature="7314:7477" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="7519:9043" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="7865:8735" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="7957:8716" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="8138:8173" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="8782:8969" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="8880:8907" ph=" { " />
-            <marker date="1525345078000" expanded="true" signature="8929:8951" ph=" }" />
-            <marker date="1525345078000" expanded="true" signature="8929:8969" ph="{...}" />
-            <marker date="1525345078000" expanded="true" signature="9091:9165" ph="{...}" />
+            <element signature="e#4071#4901#0" expanded="true" />
+            <element signature="e#4900#4901#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/dashboard/telekrip/Adapter/AdapterChat.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="113" column="32" lean-forward="true" selection-start-line="113" selection-start-column="32" selection-end-line="113" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
