@@ -31,10 +31,15 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
@@ -75,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getSenderPhone().toLowerCase().contains(newText.toLowerCase()) ||listUser.get(i).getReceiverName().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverPhone().contains(newText) || listUser.get(i).getSenderPhone().contains(newText)) {
+                        if (listUser.get(i).getSenderPhone().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverName().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverPhone().contains(newText) || listUser.get(i).getSenderPhone().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
@@ -163,17 +168,56 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
             }
-            tempUser.remove(indis);
-            adapterOldUserMessage = new AdapterOldUserMessage(this, tempUser);
-            _lvUser.setAdapter(adapterOldUserMessage);
+
+            deleteTalk(tempUser.get(indis).getKey(), indis, "temp");
+
         } else {
-            listUser.remove(indis);
-            adapterOldUserMessage = new AdapterOldUserMessage(this, listUser);
-            _lvUser.setAdapter(adapterOldUserMessage);
+            deleteTalk(listUser.get(indis).getKey(), indis, "orjinal");
         }
 
         return true;
     }
+
+    private void deleteTalk(final String key, final int sil, final String tip) {
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/chat/mesajSil/",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (tip.equals("temp")) {
+                            tempUser.remove(sil);
+                            adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, tempUser);
+                            _lvUser.setAdapter(adapterOldUserMessage);
+                        } else {
+                            listUser.remove(sil);
+                            adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, listUser);
+                            _lvUser.setAdapter(adapterOldUserMessage);
+                        }
+
+
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(MainActivity.this, "Bir sorun oluştu!", Toast.LENGTH_LONG).show();
+                    }
+                }
+        ) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("key", key);
+                params.put("sil", "sil");
+
+                return params;
+            }
+        };
+        Volley.newRequestQueue(this).add(postRequest);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -195,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
     private void getListConversations() {
         spotsDialog = Tools.createDialog(MainActivity.this, "Yükleniyor...");
         spotsDialog.show();
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/eskiMesajlar/"+Tools.getSharedPrefences(MainActivity.this,"phoneNumber",String.class),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/eskiMesajlar/" + Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
