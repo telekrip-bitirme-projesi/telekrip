@@ -35,7 +35,6 @@ public class AdapterChat extends BaseAdapter {
 
     private Context mContext;
     private List<Message> messages;
-    private Encryption encryption=null;
 
     //Constructor
 
@@ -80,50 +79,7 @@ public class AdapterChat extends BaseAdapter {
         }
         EmojiconTextView txt_msg =v.findViewById(R.id.txt_msg);
         TextView tarih =v.findViewById(R.id.txtTarih);
-        try {
-            encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])
-                    .setIterationCount(1) // use 1 instead the default of 65536
-                    .build();
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-        try {
-            encryption = new Encryption.Builder()
-                    .setKeyLength(128)
-                    .setKeyAlgorithm("AES")
-                    .setCharsetName("UTF8")
-                    .setIterationCount(100)
-                    .setKey("mor€Z€cr€tKYss")
-                    .setDigestAlgorithm("SHA1")
-                    .setSalt("tuzluk")
-                    .setBase64Mode(Base64.DEFAULT)
-                    .setAlgorithm("AES/CBC/PKCS5Padding")
-                    .setSecureRandomAlgorithm("SHA1PRNG")
-                    .setSecretKeyType("PBKDF2WithHmacSHA1")
-                    .setIv(new byte[] { 29, 88, -79, -101, -108, -38, -126, 90, 52, 101, -35, 114, 12, -48, -66, -30 })
-                    .build();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        try {
-            txt_msg.setText(encryption.decrypt(messages.get(position).getText()));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        }
+        txt_msg.setText(Tools.getDecrypt(messages.get(position).getText()));
         tarih.setText(messages.get(position).getDateTime());
         //Save product id to tag
         return v;

@@ -7,7 +7,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -35,28 +34,18 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText;
-import se.simbio.encryption.Encryption;
-import third.part.android.util.Base64;
 
 public class ChatActivity extends Activity {
 
@@ -75,8 +64,6 @@ public class ChatActivity extends Activity {
     private WebSocketClient mWebSocketClient;
     private boolean isSave = true;
     SpotsDialog spotsDialog;
-    Encryption encryption = null;
-
 
     EmojiconEditText _edtTxtMessage, _edtTxtMessage2;
     ImageView _btnSend;
@@ -146,52 +133,10 @@ public class ChatActivity extends Activity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])
-                            .setIterationCount(1) // use 1 instead the default of 65536
-                            .build();
-                } catch (NoSuchAlgorithmException e) {
 
-                }
-                try {
-                    encryption = new Encryption.Builder()
-                            .setKeyLength(128)
-                            .setKeyAlgorithm("AES")
-                            .setCharsetName("UTF8")
-                            .setIterationCount(100)
-                            .setKey("mor€Z€cr€tKYss")
-                            .setDigestAlgorithm("SHA1")
-                            .setSalt("tuzluk")
-                            .setBase64Mode(Base64.DEFAULT)
-                            .setAlgorithm("AES/CBC/PKCS5Padding")
-                            .setSecureRandomAlgorithm("SHA1PRNG")
-                            .setSecretKeyType("PBKDF2WithHmacSHA1")
-                            .setIv(new byte[] { 29, 88, -79, -101, -108, -38, -126, 90, 52, 101, -35, 114, 12, -48, -66, -30 })
-                            .build();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
                 String phoneNumber = (String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class);
                 String message = _edtTxtMessage.getText().toString();
-                try {
-                    message=encryption.encrypt(message);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (NoSuchPaddingException e) {
-                    e.printStackTrace();
-                } catch (InvalidAlgorithmParameterException e) {
-                    e.printStackTrace();
-                } catch (InvalidKeyException e) {
-                    e.printStackTrace();
-                } catch (InvalidKeySpecException e) {
-                    e.printStackTrace();
-                } catch (BadPaddingException e) {
-                    e.printStackTrace();
-                } catch (IllegalBlockSizeException e) {
-                    e.printStackTrace();
-                }
+                message=Tools.getEncrypt(message);
                 message=message.replace("\n","");
                 mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
 
@@ -329,31 +274,7 @@ public class ChatActivity extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            encryption = Encryption.Builder.getDefaultBuilder("MyKey", "MySalt", new byte[16])
-                                    .setIterationCount(1) // use 1 instead the default of 65536
-                                    .build();
-                        } catch (NoSuchAlgorithmException e) {
 
-                        }
-                        try {
-                            encryption = new Encryption.Builder()
-                                    .setKeyLength(128)
-                                    .setKeyAlgorithm("AES")
-                                    .setCharsetName("UTF8")
-                                    .setIterationCount(100)
-                                    .setKey("mor€Z€cr€tKYss")
-                                    .setDigestAlgorithm("SHA1")
-                                    .setSalt("tuzluk")
-                                    .setBase64Mode(Base64.DEFAULT)
-                                    .setAlgorithm("AES/CBC/PKCS5Padding")
-                                    .setSecureRandomAlgorithm("SHA1PRNG")
-                                    .setSecretKeyType("PBKDF2WithHmacSHA1")
-                                    .setIv(new byte[] { 29, 88, -79, -101, -108, -38, -126, 90, 52, 101, -35, 114, 12, -48, -66, -30 })
-                                    .build();
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        }
                         Gson gson = new Gson();
                         Message message = gson.fromJson(s, Message.class);
 

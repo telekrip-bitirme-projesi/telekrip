@@ -18,9 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
 
 public class AdapterOldUserMessage extends BaseAdapter {
-    TextView _tvNameSurname, _tvLastMessage;
+    TextView _tvNameSurname;
+    EmojiconTextView _tvLastMessage;
     CircleImageView _ivAvatar;
     private Context ctx;
     private List<OldMessage> listUser;
@@ -73,11 +75,14 @@ public class AdapterOldUserMessage extends BaseAdapter {
         } else {
             _ivAvatar.setImageResource(R.drawable.default_avatar);
         }
-        if (listUser.get(i).getLastMessage().length() > 30) {
-            _tvLastMessage.setText(listUser.get(i).getLastMessage().substring(0, 30) + "...");
-        } else {
-            _tvLastMessage.setText(listUser.get(i).getLastMessage());
+        if(listUser.get(i).getLast_message()!=null){
+            if (Tools.getDecrypt(listUser.get(i).getLast_message()).length() > 30) {
+                _tvLastMessage.setText(Tools.getDecrypt(listUser.get(i).getLast_message()).substring(0, 30) + "...");
+            } else {
+                _tvLastMessage.setText(Tools.getDecrypt(listUser.get(i).getLast_message()));
+            }
         }
+
 
 
         return myView;

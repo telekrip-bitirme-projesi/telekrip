@@ -13,6 +13,9 @@ public class OldMessage implements Serializable{
 	@SerializedName("lastMessage")
 	private String lastMessage;
 
+	@SerializedName("last_message")
+	private String last_message;
+
 	@SerializedName("receiver_name")
 	private String receiverName;
 
@@ -61,7 +64,13 @@ public class OldMessage implements Serializable{
 		this.lastMessage = lastMessage;
 	}
 
+	public String getLast_message() {
+		return last_message;
+	}
 
+	public void setLast_message(String last_message) {
+		this.last_message = last_message;
+	}
 
 	public void setAvatar(String avatar){
 		this.avatar = avatar;
