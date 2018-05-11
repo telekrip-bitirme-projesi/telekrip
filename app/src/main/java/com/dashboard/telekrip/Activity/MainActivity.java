@@ -251,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
                         _lvUser.setAdapter(adapterOldUserMessage);
 
                         if (listUser.size() == 0) {
-                            Toast.makeText(getApplicationContext(), "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.", Toast.LENGTH_LONG).show();
+                            Tools.generateAlertDialog(MainActivity.this,"BİLGİLENDİRME","Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.").show();
                         }
                         spotsDialog.dismiss();
                     }

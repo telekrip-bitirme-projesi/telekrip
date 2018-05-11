@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.preference.PreferenceManager;
@@ -12,6 +13,7 @@ import android.provider.ContactsContract;
 
 import com.dashboard.telekrip.Activity.ChatActivity;
 import com.dashboard.telekrip.Activity.RegisterActivity;
+import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.model.Contact;
 import com.dashboard.telekrip.model.User;
 
@@ -268,5 +270,20 @@ public class Tools {
             e.printStackTrace();
         }
         return null;
+    }
+    public static AlertDialog generateAlertDialog(Context ctx,String title,String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("Kapat", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                //Set your icon here
+                .setTitle(title)
+                .setIcon(R.drawable.info);
+        AlertDialog alert = builder.create();
+        return alert;
     }
 }
