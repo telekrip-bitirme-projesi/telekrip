@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.add_user: {
                                 Intent chatActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
                                 startActivity(chatActivity);
+                                finish();
                                 break;
                             }
                             case R.id.account: {

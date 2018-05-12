@@ -138,7 +138,9 @@ public class ChatActivity extends Activity {
                 String message = _edtTxtMessage.getText().toString();
                 message=Tools.getEncrypt(message);
                 message=message.replace("\n","");
-                mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
+                if(!mWebSocketClient.getConnection().isClosed()){
+                    mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
+                }
 
                 if (adapter == null) {
                     adapter = new AdapterChat(ChatActivity.this, chatMessages);
@@ -161,6 +163,7 @@ public class ChatActivity extends Activity {
                     submitButton.setEnabled(false);
                 } else {
                     submitButton.setEnabled(true);
+
                 }
             }
 

@@ -173,5 +173,6 @@ public class StartSpeechActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent mainActivity = new Intent(StartSpeechActivity.this,MainActivity.class);
         startActivity(mainActivity);
+        finish();
     }
 }

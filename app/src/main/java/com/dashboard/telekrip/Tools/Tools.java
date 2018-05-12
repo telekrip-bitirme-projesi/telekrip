@@ -286,4 +286,22 @@ public class Tools {
         AlertDialog alert = builder.create();
         return alert;
     }
+    public static String getTimeOrDate(String date){
+        Date c = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        String[] splitDate = date.split(" ");
+        String[] splitDay =df.format(c).split("-");
+        String getDay=splitDay[0];
+        if(getDay.equals(splitDate[0])){
+            if(splitDate.length==3){
+                return splitDate[2];
+            }
+            else {
+                return splitDate[3];
+            }
+        }
+        else {
+            return date;
+        }
+    }
 }

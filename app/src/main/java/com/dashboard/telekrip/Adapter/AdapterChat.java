@@ -80,7 +80,7 @@ public class AdapterChat extends BaseAdapter {
         EmojiconTextView txt_msg =v.findViewById(R.id.txt_msg);
         TextView tarih =v.findViewById(R.id.txtTarih);
         txt_msg.setText(Tools.getDecrypt(messages.get(position).getText()));
-        tarih.setText(messages.get(position).getDateTime());
+        tarih.setText(Tools.getTimeOrDate(messages.get(position).getDateTime()));
         //Save product id to tag
         return v;
     }
