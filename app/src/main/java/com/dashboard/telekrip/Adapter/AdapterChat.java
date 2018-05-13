@@ -1,6 +1,7 @@
 package com.dashboard.telekrip.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -80,6 +81,9 @@ public class AdapterChat extends BaseAdapter {
         EmojiconTextView txt_msg =v.findViewById(R.id.txt_msg);
         TextView tarih =v.findViewById(R.id.txtTarih);
         txt_msg.setText(Tools.getDecrypt(messages.get(position).getText()));
+        if((int)Tools.getSharedPrefences(mContext,"theme",Integer.class)==6){
+            tarih.setTextColor(Color.WHITE);
+        }
         tarih.setText(Tools.getTimeOrDate(messages.get(position).getDateTime()));
         //Save product id to tag
         return v;

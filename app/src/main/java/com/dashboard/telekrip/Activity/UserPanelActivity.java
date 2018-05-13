@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.dashboard.telekrip.R;
@@ -16,8 +17,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
-    TextView _tvNameSurname;
+    TextView _tvNameSurname,_tvLastTalk;
     Button _btnEditProfil,_btnTheme;
+    ImageButton _ibLastTalk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +41,26 @@ public class UserPanelActivity extends Activity {
                 startActivity(themeActivity);
             }
         });
+        _ibLastTalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        _tvLastTalk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
     }
 
     private void uiInitialization() {
         _ivAvatar=findViewById(R.id.ivAvatar);
         _tvNameSurname=findViewById(R.id.tvNameSurname);
         _btnEditProfil=findViewById(R.id.btnUpdateProfil);
+        _tvLastTalk=findViewById(R.id.tvLastTalk);
+        _ibLastTalk=findViewById(R.id.ibLastTalk);
         _btnTheme=findViewById(R.id.btnTheme);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)

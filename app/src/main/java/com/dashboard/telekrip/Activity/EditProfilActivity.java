@@ -10,13 +10,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dashboard.telekrip.R;
@@ -34,7 +32,6 @@ import com.squareup.okhttp.Response;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
 
 public class EditProfilActivity extends Activity {
@@ -67,8 +64,9 @@ public class EditProfilActivity extends Activity {
         _etFirsName = findViewById(R.id.etFirstName);
         _etLastName = findViewById(R.id.etLastName);
         _btnUpdate = findViewById(R.id.btnUpdate);
-        _ibUserPanel = findViewById(R.id.ibUserPanel);
+        _ibUserPanel = findViewById(R.id.ibLastTalk);
         _tvUserPanel = findViewById(R.id.tvUserPanel);
+        bitmapAvatar=((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap();
 
         _ibUserPanel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,29 +96,56 @@ public class EditProfilActivity extends Activity {
         _btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfilActivity.this);
-                builder.setMessage("Değişiklikler kaydedilsin mi?")
-                        .setCancelable(false)
-                        .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                spotsDialog = Tools.createDialog(EditProfilActivity.this, "Kaydediliyor...");
-                                spotsDialog.show();
-                                saveProfil();
-                            }
-                        })
-                        .setTitle("GÜNCELLEME")
-                        .setIcon(R.drawable.info).setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                if(validate()){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditProfilActivity.this);
+                    builder.setMessage("Değişiklikler kaydedilsin mi?")
+                            .setCancelable(false)
+                            .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    spotsDialog = Tools.createDialog(EditProfilActivity.this, "Kaydediliyor...");
+                                    spotsDialog.show();
+                                    saveProfil();
+                                }
+                            })
+                            .setTitle("GÜNCELLEME")
+                            .setIcon(R.drawable.info).setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(EditProfilActivity.this);
+                    builder.setMessage("Ad,Soyad alanları boş geçilemez!")
+                            .setCancelable(false)
+                            .setPositiveButton("Kapat", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+
+                                }
+                            })
+                            .setTitle("UYARI")
+                            .setIcon(R.drawable.info);
+                    AlertDialog alert = builder.create();
+                    alert.show();
+                }
             }
         });
 
     }
+
+    private boolean validate() {
+        if(_etFirsName.getText().toString().equals("")){
+            return false;
+        }
+        if(_etLastName.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
+
 
     private void saveProfil() {
         String phoneNumber = _etPhoneNumber.getText().toString();

@@ -1,7 +1,5 @@
 package com.dashboard.telekrip.Activity;
 
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.app.Fragment;
@@ -9,9 +7,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.dashboard.telekrip.Fragment.ThemesFragment;
 import com.dashboard.telekrip.R;
@@ -20,6 +18,8 @@ public class ThemeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private ImageButton _ibUserPanel;
+    private TextView _tvUserPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,21 @@ public class ThemeActivity extends AppCompatActivity {
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        _ibUserPanel = findViewById(R.id.ibLastTalk);
+        _tvUserPanel = findViewById(R.id.tvUserPanel);
+
+        _ibUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        _tvUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 

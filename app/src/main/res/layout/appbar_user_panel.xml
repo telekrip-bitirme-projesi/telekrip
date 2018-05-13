@@ -6,18 +6,18 @@
     android:background="#333333">
 
     <ImageButton
-        android:id="@+id/ibUserPanel"
+        android:id="@+id/ibLastTalk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:background="@drawable/ic_action_navigation_arrow_back_inverted" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvLastTalk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/ibUserPanel"
+        android:layout_toRightOf="@+id/ibLastTalk"
         android:text="Son Konuşmalar"
         android:textColor="#FFF" />
 </RelativeLayout>

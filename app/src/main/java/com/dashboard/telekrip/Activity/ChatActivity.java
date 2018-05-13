@@ -52,7 +52,6 @@ public class ChatActivity extends Activity {
     RelativeLayout _lUst;
     LinearLayout _lOrta;
     CircleImageView _ivAvatar;
-    ImageView _ivAvatarZoom;
     TextView _tvNameSurname;
     android.support.v7.widget.SwitchCompat _switchSaveNoSave;
     private ListView _listView;
@@ -89,14 +88,9 @@ public class ChatActivity extends Activity {
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)
                         .into(_ivAvatar);
-                Picasso.with(getApplicationContext()).load(oldUser.getAvatar()).fit().centerCrop()
-                        .placeholder(R.drawable.default_avatar)
-                        .error(R.drawable.default_avatar)
-                        .into(_ivAvatarZoom);
             }
             else {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
-                _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
             }
             if(oldUser.getReceiverName().equals("")){
                 if(!Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class).equals(oldUser.getReceiverPhone())){
@@ -116,14 +110,9 @@ public class ChatActivity extends Activity {
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)
                         .into(_ivAvatar);
-                Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
-                        .placeholder(R.drawable.default_avatar)
-                        .error(R.drawable.default_avatar)
-                        .into(_ivAvatarZoom);
             }
             else {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
-                _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
             }
             _tvNameSurname.setText(usr.getName()+" "+usr.getSurname());
         }
@@ -176,24 +165,6 @@ public class ChatActivity extends Activity {
             }
         });
 
-        _ivAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                _ivAvatarZoom.setVisibility(View.VISIBLE);
-                _lUst.setVisibility(View.INVISIBLE);
-                _lOrta.setVisibility(View.INVISIBLE);
-
-            }
-        });
-        _ivAvatarZoom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                _ivAvatarZoom.setVisibility(View.INVISIBLE);
-                _lUst.setVisibility(View.VISIBLE);
-                _lOrta.setVisibility(View.VISIBLE);
-
-            }
-        });
 
         _switchSaveNoSave.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -367,7 +338,6 @@ public class ChatActivity extends Activity {
         _listView = findViewById(R.id.list_msg);
 
         _ivAvatar = findViewById(R.id.ivAvatar);
-        _ivAvatarZoom = findViewById(R.id.ivAvatarZoom);
         _tvNameSurname = findViewById(R.id.tvNameSurname);
 
 
