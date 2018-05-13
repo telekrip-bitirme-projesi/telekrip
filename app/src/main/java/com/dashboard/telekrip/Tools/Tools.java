@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -191,7 +192,7 @@ public class Tools {
 
     }
     public static SpotsDialog createDialog(Context context, String title) {
-        SpotsDialog spotsDialog = new SpotsDialog(context);
+        SpotsDialog spotsDialog = new SpotsDialog(context, R.style.Custom);
         spotsDialog.setTitle(title);
         return spotsDialog;
     }
@@ -303,5 +304,17 @@ public class Tools {
         else {
             return date;
         }
+    }
+    public static String randomFileName() {
+        Random generator = new Random();
+        StringBuilder randomStringBuilder = new StringBuilder();
+        int randomLength = generator.nextInt(15);
+        char tempChar;
+        for (int i = 0; i < randomLength; i++){
+            tempChar = (char) (generator.nextInt(96) + 32);
+            randomStringBuilder.append(tempChar);
+        }
+
+        return "avatar_"+randomStringBuilder.toString().replace(".","");
     }
 }
