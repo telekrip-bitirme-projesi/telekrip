@@ -10,7 +10,7 @@
         android:layout_height="16dp"
         android:layout_above="@+id/ivIsGone"
         android:layout_toStartOf="@+id/lin_message"
-        android:background="@drawable/nomessagesave"
+        android:background="@drawable/nomessagesaveicon"
         android:visibility="gone" />
 
     <ImageView

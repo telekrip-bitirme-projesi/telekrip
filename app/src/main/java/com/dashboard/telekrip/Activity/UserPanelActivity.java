@@ -17,7 +17,7 @@ public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
     TextView _tvNameSurname;
-    Button _btnEditProfil;
+    Button _btnEditProfil,_btnTheme;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +32,20 @@ public class UserPanelActivity extends Activity {
                 startActivity(editProfil);
             }
         });
+        _btnTheme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent themeActivity = new Intent(getApplicationContext(), ThemeActivity.class);
+                startActivity(themeActivity);
+            }
+        });
     }
 
     private void uiInitialization() {
         _ivAvatar=findViewById(R.id.ivAvatar);
         _tvNameSurname=findViewById(R.id.tvNameSurname);
         _btnEditProfil=findViewById(R.id.btnUpdateProfil);
+        _btnTheme=findViewById(R.id.btnTheme);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)

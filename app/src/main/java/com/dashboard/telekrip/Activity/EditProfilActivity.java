@@ -2,8 +2,10 @@ package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
@@ -45,6 +48,8 @@ public class EditProfilActivity extends Activity {
     Bitmap bitmapAvatar;
     private Handler mHandler;
     private SpotsDialog spotsDialog;
+    private ImageButton _ibUserPanel;
+    private TextView _tvUserPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,21 @@ public class EditProfilActivity extends Activity {
         _etFirsName = findViewById(R.id.etFirstName);
         _etLastName = findViewById(R.id.etLastName);
         _btnUpdate = findViewById(R.id.btnUpdate);
+        _ibUserPanel = findViewById(R.id.ibUserPanel);
+        _tvUserPanel = findViewById(R.id.tvUserPanel);
+
+        _ibUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        _tvUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
         _etPhoneNumber.setText((String) Tools.getSharedPrefences(EditProfilActivity.this, "phoneNumber", String.class));
         _etPhoneNumber.setEnabled(false);
@@ -78,11 +98,28 @@ public class EditProfilActivity extends Activity {
         _btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                spotsDialog=Tools.createDialog(EditProfilActivity.this,"Kaydediliyor...");
-                spotsDialog.show();
-                saveProfil();
+                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfilActivity.this);
+                builder.setMessage("Değişiklikler kaydedilsin mi?")
+                        .setCancelable(false)
+                        .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                spotsDialog = Tools.createDialog(EditProfilActivity.this, "Kaydediliyor...");
+                                spotsDialog.show();
+                                saveProfil();
+                            }
+                        })
+                        .setTitle("GÜNCELLEME")
+                        .setIcon(R.drawable.info).setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
+
     }
 
     private void saveProfil() {
@@ -144,7 +181,6 @@ public class EditProfilActivity extends Activity {
                 });
             }
         });
-
     }
 
     @Override
@@ -157,6 +193,8 @@ public class EditProfilActivity extends Activity {
                 try {
                     bitmapAvatar = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), data.getData());
                     _ivAvatar.setImageBitmap(bitmapAvatar);
+                    //Bitmap sunucudanGelenResim = ((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap();
+
 
                 } catch (IOException e) {
                     e.printStackTrace();

@@ -28,7 +28,11 @@
         <activity android:name=".Activity.ChangePasswordActivity" />
         <activity android:name=".Activity.StartSpeechActivity" />
         <activity android:name=".Activity.AddUserDetailActivity" />
-        <activity android:name=".Activity.EditProfilActivity"></activity>
+        <activity android:name=".Activity.EditProfilActivity" />
+        <activity
+            android:name=".Activity.ThemeActivity"
+            android:label="@string/title_activity_theme"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

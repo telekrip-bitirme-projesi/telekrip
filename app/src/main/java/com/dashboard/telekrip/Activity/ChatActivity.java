@@ -364,8 +364,6 @@ public class ChatActivity extends Activity {
             }
         });
         emojIcon.addEmojiconEditTextList(_edtTxtMessage2);
-
-
         _listView = findViewById(R.id.list_msg);
 
         _ivAvatar = findViewById(R.id.ivAvatar);
@@ -377,6 +375,34 @@ public class ChatActivity extends Activity {
         _lOrta = findViewById(R.id.lin_orta);
 
         _switchSaveNoSave = findViewById(R.id.switchSave);
+        switch ((int)Tools.getSharedPrefences(ChatActivity.this,"theme",Integer.class)){
+            case 0:{
+                _listView.setBackgroundResource(R.mipmap.bg1);
+                break;
+            }
+            case 1:{_listView.setBackgroundResource(R.mipmap.bg2);
+                break;}
+            case 2:{
+                _listView.setBackgroundResource(R.mipmap.bg3);
+                break;
+            }
+            case 3:{
+                _listView.setBackgroundResource(R.mipmap.bg4);
+                break;
+            }
+            case 4:{
+                _listView.setBackgroundResource(R.mipmap.bg5);
+                break;
+            }
+            case 5:{
+                _listView.setBackgroundResource(R.mipmap.bg6);
+                break;
+            }
+            case 6:{
+                _listView.setBackgroundResource(R.mipmap.bg7);
+                break;
+            }
+        }
 
     }
 }

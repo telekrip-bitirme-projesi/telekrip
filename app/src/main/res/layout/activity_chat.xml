@@ -6,7 +6,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingTop="16dp">
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/switchSave"
@@ -27,13 +27,6 @@
         android:id="@+id/rel_ust"
         android:layout_width="match_parent"
         android:layout_height="55dp">
-
-        <View
-            android:id="@+id/cizgi"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@+id/ivAvatar"
-            android:background="#c9abab" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivAvatar"
@@ -78,7 +71,7 @@
     <RelativeLayout
         android:id="@+id/root_view"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true">
 
         <ImageView
