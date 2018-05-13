@@ -39,7 +39,7 @@
             android:maxWidth="100dp"
             android:padding="5dp"
             android:textColor="#FFF"
-            android:textSize="16sp"
+            android:textSize="14sp"
             emojicon:emojiconSize="24sp"/>
 
     </LinearLayout>

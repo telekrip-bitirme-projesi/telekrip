@@ -8,11 +8,18 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 
 public class UserPanelActivity extends Activity {
 
@@ -20,12 +27,15 @@ public class UserPanelActivity extends Activity {
     TextView _tvNameSurname,_tvLastTalk;
     Button _btnEditProfil,_btnTheme,_btnNotification;
     ImageButton _ibLastTalk;
+    SpotsDialog spotsDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userpanel);
 
         uiInitialization();
+
+        getUserInformation();
 
         _btnEditProfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +71,36 @@ public class UserPanelActivity extends Activity {
             }
         });
     }
+    private void getUserInformation() {
+        spotsDialog = Tools.createDialog(UserPanelActivity.this, "Yükleniyor...");
+        spotsDialog.show();
+        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciDetay/" + Tools.getSharedPrefences(UserPanelActivity.this, "phoneNumber", String.class),
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja = new JSONArray(response);
+                            Picasso.with(getApplicationContext()).load(ja.getJSONObject(0).getString("avatar")).fit().centerCrop()
+                                    .placeholder(R.drawable.default_avatar)
+                                    .error(R.drawable.default_avatar)
+                                    .into(_ivAvatar);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        spotsDialog.dismiss();
+                    }
 
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        spotsDialog.dismiss();
+                    }
+                }
+
+        );
+        Volley.newRequestQueue(this).add(postRequest);
+    }
     private void uiInitialization() {
         _ivAvatar=findViewById(R.id.ivAvatar);
         _tvNameSurname=findViewById(R.id.tvNameSurname);

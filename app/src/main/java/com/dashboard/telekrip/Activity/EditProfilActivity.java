@@ -17,8 +17,15 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.dashboard.telekrip.Adapter.AdapterOldUserMessage;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
+import com.dashboard.telekrip.model.OldMessage;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Headers;
@@ -28,9 +35,15 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import dmax.dialog.SpotsDialog;
 
@@ -54,6 +67,42 @@ public class EditProfilActivity extends Activity {
         setContentView(R.layout.activity_edit_profil);
 
         uiInitialization();
+
+        getUserInformation();
+    }
+
+    private void getUserInformation() {
+        spotsDialog = Tools.createDialog(EditProfilActivity.this, "Yükleniyor...");
+        spotsDialog.show();
+        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciDetay/" + Tools.getSharedPrefences(EditProfilActivity.this, "phoneNumber", String.class),
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja = new JSONArray(response);
+                            _etFirsName.setText(ja.getJSONObject(0).getString("first_name"));
+                            _etLastName.setText(ja.getJSONObject(0).getString("last_name"));
+                            Picasso.with(getApplicationContext()).load(ja.getJSONObject(0).getString("avatar")).fit().centerCrop()
+                                    .placeholder(R.drawable.default_avatar)
+                                    .error(R.drawable.default_avatar)
+                                    .into(_ivAvatar);
+                            bitmapAvatar=((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        spotsDialog.dismiss();
+                    }
+
+                },
+                new com.android.volley.Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        spotsDialog.dismiss();
+                    }
+                }
+
+        );
+        Volley.newRequestQueue(this).add(postRequest);
     }
 
     private void uiInitialization() {

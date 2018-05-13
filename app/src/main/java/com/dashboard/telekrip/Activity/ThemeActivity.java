@@ -56,7 +56,6 @@ public class ThemeActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            System.out.println(position);
             return new ThemesFragment(position);
         }
 

@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.dashboard.telekrip.Activity.NotificationActivity">
 
-    <include android:id="@+id/appbar" layout="@layout/appbar_notification"/>
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar_notification" />
 
     <LinearLayout
         android:id="@+id/llIcon"
@@ -25,20 +27,106 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llNotification"
+        android:layout_marginTop="20dp"
+        android:background="#333333" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/llSound"
+        android:layout_marginTop="20dp"
+        android:background="#333333" />
+
     <LinearLayout
+        android:id="@+id/llNotification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/llIcon"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/tvNotification"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
             android:paddingLeft="20dp"
             android:paddingTop="20dp"
             android:text="Bildirim :"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sNotification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:textOff="Kaydetme"
+            android:textOn="Kaydet"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llSound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llNotification"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:text="Bildirim Sesi :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sSound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:textOff="Kaydetme"
+            android:textOn="Kaydet"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llVibration"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llSound"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvVibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:text="Titreşim :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/sVibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="133dp"
+            android:textOff="Kaydetme"
+            android:textOn="Kaydet"
+            android:textSize="14sp" />
     </LinearLayout>
 </RelativeLayout>
