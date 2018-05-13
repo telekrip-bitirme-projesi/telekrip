@@ -65,9 +65,9 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/btn_userpanel"
-                android:drawableTop="@drawable/change_password"
+                android:drawableTop="@drawable/notification_icon"
                 android:paddingVertical="5dp"
-                android:text="MENÜ 3"
+                android:text="BİLDİRİM"
                 android:textAllCaps="false"
                 android:textColor="#333333"
                 android:textSize="10sp" />
@@ -100,7 +100,7 @@
                 android:background="@drawable/btn_userpanel"
                 android:drawableTop="@drawable/edit_profil"
                 android:paddingVertical="5dp"
-                android:text="BİLGİLERİNİ GÜNCELLE"
+                android:text="PROFİL"
                 android:textAllCaps="false"
                 android:textColor="#333333"
                 android:textSize="10sp" />

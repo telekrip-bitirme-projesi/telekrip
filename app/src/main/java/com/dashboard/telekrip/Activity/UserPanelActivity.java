@@ -18,7 +18,7 @@ public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
     TextView _tvNameSurname,_tvLastTalk;
-    Button _btnEditProfil,_btnTheme;
+    Button _btnEditProfil,_btnTheme,_btnNotification;
     ImageButton _ibLastTalk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +39,13 @@ public class UserPanelActivity extends Activity {
             public void onClick(View view) {
                 Intent themeActivity = new Intent(getApplicationContext(), ThemeActivity.class);
                 startActivity(themeActivity);
+            }
+        });
+        _btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent notification = new Intent(getApplicationContext(), NotificationActivity.class);
+                startActivity(notification);
             }
         });
         _ibLastTalk.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +69,7 @@ public class UserPanelActivity extends Activity {
         _tvLastTalk=findViewById(R.id.tvLastTalk);
         _ibLastTalk=findViewById(R.id.ibLastTalk);
         _btnTheme=findViewById(R.id.btnTheme);
+        _btnNotification=findViewById(R.id.btnNotification);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
