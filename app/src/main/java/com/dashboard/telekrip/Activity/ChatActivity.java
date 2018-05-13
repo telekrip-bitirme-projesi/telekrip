@@ -98,6 +98,17 @@ public class ChatActivity extends Activity {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
                 _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
             }
+            if(oldUser.getReceiverName().equals("")){
+                if(!Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class).equals(oldUser.getReceiverPhone())){
+                    _tvNameSurname.setText(oldUser.getReceiverPhone());
+                }
+                else if(!Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class).equals(oldUser.getSenderPhone())){
+                    _tvNameSurname.setText(oldUser.getSenderPhone());
+                }
+            }
+            else {
+                _tvNameSurname.setText(oldUser.getReceiverName());
+            }
         } else {
             usr = (User) getIntent().getSerializableExtra("old");
             if(usr.getAvatar()!=null && !usr.getAvatar().equals("")){
@@ -114,15 +125,7 @@ public class ChatActivity extends Activity {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
                 _ivAvatarZoom.setImageResource(R.drawable.default_avatar);
             }
-
-        }
-
-
-        if (getIntent().hasExtra("user")) {
-            _tvNameSurname.setText(oldUser.getSenderName());
-        } else {
-            _tvNameSurname.setText(usr.getName());
-
+            _tvNameSurname.setText(usr.getName()+" "+usr.getSurname());
         }
 
         //gelen user bilgileri
@@ -368,6 +371,7 @@ public class ChatActivity extends Activity {
         _ivAvatar = findViewById(R.id.ivAvatar);
         _ivAvatarZoom = findViewById(R.id.ivAvatarZoom);
         _tvNameSurname = findViewById(R.id.tvNameSurname);
+
 
         _lUst = findViewById(R.id.rel_ust);
         _lOrta = findViewById(R.id.lin_orta);

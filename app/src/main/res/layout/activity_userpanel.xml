@@ -5,11 +5,16 @@
     android:layout_height="match_parent"
     tools:context="com.dashboard.telekrip.Activity.UserPanelActivity">
 
+    <include
+        android:id="@+id/appbar"
+        layout="@layout/appbar_user_panel" />
+
     <RelativeLayout
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/layout_content"
+        android:layout_below="@+id/appbar"
         android:background="#333333">
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -32,6 +37,7 @@
             android:textSize="14sp" />
 
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/layout_content"
         android:layout_width="match_parent"
