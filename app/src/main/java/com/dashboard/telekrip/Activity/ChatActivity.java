@@ -1,6 +1,7 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -260,8 +261,6 @@ public class ChatActivity extends Activity {
                         } else {
                             message.setSave(true);
                         }
-
-
                         chatMessages.add(message);
                         adapter = new AdapterChat(getApplicationContext(), chatMessages);
                         _listView.setAdapter(adapter);
@@ -374,5 +373,11 @@ public class ChatActivity extends Activity {
             }
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(ChatActivity.this,MainActivity.class);
+        startActivity(mainActivity);
+        finish();
     }
 }

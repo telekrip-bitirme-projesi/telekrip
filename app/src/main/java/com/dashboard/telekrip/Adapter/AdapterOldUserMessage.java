@@ -58,14 +58,23 @@ public class AdapterOldUserMessage extends BaseAdapter {
         _ivAvatar = myView.findViewById(R.id.ivAvatar);
         _tvLastMessage = myView.findViewById(R.id.tvLastMessage);
 
-        if (!listUser.get(i).getReceiverName().equals("")) {
-            _tvNameSurname.setText(listUser.get(i).getReceiverName());
-        } else if (!listUser.get(i).getReceiverPhone().equals("")) {
-            if (listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
-                _tvNameSurname.setText(listUser.get(i).getSenderPhone());
+        if (!listUser.get(i).getSenderName().equals("")) {
+            if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+                _tvNameSurname.setText(listUser.get(i).getSenderName());
             }
-        } else {
-            _tvNameSurname.setText(listUser.get(i).getReceiverName());
+            else {
+                if (!listUser.get(i).getReceiverName().equals("")) {
+                    if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+                        _tvNameSurname.setText(listUser.get(i).getReceiverName());
+                    }
+                }
+
+            }
+        }
+        else if (!listUser.get(i).getReceiverName().equals("")) {
+            if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+                _tvNameSurname.setText(listUser.get(i).getReceiverName());
+            }
         }
         if (listUser.get(i).getAvatar() != null && !listUser.get(i).getAvatar().equals("")) {
             Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()

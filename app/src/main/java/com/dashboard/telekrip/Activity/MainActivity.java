@@ -1,5 +1,7 @@
 package com.dashboard.telekrip.Activity;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.dashboard.telekrip.Adapter.AdapterChat;
 import com.dashboard.telekrip.Adapter.AdapterOldUserMessage;
 import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Service.Service1;
 import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.OldMessage;
@@ -63,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         uiInitialization();
+
+        if (!isMyServiceRunning(Service1.class)) {
+            Intent i = new Intent(getApplicationContext(), Service1.class);
+            startService(i);
+        }
 
         getListConversations();
 
@@ -115,11 +123,13 @@ public class MainActivity extends AppCompatActivity {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", tempUser.get(i));
                     startActivity(chatActivity);
+                    finish();
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", listUser.get(i));
                     startActivity(chatActivity);
+                    finish();
                     //System.out.println(listUser.get(i).getUserName());
                 }
             }
@@ -132,14 +142,14 @@ public class MainActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
 
                             case R.id.add_user: {
-                                Intent chatActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
-                                startActivity(chatActivity);
+                                Intent startSpeechActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
+                                startActivity(startSpeechActivity);
                                 finish();
                                 break;
                             }
                             case R.id.account: {
-                                Intent chatActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
-                                startActivity(chatActivity);
+                                Intent userPanelActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
+                                startActivity(userPanelActivity);
                                 break;
                             }
 
@@ -153,6 +163,17 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add("Konuşmayı sil");
+    }
+
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
