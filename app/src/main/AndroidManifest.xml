@@ -12,9 +12,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".Activity.RegisterActivity"
-            android:launchMode="singleInstance">
+        <activity android:name=".Activity.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,20 +22,13 @@
         <activity
             android:name=".Activity.AccountVerificationActivity"
             android:launchMode="singleInstance" />
-        <activity
-            android:name=".Activity.MainActivity"
-            />
-        <activity
-            android:name=".Activity.ChatActivity"
-            />
-        <activity
-            android:name=".Activity.UserPanelActivity"
-            />
-        <activity
-            android:name=".Activity.ChangePasswordActivity"
-            />
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.ChatActivity" />
+        <activity android:name=".Activity.UserPanelActivity" />
+        <activity android:name=".Activity.ChangePasswordActivity" />
         <activity android:name=".Activity.StartSpeechActivity" />
-        <activity android:name=".Activity.AddUserDetailActivity"></activity>
+        <activity android:name=".Activity.AddUserDetailActivity" />
+        <activity android:name=".Activity.EditProfilActivity"></activity>
     </application>
 
 </manifest>

@@ -17,7 +17,7 @@ public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
     TextView _tvNameSurname;
-    Button _btnChangePassword;
+    Button _btnEditProfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +25,11 @@ public class UserPanelActivity extends Activity {
 
         uiInitialization();
 
-        _btnChangePassword.setOnClickListener(new View.OnClickListener() {
+        _btnEditProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chatActivity = new Intent(getApplicationContext(), ChangePasswordActivity.class);
-                startActivity(chatActivity);
+                Intent editProfil = new Intent(getApplicationContext(), EditProfilActivity.class);
+                startActivity(editProfil);
             }
         });
     }
@@ -37,7 +37,7 @@ public class UserPanelActivity extends Activity {
     private void uiInitialization() {
         _ivAvatar=findViewById(R.id.ivAvatar);
         _tvNameSurname=findViewById(R.id.tvNameSurname);
-        _btnChangePassword=findViewById(R.id.btnChangePassword);
+        _btnEditProfil=findViewById(R.id.btnUpdateProfil);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
