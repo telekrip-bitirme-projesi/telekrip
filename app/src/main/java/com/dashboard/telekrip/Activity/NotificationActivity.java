@@ -105,4 +105,10 @@ public class NotificationActivity extends Activity {
             }
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
+    }
 }

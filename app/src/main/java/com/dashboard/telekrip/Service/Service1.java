@@ -39,7 +39,7 @@ public class Service1 extends Service {
         System.out.println("xx");
         URI uri;
         try {
-            uri = new URI("http://yazlab.xyz:8000/chat/message/35047b4b4f680da89ce162f9cf631f723d8bc5b078f363e7ce5552ac30f368ab");
+            uri = new URI("http://yazlab.xyz:8000/chat/message/540106955d5d42434abc49a5bf61cb0a9262e14de9b40ffa344c0d2cc5e49b78");
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
@@ -55,6 +55,7 @@ public class Service1 extends Service {
             public void onMessage(final String s) {
                 Message message = new Gson().fromJson(s, Message.class);
                 System.out.println(s);
+                showNotification("deneme","wfewfew",1);
             }
 
             @Override

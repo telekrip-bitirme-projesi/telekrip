@@ -25,7 +25,7 @@ public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
     TextView _tvNameSurname,_tvLastTalk;
-    Button _btnEditProfil,_btnTheme,_btnNotification;
+    Button _btnEditProfil,_btnTheme,_btnNotification,_btnHelp;
     ImageButton _ibLastTalk;
     SpotsDialog spotsDialog;
     @Override
@@ -42,6 +42,7 @@ public class UserPanelActivity extends Activity {
             public void onClick(View view) {
                 Intent editProfil = new Intent(getApplicationContext(), EditProfilActivity.class);
                 startActivity(editProfil);
+                overridePendingTransition(R.transition.left,R.transition.out_right);
             }
         });
         _btnTheme.setOnClickListener(new View.OnClickListener() {
@@ -49,6 +50,7 @@ public class UserPanelActivity extends Activity {
             public void onClick(View view) {
                 Intent themeActivity = new Intent(getApplicationContext(), ThemeActivity.class);
                 startActivity(themeActivity);
+                overridePendingTransition(R.transition.left,R.transition.out_right);
             }
         });
         _btnNotification.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +58,15 @@ public class UserPanelActivity extends Activity {
             public void onClick(View view) {
                 Intent notification = new Intent(getApplicationContext(), NotificationActivity.class);
                 startActivity(notification);
+                overridePendingTransition(R.transition.left,R.transition.out_right);
+            }
+        });
+        _btnHelp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent helpActivity = new Intent(getApplicationContext(), HelpActivity.class);
+                startActivity(helpActivity);
+                overridePendingTransition(R.transition.left,R.transition.out_right);
             }
         });
         _ibLastTalk.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +91,7 @@ public class UserPanelActivity extends Activity {
                     public void onResponse(String response) {
                         try {
                             JSONArray ja = new JSONArray(response);
+                            _tvNameSurname.setText(ja.getJSONObject(0).getString("first_name")+" "+ja.getJSONObject(0).getString("last_name"));
                             Picasso.with(getApplicationContext()).load(ja.getJSONObject(0).getString("avatar")).fit().centerCrop()
                                     .placeholder(R.drawable.default_avatar)
                                     .error(R.drawable.default_avatar)
@@ -109,10 +121,16 @@ public class UserPanelActivity extends Activity {
         _ibLastTalk=findViewById(R.id.ibLastTalk);
         _btnTheme=findViewById(R.id.btnTheme);
         _btnNotification=findViewById(R.id.btnNotification);
+        _btnHelp=findViewById(R.id.btnHelp);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)
                 .into(_ivAvatar);
         _tvNameSurname.setText((String) Tools.getSharedPrefences(getApplicationContext(),"username",String.class));
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
     }
 }

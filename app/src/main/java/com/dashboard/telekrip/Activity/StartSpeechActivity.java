@@ -97,11 +97,13 @@ public class StartSpeechActivity extends AppCompatActivity {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("old", tempUser.get(i));
                     startActivity(chatActivity);
+                    overridePendingTransition(R.transition.left,R.transition.out_right);
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("old", listUser.get(i));
                     startActivity(chatActivity);
+                    overridePendingTransition(R.transition.left,R.transition.out_right);
                     //System.out.println(listUser.get(i).getUserName());
                 }
             }
@@ -173,6 +175,7 @@ public class StartSpeechActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent mainActivity = new Intent(StartSpeechActivity.this,MainActivity.class);
         startActivity(mainActivity);
+        overridePendingTransition(R.transition.left,R.transition.out_right);
         finish();
     }
 }

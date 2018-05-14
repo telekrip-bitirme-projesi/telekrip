@@ -70,6 +70,7 @@ public class AccountVerificationActivity extends Activity {
                                     Tools.setSharedPrefences(AccountVerificationActivity.this,"isLogin",true);
                                     Intent mainActivity = new Intent(AccountVerificationActivity.this,MainActivity.class);
                                     startActivity(mainActivity);
+                                    overridePendingTransition(R.transition.left,R.transition.out_right);
                                     AccountVerificationActivity.this.finish();
                                 }
                             }

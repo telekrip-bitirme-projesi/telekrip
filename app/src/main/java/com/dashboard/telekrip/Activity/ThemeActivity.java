@@ -64,4 +64,10 @@ public class ThemeActivity extends AppCompatActivity {
             return 7;
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
+    }
 }

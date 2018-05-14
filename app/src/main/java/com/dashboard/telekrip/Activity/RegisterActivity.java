@@ -32,6 +32,7 @@ public class RegisterActivity extends Activity {
         if((boolean)Tools.getSharedPrefences(getApplicationContext(),"isLogin",Boolean.class)){
             Intent mainActivity = new Intent(RegisterActivity.this,MainActivity.class);
             startActivity(mainActivity);
+            overridePendingTransition(R.transition.left,R.transition.out_right);
             RegisterActivity.this.finish();
         }
         uiInitialization();
@@ -66,6 +67,7 @@ public class RegisterActivity extends Activity {
                                 Intent accountVerificationActivity = new Intent(getApplicationContext(), com.dashboard.telekrip.Activity.AccountVerificationActivity.class);
                                 accountVerificationActivity.putExtra("phoneNumber",_etPhoneNumber.getText().toString());
                                 startActivity(accountVerificationActivity);
+                                overridePendingTransition(R.transition.left,R.transition.out_right);
                                 RegisterActivity.this.finish();
                                 progressDialog.dismiss();
                             }
@@ -89,6 +91,7 @@ public class RegisterActivity extends Activity {
                                         accountVerificationActivity.putExtra("phoneNumber",_etPhoneNumber.getText().toString());
                                         accountVerificationActivity.putExtra("isBefore",true);
                                         startActivity(accountVerificationActivity);
+                                        overridePendingTransition(R.transition.left,R.transition.out_right);
                                     }
                                 }
                             } catch (JSONException e) {
@@ -116,5 +119,11 @@ public class RegisterActivity extends Activity {
     private void uiInitialization() {
         _etPhoneNumber=findViewById(R.id.etPhoneNumber);
         _btnRegister=findViewById(R.id.btnRegister);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
     }
 }

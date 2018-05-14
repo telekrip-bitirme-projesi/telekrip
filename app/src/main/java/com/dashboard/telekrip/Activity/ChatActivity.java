@@ -132,6 +132,7 @@ public class ChatActivity extends Activity {
                 message=Tools.getEncrypt(message);
                 message=message.replace("\n","");
                 if(!mWebSocketClient.getConnection().isClosed()){
+                    System.out.println(chatKey);
                     mWebSocketClient.send("{\"sender\": " + phoneNumber + ", \"text\": \"" + message + "\",\"isSave\":" + isSave + "}");
                 }
 
@@ -273,12 +274,12 @@ public class ChatActivity extends Activity {
 
             @Override
             public void onClose(int i, String s, boolean b) {
-                System.out.println("closed");
+                System.out.println("socket closed");
             }
 
             @Override
             public void onError(Exception e) {
-                System.out.println("error");
+                System.out.println("socket error");
             }
         };
         mWebSocketClient.connect();
@@ -325,12 +326,12 @@ public class ChatActivity extends Activity {
         emojIcon.setKeyboardListener(new EmojIconActions.KeyboardListener() {
             @Override
             public void onKeyboardOpen() {
-                Log.e("Keyboard", "open");
+
             }
 
             @Override
             public void onKeyboardClose() {
-                Log.e("Keyboard", "close");
+
             }
         });
         emojIcon.addEmojiconEditTextList(_edtTxtMessage2);
@@ -378,6 +379,7 @@ public class ChatActivity extends Activity {
     public void onBackPressed() {
         Intent mainActivity = new Intent(ChatActivity.this,MainActivity.class);
         startActivity(mainActivity);
+        overridePendingTransition(R.transition.left,R.transition.out_right);
         finish();
     }
 }

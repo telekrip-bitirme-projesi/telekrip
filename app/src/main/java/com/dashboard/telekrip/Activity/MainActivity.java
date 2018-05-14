@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), Service1.class);
             startService(i);
         }
+        Intent i = new Intent(getApplicationContext(), Service1.class);
+        startService(i);
 
         getListConversations();
 
@@ -123,12 +125,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", tempUser.get(i));
                     startActivity(chatActivity);
+                    overridePendingTransition(R.transition.left,R.transition.out_right);
                     finish();
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", listUser.get(i));
                     startActivity(chatActivity);
+                    overridePendingTransition(R.transition.left,R.transition.out_right);
                     finish();
                     //System.out.println(listUser.get(i).getUserName());
                 }
@@ -144,14 +148,17 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.add_user: {
                                 Intent startSpeechActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
                                 startActivity(startSpeechActivity);
+                                overridePendingTransition(R.transition.left,R.transition.out_right);
                                 finish();
                                 break;
                             }
                             case R.id.account: {
                                 Intent userPanelActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
                                 startActivity(userPanelActivity);
+                                overridePendingTransition(R.transition.left,R.transition.out_right);
                                 break;
                             }
+
 
                         }
                         return true;

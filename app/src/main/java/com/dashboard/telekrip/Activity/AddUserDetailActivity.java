@@ -67,4 +67,10 @@ public class AddUserDetailActivity extends Activity {
                 .into(_ivAvatar);
         _tvNameSurname.setText((String) Tools.getSharedPrefences(getApplicationContext(), "username", String.class));
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
+    }
 }
