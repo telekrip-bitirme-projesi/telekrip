@@ -85,6 +85,7 @@ public class ChatActivity extends Activity {
         if (getIntent().hasExtra("user")) {
             oldUser = (OldMessage) getIntent().getSerializableExtra("user");
             if(oldUser.getAvatar()!=null && !oldUser.getAvatar().equals("")){
+                if(!oldUser.getAvatar().contains("http://")){oldUser.setAvatar("http://yazlab.xyz:8000/media/"+oldUser.getAvatar());}
                 Picasso.with(getApplicationContext()).load(oldUser.getAvatar()).fit().centerCrop()
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)
@@ -107,6 +108,7 @@ public class ChatActivity extends Activity {
         } else {
             usr = (User) getIntent().getSerializableExtra("old");
             if(usr.getAvatar()!=null && !usr.getAvatar().equals("")){
+                if(!usr.getAvatar().contains("http://")){usr.setAvatar("http://yazlab.xyz:8000/media/"+usr.getAvatar());}
                 Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)

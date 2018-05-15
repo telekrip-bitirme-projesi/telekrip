@@ -55,7 +55,7 @@ public class Service1 extends Service {
             public void onMessage(final String s) {
                 Message message = new Gson().fromJson(s, Message.class);
                 System.out.println(s);
-                showNotification("deneme","wfewfew",1);
+                showNotification("Ahmet Bilgili","bugün kaçta geliceksin ?",1);
             }
 
             @Override
