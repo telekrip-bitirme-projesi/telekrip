@@ -71,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(getApplicationContext(), Service1.class);
             startService(i);
         }
-        Intent i = new Intent(getApplicationContext(), Service1.class);
-        startService(i);
 
         getListConversations();
 

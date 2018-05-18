@@ -13,77 +13,138 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.dashboard.telekrip.Activity.MainActivity;
 import com.dashboard.telekrip.Adapter.AdapterChat;
+import com.dashboard.telekrip.Adapter.AdapterOldUserMessage;
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Tools.Tools;
 import com.dashboard.telekrip.model.Message;
+import com.dashboard.telekrip.model.OldMessage;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 @SuppressWarnings("deprecation")
 public class Service1 extends Service {
-    public WebSocketClient mWebSocketClient;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
-        connectWebSocket();
+        connectWebSocket(getApplicationContext());
         return flags;
     }
-    private void connectWebSocket() {
-        System.out.println("xx");
-        URI uri;
-        try {
-            uri = new URI("http://yazlab.xyz:8000/chat/message/540106955d5d42434abc49a5bf61cb0a9262e14de9b40ffa344c0d2cc5e49b78");
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return;
-        }
+    private void connectWebSocket(final Context ctx) {
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciBasliklari/?telefonNumarasi=" + Tools.getSharedPrefences(this, "phoneNumber", String.class),
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONArray ja = new JSONArray(response);
+                            for(int i=0;i<ja.length();i++){
+                                URI uri;
+                                try {
+                                    uri = new URI("http://yazlab.xyz:8000/chat/message/"+ja.getJSONObject(i).getString("key"));
+                                } catch (URISyntaxException e) {
+                                    e.printStackTrace();
+                                    return;
+                                }
 
-        mWebSocketClient = new WebSocketClient(uri) {
-            @Override
-            public void onOpen(ServerHandshake serverHandshake) {
-                System.out.println("open");
-            }
+                                new WebSocketClient(uri) {
+                                    @Override
+                                    public void onOpen(ServerHandshake serverHandshake) {
+                                        System.out.println("open");
+                                    }
 
-            @Override
-            public void onMessage(final String s) {
-                Message message = new Gson().fromJson(s, Message.class);
-                System.out.println(s);
-                showNotification("Ahmet Bilgili","bugün kaçta geliceksin ?",1);
-            }
+                                    @Override
+                                    public void onMessage(final String s) {
+                                        Random r = new Random();
+                                        Message message = new Gson().fromJson(s, Message.class);
+                                        if((boolean)Tools.getSharedPrefences(ctx,"notification",Boolean.class)){
+                                            if(Tools.getSharedPrefences(ctx,"position",String.class).toString().equals("chating")){
+                                                if((boolean)Tools.getSharedPrefences(ctx,"sound",Boolean.class)){
+                                                    showNotification(true,true,message.getSenderNameSurname(),Tools.getDecrypt(message.getText()),r.nextInt(989456464));
+                                                }
+                                                else {
+                                                    showNotification(false,true,message.getSenderNameSurname(),Tools.getDecrypt(message.getText()),r.nextInt(989456464));
+                                                }
+                                            }
+                                        }
+                                    }
 
-            @Override
-            public void onClose(int i, String s, boolean b) {
-                System.out.println("closed");
-            }
+                                    @Override
+                                    public void onClose(int i, String s, boolean b) {
+                                        System.out.println("closed");
+                                    }
 
-            @Override
-            public void onError(Exception e) {
-                System.out.println("error");
-            }
-        };
-        mWebSocketClient.connect();
+                                    @Override
+                                    public void onError(Exception e) {
+                                        System.out.println("error");
+                                    }
+                                }.connect();
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }
+
+        );
+        Volley.newRequestQueue(this).add(postRequest);
+
+
     }
-     void showNotification(String title,String message,int id){
+     void showNotification(boolean sound,boolean vibrate,String title,String message,int id){
+
          Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
          Intent intent = new Intent(this, MainActivity.class);
          PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-         Notification noti =
-                 new NotificationCompat.Builder(this)
-                         .setSmallIcon(R.mipmap.icon)
-                         .setContentTitle(title)
-                         .setContentText(message)
-                         .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                         .setContentIntent(pIntent)
-                         .setSound(alarmSound)
-                         .build();
 
+         Notification noti=null;
+         if(sound){
+              noti = new NotificationCompat.Builder(this)
+                             .setSmallIcon(R.mipmap.icon)
+                             .setContentTitle(title)
+                             .setContentText(message)
+                             .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                             .setContentIntent(pIntent)
+                             .setSound(alarmSound)
+                             .build();
+
+         }
+         else {
+             noti= new NotificationCompat.Builder(this)
+                     .setSmallIcon(R.mipmap.icon)
+                     .setContentTitle(title)
+                     .setContentText(message)
+                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                     .setContentIntent(pIntent)
+                     .build();
+         }
          // Hide the notification after its selected
          noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
@@ -91,6 +152,7 @@ public class Service1 extends Service {
                  (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
          // mId allows you to update the notification later on.
          mNotificationManager.notify(id, noti);
+
      }
 
     @Nullable

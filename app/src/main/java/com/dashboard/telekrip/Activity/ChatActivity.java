@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -318,6 +317,8 @@ public class ChatActivity extends Activity {
 
     private void uiInitialization() {
 
+        Tools.setSharedPrefences(ChatActivity.this,"position","chating");
+
         rootView = findViewById(R.id.root_view);
         _btnSend = findViewById(R.id.emoji_btn);
         submitButton = findViewById(R.id.btnSend);
@@ -379,6 +380,7 @@ public class ChatActivity extends Activity {
     }
     @Override
     public void onBackPressed() {
+        Tools.setSharedPrefences(ChatActivity.this,"position","notchating");
         Intent mainActivity = new Intent(ChatActivity.this,MainActivity.class);
         startActivity(mainActivity);
         overridePendingTransition(R.transition.left,R.transition.out_right);
