@@ -49,6 +49,7 @@ public class Service1 extends Service {
         connectWebSocket(getApplicationContext());
         return flags;
     }
+
     private void connectWebSocket(final Context ctx) {
         StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciBasliklari/?telefonNumarasi=" + Tools.getSharedPrefences(this, "phoneNumber", String.class),
                 new Response.Listener<String>() {
@@ -56,10 +57,10 @@ public class Service1 extends Service {
                     public void onResponse(String response) {
                         try {
                             JSONArray ja = new JSONArray(response);
-                            for(int i=0;i<ja.length();i++){
+                            for (int i = 0; i < ja.length(); i++) {
                                 URI uri;
                                 try {
-                                    uri = new URI("http://yazlab.xyz:8000/chat/message/"+ja.getJSONObject(i).getString("key"));
+                                    uri = new URI("http://yazlab.xyz:8000/chat/message/" + ja.getJSONObject(i).getString("key"));
                                 } catch (URISyntaxException e) {
                                     e.printStackTrace();
                                     return;
@@ -75,14 +76,11 @@ public class Service1 extends Service {
                                     public void onMessage(final String s) {
                                         Random r = new Random();
                                         Message message = new Gson().fromJson(s, Message.class);
-                                        if((boolean)Tools.getSharedPrefences(ctx,"notification",Boolean.class)){
-                                            if(Tools.getSharedPrefences(ctx,"position",String.class).toString().equals("chating")){
-                                                if((boolean)Tools.getSharedPrefences(ctx,"sound",Boolean.class)){
-                                                    showNotification(true,true,message.getSenderNameSurname(),Tools.getDecrypt(message.getText()),r.nextInt(989456464));
-                                                }
-                                                else {
-                                                    showNotification(false,true,message.getSenderNameSurname(),Tools.getDecrypt(message.getText()),r.nextInt(989456464));
-                                                }
+                                        boolean sound=(boolean) Tools.getSharedPrefences(ctx, "sound", Boolean.class);
+                                        boolean vibrate=(boolean) Tools.getSharedPrefences(ctx, "vibration", Boolean.class);
+                                        if ((boolean) Tools.getSharedPrefences(ctx, "notification", Boolean.class)) {
+                                            if (!Tools.getSharedPrefences(ctx, "position", String.class).toString().equals("chating")) {
+                                                showNotification(sound, vibrate, message.getSenderNameSurname(), Tools.getDecrypt(message.getText()), r.nextInt(989456464));
                                             }
                                         }
                                     }
@@ -118,42 +116,63 @@ public class Service1 extends Service {
 
 
     }
-     void showNotification(boolean sound,boolean vibrate,String title,String message,int id){
 
-         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-         Intent intent = new Intent(this, MainActivity.class);
-         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+    void showNotification(boolean sound, boolean vibrate, String title, String message, int id) {
 
-         Notification noti=null;
-         if(sound){
-              noti = new NotificationCompat.Builder(this)
-                             .setSmallIcon(R.mipmap.icon)
-                             .setContentTitle(title)
-                             .setContentText(message)
-                             .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                             .setContentIntent(pIntent)
-                             .setSound(alarmSound)
-                             .build();
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Intent intent = new Intent(this, MainActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
 
-         }
-         else {
-             noti= new NotificationCompat.Builder(this)
-                     .setSmallIcon(R.mipmap.icon)
-                     .setContentTitle(title)
-                     .setContentText(message)
-                     .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
-                     .setContentIntent(pIntent)
-                     .build();
-         }
-         // Hide the notification after its selected
-         noti.flags |= Notification.FLAG_AUTO_CANCEL;
+        Notification noti = null;
+        if (sound && vibrate) {
+            noti = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.icon)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .setContentIntent(pIntent)
+                    .setSound(alarmSound)
+                    .build();
 
-         NotificationManager mNotificationManager =
-                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-         // mId allows you to update the notification later on.
-         mNotificationManager.notify(id, noti);
+        } else if(!sound && vibrate) {
+            noti = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.icon)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .setContentIntent(pIntent)
+                    .build();
+        }
+        else if(sound && !vibrate){
+            noti = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.icon)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .setSound(alarmSound)
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setContentIntent(pIntent)
+                    .build();
+        }
+        else if(!sound && !vibrate){
+            noti = new NotificationCompat.Builder(this)
+                    .setSmallIcon(R.mipmap.icon)
+                    .setContentTitle(title)
+                    .setContentText(message)
+                    .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
+                    .setDefaults(Notification.DEFAULT_LIGHTS)
+                    .setContentIntent(pIntent)
+                    .build();
+        }
+        // Hide the notification after its selected
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
 
-     }
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(id, noti);
+
+    }
 
     @Nullable
     @Override
