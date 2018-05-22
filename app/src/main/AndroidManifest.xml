@@ -53,7 +53,8 @@
             android:label="@string/title_activity_theme"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.NotificationActivity" />
-        <activity android:name=".Activity.HelpActivity"></activity>
+        <activity android:name=".Activity.HelpActivity" />
+        <activity android:name=".Activity.PrivacyActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#36a3f0">
+
+    <ImageButton
+        android:id="@+id/ibLastTalk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_action_navigation_arrow_back_inverted"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp" />
+
+    <TextView
+        android:id="@+id/tvUserPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/ibLastTalk"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:text="Hesabım"
+        android:textColor="#FFF" />
+</RelativeLayout>

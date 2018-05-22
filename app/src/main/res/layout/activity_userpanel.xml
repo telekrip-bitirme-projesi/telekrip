@@ -133,6 +133,21 @@
                 android:textColor="#333333"
                 android:textSize="10sp" />
 
+            <Button
+                android:id="@+id/btnPrivacy"
+                android:layout_width="90dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_userpanel"
+                android:drawableTop="@drawable/privacy_icon"
+                android:paddingVertical="5dp"
+                android:text="GİZLİLİK"
+                android:textAllCaps="false"
+                android:textColor="#333333"
+                android:textSize="10sp" />
+
         </RelativeLayout>
 
     </LinearLayout>

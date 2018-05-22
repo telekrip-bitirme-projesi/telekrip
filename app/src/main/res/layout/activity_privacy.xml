@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dashboard.telekrip.Activity.HelpActivity">
+
+    <include android:id="@+id/appbar" layout="@layout/appbar_privacy"/>
+
+    <LinearLayout
+        android:id="@+id/llIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="false"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:src="@mipmap/privacy_icon" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@+id/llIcon">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15dp">
+
+            <TextView
+                android:id="@+id/tvTitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip sunucuları mesajlarınızı isterseniz saklar."
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExplain1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip üzerinden gönderilen mesajlar “normal şartlarda” sunucularda depolanır. Gönderilen bir mesaj öncelikle uygulama sunucusuna ulaşır, ardından alıcıya iletilir. Mesaj alıcı tarafından alındığında sunucudan silinmez. “Normal şartlar dışında” Telekrip üzerinden gönderilen mesajlarınızın alıcıya ulaştıktan sonra uygulama sunucusunda depolanmasını istemiyorsanız mesaj gönderdiğiniz ekranda,ekranın sağ üst kısmında yer alan switch özelliğini açmanız gerekmektedir.Bu özelliği açtıktan sonra mesaj gönderirseniz göndermiş olduğunuz mesajlar alıcıya ulaştıktan sonra kalıcı olarak silinecektir."
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTitle2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip mesajların sunuculara iletimi sürecinde simetrik şifreleme yapar "
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExplain2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip Gizlilik Politikası, gönderilen mesajların Telekrip sunucularına ve ardından ilgili alıcı cihaza yönlendirilme süreci boyunca simetrik şifreleme yapıldığını ve üçüncü kişilerin iletişiminizin içeriğine ulaşamayacağını belirtmektedir."
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTitle3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip telefon rehberinize belirli aralıklarla erişir."
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExplain3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip, telefon rehberinizden yalnızca kişilerin cep telefon numaralarını alır; kişi adları, e-posta adresleri ve diğer iletişim bilgilerine erişmez. "
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvTitle4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip isterseniz konuşmalarınızı kalıcı olarak siler."
+                android:textAlignment="center"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExplain4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Telekrip kalıcı olarak silmek istediğiniz bir konuşmayı hiç bir şekilde yedeklemeden kalıcı olarak silmektedir."
+                android:textColor="@android:color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
