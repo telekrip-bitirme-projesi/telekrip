@@ -386,4 +386,10 @@ public class ChatActivity extends Activity {
         overridePendingTransition(R.transition.left,R.transition.out_right);
         finish();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Tools.setSharedPrefences(ChatActivity.this,"position","notchating");
+    }
 }
