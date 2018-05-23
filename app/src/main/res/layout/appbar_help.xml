@@ -6,7 +6,7 @@
     android:background="#36a3f0">
 
     <ImageButton
-        android:id="@+id/ibLastTalk"
+        android:id="@+id/ibUserPanel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/ibLastTalk"
+        android:layout_toRightOf="@+id/ibUserPanel"
         android:paddingBottom="15dp"
         android:paddingTop="15dp"
         android:text="Hesabım"

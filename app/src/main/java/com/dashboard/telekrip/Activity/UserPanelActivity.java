@@ -25,7 +25,7 @@ public class UserPanelActivity extends Activity {
 
     CircleImageView _ivAvatar;
     TextView _tvNameSurname,_tvLastTalk;
-    Button _btnEditProfil,_btnTheme,_btnNotification,_btnHelp,_btnPrivacy;
+    Button _btnEditProfil,_btnTheme,_btnNotification,_btnHelp,_btnPrivacy,_btnSecurity;
     ImageButton _ibLastTalk;
     SpotsDialog spotsDialog;
     @Override
@@ -74,6 +74,14 @@ public class UserPanelActivity extends Activity {
             public void onClick(View view) {
                 Intent privacyActivity = new Intent(getApplicationContext(), PrivacyActivity.class);
                 startActivity(privacyActivity);
+                overridePendingTransition(R.transition.left,R.transition.out_right);
+            }
+        });
+        _btnSecurity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent securityOnOffActivity = new Intent(getApplicationContext(), SecurityOnOffActivity.class);
+                startActivity(securityOnOffActivity);
                 overridePendingTransition(R.transition.left,R.transition.out_right);
             }
         });
@@ -131,6 +139,7 @@ public class UserPanelActivity extends Activity {
         _btnNotification=findViewById(R.id.btnNotification);
         _btnHelp=findViewById(R.id.btnHelp);
         _btnPrivacy=findViewById(R.id.btnPrivacy);
+        _btnSecurity=findViewById(R.id.btnSecurity);
         Picasso.with(getApplicationContext()).load((String) Tools.getSharedPrefences(getApplicationContext(),"avatar",String.class)).fit().centerCrop()
                 .placeholder(R.drawable.default_avatar)
                 .error(R.drawable.default_avatar)

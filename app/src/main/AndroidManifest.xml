@@ -54,7 +54,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.NotificationActivity" />
         <activity android:name=".Activity.HelpActivity" />
-        <activity android:name=".Activity.PrivacyActivity"></activity>
+        <activity android:name=".Activity.PrivacyActivity" />
+        <activity android:name=".Activity.SecurityActivity" />
+        <activity android:name=".Activity.SecurityOnOffActivity"></activity>
     </application>
 
 </manifest>
