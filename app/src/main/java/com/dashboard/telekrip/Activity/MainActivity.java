@@ -61,9 +61,20 @@ public class MainActivity extends AppCompatActivity {
     SpotsDialog spotsDialog;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(Tools.getSharedPrefences(MainActivity.this,"security",String.class)!=null && (Boolean) Tools.getSharedPrefences(MainActivity.this,"securityLogin",Boolean.class)==false){
+            Intent securityActivity = new Intent(MainActivity.this,SecurityActivity.class);
+            startActivity(securityActivity);
+            //MainActivity.this.finish();
+        }
 
         uiInitialization();
 
@@ -299,6 +310,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Tools.setSharedPrefences(MainActivity.this,"securityLogin",false);
+        MainActivity.this.finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Tools.setSharedPrefences(MainActivity.this,"securityLogin",false);
         MainActivity.this.finish();
     }
 }

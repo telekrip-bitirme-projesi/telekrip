@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andrognito.pinlockview.IndicatorDots;
@@ -21,6 +23,8 @@ public class SecurityOnOffActivity extends Activity {
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
     private Button _btnResetPassword;
+    private ImageButton _ibUserPanel;
+    private TextView _tvUserPanel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +41,12 @@ public class SecurityOnOffActivity extends Activity {
             public void onComplete(String pin) {
                 if (Tools.getSharedPrefences(SecurityOnOffActivity.this, "security", String.class) == null) {
                     Tools.setSharedPrefences(SecurityOnOffActivity.this, "security", pin);
-                    Intent userPanelActivity = new Intent(SecurityOnOffActivity.this, UserPanelActivity.class);
-                    startActivity(userPanelActivity);
-                    overridePendingTransition(R.transition.left, R.transition.out_right);
+                    onBackPressed();
                     Toast.makeText(SecurityOnOffActivity.this, "Parola Oluşturuldu.", Toast.LENGTH_SHORT).show();
-                    finish();
                 } else if (_btnResetPassword.getVisibility() == View.VISIBLE) {
                     Tools.setSharedPrefences(SecurityOnOffActivity.this, "security", pin);
-                    Intent userPanelActivity = new Intent(SecurityOnOffActivity.this, UserPanelActivity.class);
-                    startActivity(userPanelActivity);
-                    overridePendingTransition(R.transition.left, R.transition.out_right);
+                    onBackPressed();
                     Toast.makeText(SecurityOnOffActivity.this, "Parola Güncellendi.", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
                 if (Tools.getSharedPrefences(SecurityOnOffActivity.this, "security", String.class).equals(pin)) {
                     _btnResetPassword.setVisibility(View.VISIBLE);
@@ -94,5 +92,27 @@ public class SecurityOnOffActivity extends Activity {
         mPinLockView.setTextColor(ContextCompat.getColor(this, R.color.white));
 
         mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+
+        _ibUserPanel = findViewById(R.id.ibUserPanel);
+        _tvUserPanel = findViewById(R.id.tvUserPanel);
+
+        _ibUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        _tvUserPanel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
     }
 }

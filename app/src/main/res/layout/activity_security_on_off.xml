@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.dashboard.telekrip.Activity.SecurityOnOffActivity">
 
+    <include android:id="@+id/appbar" layout="@layout/appbar_security_on_off"/>
     <RelativeLayout
         android:id="@+id/rlSucurity"
         android:layout_width="match_parent"
@@ -40,6 +41,7 @@
         android:id="@+id/llIcon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
 

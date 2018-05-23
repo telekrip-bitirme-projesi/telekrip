@@ -1,20 +1,25 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
 import com.dashboard.telekrip.R;
+import com.dashboard.telekrip.Tools.Tools;
 
 public class SecurityActivity extends Activity {
 
     private PinLockView mPinLockView;
     private IndicatorDots mIndicatorDots;
+    private int errorEntryPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,14 @@ public class SecurityActivity extends Activity {
             @Override
             public void onComplete(String pin) {
 
-                System.out.println(pin);
+                if (Tools.getSharedPrefences(SecurityActivity.this, "security", String.class).equals(pin)) {
+                    Tools.setSharedPrefences(SecurityActivity.this,"securityLogin",true);
+                    onBackPressed();
+                }
+                else {
+                    Toast.makeText(SecurityActivity.this,++errorEntryPassword+". yanlış şifre denemesi!",Toast.LENGTH_SHORT).show();
+                }
+                mPinLockView.resetPinLockView();
             }
 
             @Override
@@ -59,5 +71,22 @@ public class SecurityActivity extends Activity {
         mPinLockView.setTextColor(ContextCompat.getColor(this, R.color.white));
 
         mIndicatorDots.setIndicatorType(IndicatorDots.IndicatorType.FILL_WITH_ANIMATION);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        overridePendingTransition(R.transition.left,R.transition.out_right);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(!(Boolean) Tools.getSharedPrefences(SecurityActivity.this,"securityLogin",Boolean.class)){
+            finishAffinity();
+        }
+        else {
+            finish();
+            overridePendingTransition(R.transition.left,R.transition.out_right);
+        }
     }
 }
