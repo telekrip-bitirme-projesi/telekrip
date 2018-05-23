@@ -42,7 +42,7 @@
             android:name=".Activity.AccountVerificationActivity"
             android:launchMode="singleInstance" />
         <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.ChatActivity" />
+        <activity android:windowSoftInputMode="adjustResize" android:name=".Activity.ChatActivity" />
         <activity android:name=".Activity.UserPanelActivity" />
         <activity android:name=".Activity.ChangePasswordActivity" />
         <activity android:name=".Activity.StartSpeechActivity" />

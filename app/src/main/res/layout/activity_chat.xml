@@ -8,14 +8,79 @@
     android:orientation="vertical"
     android:paddingTop="16dp">
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/switchSave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="10dp"
-        android:textOff="Kaydetme"
-        android:textOn="Kaydet" />
+    <RelativeLayout
+        android:id="@+id/rlContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rel_ust">
+
+        <LinearLayout
+            android:id="@+id/lin_orta"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/root_view"
+            android:layout_below="@+id/rel_ust"
+            android:layout_weight="0.9">
+
+            <ListView
+                android:id="@+id/list_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:divider="@null"
+                android:listSelector="@android:color/transparent"
+                android:scrollbars="none"
+                android:transcriptMode="alwaysScroll" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/root_view"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom">
+
+            <ImageView
+                android:id="@+id/emoji_btn"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:padding="4dp"
+                android:src="@mipmap/smiley" />
+
+            <ImageView
+                android:id="@+id/btnSend"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:padding="4dp"
+                android:src="@android:drawable/ic_menu_send" />
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+                android:id="@+id/etMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@id/btnSend"
+                android:layout_toRightOf="@id/emoji_btn"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                emojicon:emojiconSize="28sp" />
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
+                android:id="@+id/emojicon_edit_text2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/etMessage"
+                android:imeOptions="actionSend"
+                android:inputType="text"
+                android:visibility="invisible"
+                emojicon:emojiconSize="28sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/rel_ust"
@@ -40,73 +105,16 @@
             android:text="kullanıcı adı"
             android:textColor="#000000"
             android:visibility="visible" />
-    </RelativeLayout>
 
-
-    <LinearLayout
-        android:id="@+id/lin_orta"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/root_view"
-        android:layout_below="@+id/rel_ust"
-        android:layout_weight="0.9">
-
-        <ListView
-            android:id="@+id/list_msg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="16dp"
-            android:divider="@null"
-            android:listSelector="@android:color/transparent"
-            android:scrollbars="none"
-            android:transcriptMode="alwaysScroll" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/root_view"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:layout_alignParentBottom="true">
-
-        <ImageView
-            android:id="@+id/emoji_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:padding="4dp"
-            android:src="@mipmap/smiley" />
-
-        <ImageView
-            android:id="@+id/btnSend"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/switchSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:padding="4dp"
-            android:src="@android:drawable/ic_menu_send" />
-
-        <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
-            android:id="@+id/etMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toLeftOf="@id/btnSend"
-            android:layout_toRightOf="@id/emoji_btn"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            emojicon:emojiconSize="28sp" />
-
-        <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
-            android:id="@+id/emojicon_edit_text2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/etMessage"
-            android:imeOptions="actionSend"
-            android:inputType="text"
-            android:visibility="invisible"
-            emojicon:emojiconSize="28sp" />
+            android:layout_marginTop="10dp"
+            android:textOff="Kaydetme"
+            android:textOn="Kaydet" />
     </RelativeLayout>
+
 
 </RelativeLayout>
