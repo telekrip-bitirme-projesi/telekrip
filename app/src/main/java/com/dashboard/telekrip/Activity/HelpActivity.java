@@ -65,6 +65,7 @@ public class HelpActivity extends Activity {
         listDataHeader.add("SOHBETLER");
         listDataHeader.add("MESAJLARI DEPOLAMADAN GÖNDERME");
         listDataHeader.add("GÜVENLİK VE GİZLİLİK");
+        listDataHeader.add("YÜKSEK GÜVENLİK");
 
         List<String> hesapVeProfil = new ArrayList<>();
         hesapVeProfil.add("Hesap ve Profil bilgilerinizi yönetmek için Telekrip -> Hesabım'a gidin.Açılan ekrandan profil bilgilerinizi" +
@@ -89,11 +90,20 @@ public class HelpActivity extends Activity {
         guvenlikVeGizlilik.add("Göndermiş olduğunuz mesajların hepsi sunucuya gitmeden önce şifrelenmektedir,göndermiş olduğunuz mesajlar" +
                 " sadece alıcıya ulaştığı zaman mesajı açma işlemi yapılmaktadır,hiç bir şekilde 3.kişiler tarafından mesajlarınızın" +
                 " içeriği görüntülenememktedir.");
+        List<String> yuksekGuvenlik = new ArrayList<>();
+        yuksekGuvenlik.add("Hesabım -> Yüksek güvenlik adımlarını takip ederek bu özelliği aktif hale getirebilirsiniz.Telekrip uygulaması için özel olarak geliştirilmiştir,yüksek güvenlik özelliğini " +
+                " aktif hale getirmeniz durumunda uygulamayı her çalıştırdığınızda veya uygulamalar arasında geçiş yaptığınızda ekranda" +
+                " bir parola ekranı belirecektir.Bu ekranda sizden daha önce belirlemiş olduğunuz parolayı girmeniz beklenmektedir,eğer arka arkaya" +
+                " 5 kez yanlış parola girdiyseniz uygulamaya erişiminiz 1 saat boyunca engellenecektir.Bu özelliği devre dışı bırakmak isterseniz" +
+                " Hesabım -> Yüksek güvenlik adımlarını takip ettikten sonra daha önce belirlemiş olduğunuz parolayı girmeniz gerekmektedir," +
+                " eğer parolayı doğru bir şekilde girdiyseniz ekranda \"İPTAL ET\" butonunu görmüş olacaksınız;butona basmanız durumunda uygulama" +
+                " kilidini tamamen iptal etmiş olacaksınız." );
 
         listHash.put(listDataHeader.get(0),hesapVeProfil);
         listHash.put(listDataHeader.get(1),sohbetler);
         listHash.put(listDataHeader.get(2),mesajlariDepolamadanGonderme);
         listHash.put(listDataHeader.get(3),guvenlikVeGizlilik);
+        listHash.put(listDataHeader.get(4),yuksekGuvenlik);
     }
 
     @Override
