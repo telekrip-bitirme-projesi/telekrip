@@ -7,6 +7,20 @@ import java.io.Serializable;
 
 public class OldMessage implements Serializable{
 
+	private boolean quiet;
+
+	public OldMessage() {
+		this.quiet = false;
+	}
+
+	public boolean isQuiet() {
+		return quiet;
+	}
+
+	public void setQuiet(boolean quiet) {
+		this.quiet = quiet;
+	}
+
 	@SerializedName("sender_phone")
 	private String senderPhone;
 

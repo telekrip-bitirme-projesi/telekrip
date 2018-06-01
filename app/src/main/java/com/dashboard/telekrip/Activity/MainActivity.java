@@ -1,7 +1,9 @@
 package com.dashboard.telekrip.Activity;
 
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -70,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(Tools.getSharedPrefences(MainActivity.this,"security",String.class)!=null && (Boolean) Tools.getSharedPrefences(MainActivity.this,"securityLogin",Boolean.class)==false){
-            Intent securityActivity = new Intent(MainActivity.this,SecurityActivity.class);
+        if (Tools.getSharedPrefences(MainActivity.this, "security", String.class) != null && (Boolean) Tools.getSharedPrefences(MainActivity.this, "securityLogin", Boolean.class) == false) {
+            Intent securityActivity = new Intent(MainActivity.this, SecurityActivity.class);
             startActivity(securityActivity);
             //MainActivity.this.finish();
         }
@@ -134,14 +136,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", tempUser.get(i));
                     startActivity(chatActivity);
-                    overridePendingTransition(R.transition.left,R.transition.out_right);
+                    overridePendingTransition(R.transition.left, R.transition.out_right);
                     finish();
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("user", listUser.get(i));
                     startActivity(chatActivity);
-                    overridePendingTransition(R.transition.left,R.transition.out_right);
+                    overridePendingTransition(R.transition.left, R.transition.out_right);
                     finish();
                     //System.out.println(listUser.get(i).getUserName());
                 }
@@ -157,14 +159,14 @@ public class MainActivity extends AppCompatActivity {
                             case R.id.add_user: {
                                 Intent startSpeechActivity = new Intent(getApplicationContext(), StartSpeechActivity.class);
                                 startActivity(startSpeechActivity);
-                                overridePendingTransition(R.transition.left,R.transition.out_right);
+                                overridePendingTransition(R.transition.left, R.transition.out_right);
                                 finish();
                                 break;
                             }
                             case R.id.account: {
                                 Intent userPanelActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
                                 startActivity(userPanelActivity);
-                                overridePendingTransition(R.transition.left,R.transition.out_right);
+                                overridePendingTransition(R.transition.left, R.transition.out_right);
                                 break;
                             }
 
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add("Konuşmayı sil");
+        menu.add("Sessize al");
     }
 
 
@@ -196,21 +199,57 @@ public class MainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
         super.onContextItemSelected(item);
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        final Object obj = _lvUser.getItemAtPosition(info.position);
+        final int indis = Integer.parseInt(obj.toString());
+        if (item.getTitle().equals("Konuşmayı sil")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setMessage("Konuşma Silinsin mi ??")
+                    .setCancelable(false)
+                    .setPositiveButton("Evet", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            if (isSearch) {
+                                for (int i = 0; i < listUser.size(); i++) {
+                                    if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
+                                        listUser.remove(i);
+                                        break;
+                                    }
+                                }
+                                deleteTalk(tempUser.get(indis).getKey(), indis, "temp");
 
-        Object obj = _lvUser.getItemAtPosition(info.position);
-        int indis = Integer.parseInt(obj.toString());
-        if (isSearch) {
-            for (int i = 0; i < listUser.size(); i++) {
-                if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
-                    listUser.remove(i);
-                    break;
+                            } else {
+                                deleteTalk(listUser.get(indis).getKey(), indis, "orjinal");
+                            }
+                        }
+                    })
+                    .setTitle("Konuşmayı Sil")
+                    .setIcon(R.drawable.info).setNegativeButton("Vazgeç", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
                 }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        } else if (item.getTitle().equals("Sessize al")) {
+            if (isSearch) {
+                for (int i = 0; i < listUser.size(); i++) {
+                    if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
+                        JSONObject jo =  new JSONObject();
+                        //jo.put("quietList",listUser.get(i).getSenderPhone());
+                        //Tools.setSharedPrefences(MainActivity.this,"quietList",jo);
+                        listUser.get(i).setQuiet(true);
+                        adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, tempUser);
+                        _lvUser.setAdapter(adapterOldUserMessage);
+                        break;
+                    }
+                }
+
+
+            } else {
+                listUser.get(indis).setQuiet(true);
+                adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, listUser);
+                _lvUser.setAdapter(adapterOldUserMessage);
             }
-
-            deleteTalk(tempUser.get(indis).getKey(), indis, "temp");
-
-        } else {
-            deleteTalk(listUser.get(indis).getKey(), indis, "orjinal");
         }
 
         return true;
@@ -289,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                         _lvUser.setAdapter(adapterOldUserMessage);
 
                         if (listUser.size() == 0) {
-                            Tools.generateAlertDialog(MainActivity.this,"BİLGİLENDİRME","Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.").show();
+                            Tools.generateAlertDialog(MainActivity.this, "BİLGİLENDİRME", "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.").show();
                         }
                         spotsDialog.dismiss();
                     }
@@ -310,14 +349,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Tools.setSharedPrefences(MainActivity.this,"securityLogin",false);
+        Tools.setSharedPrefences(MainActivity.this, "securityLogin", false);
         MainActivity.this.finish();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Tools.setSharedPrefences(MainActivity.this,"securityLogin",false);
+        Tools.setSharedPrefences(MainActivity.this, "securityLogin", false);
         MainActivity.this.finish();
     }
 }

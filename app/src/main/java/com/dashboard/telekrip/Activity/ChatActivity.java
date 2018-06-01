@@ -93,16 +93,21 @@ public class ChatActivity extends Activity {
             else {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
             }
-            if(oldUser.getReceiverName().equals("")){
-                if(!Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class).equals(oldUser.getReceiverPhone())){
-                    _tvNameSurname.setText(oldUser.getReceiverPhone());
+            if (!oldUser.getSenderPhone().equals((String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class))) {
+                if(!oldUser.getSenderName().equals("")){
+                    _tvNameSurname.setText(oldUser.getSenderName());
                 }
-                else if(!Tools.getSharedPrefences(ChatActivity.this,"phoneNumber",String.class).equals(oldUser.getSenderPhone())){
+                else {
                     _tvNameSurname.setText(oldUser.getSenderPhone());
                 }
             }
-            else {
-                _tvNameSurname.setText(oldUser.getReceiverName());
+            else if (!oldUser.getReceiverPhone().equals((String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class))) {
+                if(!oldUser.getReceiverName().equals("")){
+                    _tvNameSurname.setText(oldUser.getReceiverName());
+                }
+                else {
+                    _tvNameSurname.setText(oldUser.getReceiverPhone());
+                }
             }
         } else {
             usr = (User) getIntent().getSerializableExtra("old");

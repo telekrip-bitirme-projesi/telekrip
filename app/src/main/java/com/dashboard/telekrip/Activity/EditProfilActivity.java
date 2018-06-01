@@ -86,7 +86,6 @@ public class EditProfilActivity extends Activity {
                                     .placeholder(R.drawable.default_avatar)
                                     .error(R.drawable.default_avatar)
                                     .into(_ivAvatar);
-                            bitmapAvatar=((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -197,6 +196,7 @@ public class EditProfilActivity extends Activity {
 
 
     private void saveProfil() {
+        bitmapAvatar=((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap();
         String phoneNumber = _etPhoneNumber.getText().toString();
         String firstName = _etFirsName.getText().toString();
         String lastName = _etLastName.getText().toString();
@@ -213,7 +213,7 @@ public class EditProfilActivity extends Activity {
         form_datas.addPart(
                 Headers.of("Content-Disposition", "form-data; name=\"last_name\""),
                 RequestBody.create(null, lastName));
-        bitmapAvatar.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        ((BitmapDrawable)_ivAvatar.getDrawable()).getBitmap().compress(Bitmap.CompressFormat.PNG, 0, stream);
         form_datas.addPart(
                 Headers.of("Content-Disposition", "form-data; name=\"avatar\"; filename=\"" + (Tools.randomFileName() + System.currentTimeMillis() + ".png") + "\""),
                 RequestBody.create(MEDIA_TYPE_PNG, stream.toByteArray()));

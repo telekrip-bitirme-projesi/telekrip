@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dashboard.telekrip.Activity.StartSpeechActivity;
@@ -24,6 +25,7 @@ public class AdapterOldUserMessage extends BaseAdapter {
     TextView _tvNameSurname;
     EmojiconTextView _tvLastMessage;
     CircleImageView _ivAvatar;
+    ImageView _ivQuiet;
     private Context ctx;
     private List<OldMessage> listUser;
 
@@ -56,26 +58,30 @@ public class AdapterOldUserMessage extends BaseAdapter {
         }
         _tvNameSurname = myView.findViewById(R.id.tvNameSurname);
         _ivAvatar = myView.findViewById(R.id.ivAvatar);
+        _ivQuiet = myView.findViewById(R.id.ivQuiet);
         _tvLastMessage = myView.findViewById(R.id.tvLastMessage);
 
-        if (!listUser.get(i).getSenderName().equals("")) {
-            if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+
+        if(listUser.get(i).isQuiet()){
+            _ivQuiet.setVisibility(View.VISIBLE);
+        }
+        if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+            if(!listUser.get(i).getSenderName().equals("")){
                 _tvNameSurname.setText(listUser.get(i).getSenderName());
             }
             else {
-                if (!listUser.get(i).getReceiverName().equals("")) {
-                    if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
-                        _tvNameSurname.setText(listUser.get(i).getReceiverName());
-                    }
-                }
-
+                _tvNameSurname.setText(listUser.get(i).getSenderPhone());
             }
         }
-        else if (!listUser.get(i).getReceiverName().equals("")) {
-            if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+        else if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+            if(!listUser.get(i).getReceiverName().equals("")){
                 _tvNameSurname.setText(listUser.get(i).getReceiverName());
             }
+            else {
+                _tvNameSurname.setText(listUser.get(i).getReceiverPhone());
+            }
         }
+        //--------------------
         if (listUser.get(i).getAvatar() != null && !listUser.get(i).getAvatar().equals("")) {
             Picasso.with(ctx).load(listUser.get(i).getAvatar()).fit().centerCrop()
                     .placeholder(R.drawable.default_avatar)

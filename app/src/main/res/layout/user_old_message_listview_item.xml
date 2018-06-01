@@ -30,7 +30,6 @@
         android:layout_below="@+id/tvNameSurname"
         android:layout_toEndOf="@+id/ivAvatar"
         android:padding="4dp"
-        android:text="......."
         android:textColor="#000000"
         android:textSize="16sp"
         emojicon:emojiconSize="24sp"/>
@@ -43,4 +42,15 @@
         android:layout_alignTop="@+id/tvNameSurname"
         android:layout_marginTop="5dp"
         android:background="@drawable/talk_details" />
+
+    <ImageView
+        android:id="@+id/ivQuiet"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignBottom="@+id/ivTalkDetails"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="14dp"
+        android:layout_toStartOf="@+id/ivTalkDetails"
+        android:background="@drawable/quiet_icon"
+        android:visibility="invisible" />
 </RelativeLayout>
