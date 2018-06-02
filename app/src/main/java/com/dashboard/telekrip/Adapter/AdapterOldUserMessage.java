@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dashboard.telekrip.Activity.MainActivity;
 import com.dashboard.telekrip.Activity.StartSpeechActivity;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Tools.Tools;
@@ -16,22 +17,37 @@ import com.dashboard.telekrip.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import hani.momanii.supernova_emoji_library.Helper.EmojiconTextView;
 
 public class AdapterOldUserMessage extends BaseAdapter {
+    String quietList=null;
     TextView _tvNameSurname;
     EmojiconTextView _tvLastMessage;
     CircleImageView _ivAvatar;
     ImageView _ivQuiet;
     private Context ctx;
     private List<OldMessage> listUser;
+    private List<String> listQuiet;
 
     public AdapterOldUserMessage(Context ctx, List<OldMessage> listUser) {
         this.ctx = ctx;
         this.listUser = new ArrayList<>(listUser);
+        quietList=(String)Tools.getSharedPrefences(ctx,"quietList",String.class);
+        if(quietList!=null){
+            quietList.replace("[","").replace("]","").replace(" ","");
+            listQuiet = new ArrayList<String>(Arrays.asList(quietList.split(",")));
+            for(int i=0;i<listQuiet.size();i++){
+                for(int k=0;k<listUser.size();k++){
+                    if(listQuiet.get(i).equals(listUser.get(k).getSenderPhone()) || listQuiet.get(i).equals(listUser.get(k).getReceiverPhone())){
+                        listUser.get(k).setQuiet(true);
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -64,6 +80,9 @@ public class AdapterOldUserMessage extends BaseAdapter {
 
         if(listUser.get(i).isQuiet()){
             _ivQuiet.setVisibility(View.VISIBLE);
+        }
+        else {
+            _ivQuiet.setVisibility(View.INVISIBLE);
         }
         if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
             if(!listUser.get(i).getSenderName().equals("")){

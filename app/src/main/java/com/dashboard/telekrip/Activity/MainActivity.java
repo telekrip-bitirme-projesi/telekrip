@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -231,24 +232,56 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog alert = builder.create();
             alert.show();
         } else if (item.getTitle().equals("Sessize al")) {
+            List<String> listQuiet = null;
+            String quietList=null;
+            quietList=(String)Tools.getSharedPrefences(MainActivity.this,"quietList",String.class);
+            if(quietList!=null){
+                quietList.replace("[","").replace("]","").replace(" ","");
+                listQuiet = new ArrayList<String>(Arrays.asList(quietList.split(",")));
+
+            }
+            else {
+                listQuiet=new ArrayList<>();
+            }
             if (isSearch) {
                 for (int i = 0; i < listUser.size(); i++) {
                     if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
-                        JSONObject jo =  new JSONObject();
-                        //jo.put("quietList",listUser.get(i).getSenderPhone());
-                        //Tools.setSharedPrefences(MainActivity.this,"quietList",jo);
                         listUser.get(i).setQuiet(true);
-                        adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, tempUser);
-                        _lvUser.setAdapter(adapterOldUserMessage);
-                        break;
+                        if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
+                            if(!listQuiet.contains(listUser.get(i).getSenderPhone())){
+                                listQuiet.add(listUser.get(i).getSenderPhone());
+                                Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                            }
+                        }
+                        else if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
+                            if(!listQuiet.contains(listUser.get(i).getReceiverPhone())){
+                                listQuiet.add(listUser.get(i).getReceiverPhone());
+                                Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                            }
+                        }
                     }
+                    break;
                 }
-
+                adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, tempUser);
+                _lvUser.setAdapter(adapterOldUserMessage);
 
             } else {
+
                 listUser.get(indis).setQuiet(true);
                 adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, listUser);
                 _lvUser.setAdapter(adapterOldUserMessage);
+                if (!listUser.get(indis).getSenderPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
+                    if(!listQuiet.contains(listUser.get(indis).getSenderPhone())){
+                        listQuiet.add(listUser.get(indis).getSenderPhone());
+                        Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                    }
+                }
+                else if (!listUser.get(indis).getReceiverPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
+                    if(!listQuiet.contains(listUser.get(indis).getReceiverPhone())){
+                        listQuiet.add(listUser.get(indis).getReceiverPhone());
+                        Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                    }
+                }
             }
         }
 
