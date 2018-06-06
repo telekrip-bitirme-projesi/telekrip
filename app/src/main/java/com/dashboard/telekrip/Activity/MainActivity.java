@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                 if (newText.length() > 0) {
                     isSearch = true;
                     for (int i = 0; i < listUser.size(); i++) {
-                        if (listUser.get(i).getSenderPhone().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverName().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverPhone().contains(newText) || listUser.get(i).getSenderPhone().contains(newText)) {
+                        if (listUser.get(i).getSenderPhone().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverName().toLowerCase().contains(newText.toLowerCase()) || listUser.get(i).getReceiverPhone().contains(newText) || listUser.get(i).getSenderName().contains(newText)) {
                             tempUser.add(listUser.get(i));
                         }
                     }
