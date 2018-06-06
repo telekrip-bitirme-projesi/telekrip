@@ -23,27 +23,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.dashboard.telekrip.Adapter.AdapterChat;
 import com.dashboard.telekrip.Adapter.AdapterOldUserMessage;
-import com.dashboard.telekrip.Adapter.AdapterUser;
 import com.dashboard.telekrip.R;
 import com.dashboard.telekrip.Service.Service1;
 import com.dashboard.telekrip.Tools.Tools;
-import com.dashboard.telekrip.model.Message;
 import com.dashboard.telekrip.model.OldMessage;
-import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -245,43 +235,64 @@ public class MainActivity extends AppCompatActivity {
             }
             if (isSearch) {
                 for (int i = 0; i < listUser.size(); i++) {
-                    if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName()) {
-                        listUser.get(i).setQuiet(true);
+                    if (tempUser.get(indis).getSenderName() == listUser.get(i).getSenderName() || tempUser.get(indis).getReceiverName() == listUser.get(i).getReceiverName() || tempUser.get(indis).getSenderPhone() == listUser.get(i).getReceiverPhone()) {
                         if (!listUser.get(i).getSenderPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
                             if(!listQuiet.contains(listUser.get(i).getSenderPhone())){
+                                listUser.get(i).setQuiet(true);
                                 listQuiet.add(listUser.get(i).getSenderPhone());
+                                Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                            }
+                            else {
+                                listUser.get(i).setQuiet(false);
+                                listQuiet.remove(listUser.get(i).getSenderPhone());
                                 Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
                             }
                         }
                         else if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
                             if(!listQuiet.contains(listUser.get(i).getReceiverPhone())){
+                                listUser.get(i).setQuiet(true);
                                 listQuiet.add(listUser.get(i).getReceiverPhone());
                                 Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
                             }
+                            else {
+                                listUser.get(i).setQuiet(false);
+                                listQuiet.remove(listUser.get(i).getReceiverPhone());
+                                Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
                 adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, tempUser);
                 _lvUser.setAdapter(adapterOldUserMessage);
 
             } else {
-
-                listUser.get(indis).setQuiet(true);
-                adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, listUser);
-                _lvUser.setAdapter(adapterOldUserMessage);
                 if (!listUser.get(indis).getSenderPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
                     if(!listQuiet.contains(listUser.get(indis).getSenderPhone())){
+                        listUser.get(indis).setQuiet(true);
                         listQuiet.add(listUser.get(indis).getSenderPhone());
+                        Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                    }
+                    else {
+                        listUser.get(indis).setQuiet(false);
+                        listQuiet.remove(listUser.get(indis).getSenderPhone());
                         Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
                     }
                 }
                 else if (!listUser.get(indis).getReceiverPhone().equals((String) Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class))) {
                     if(!listQuiet.contains(listUser.get(indis).getReceiverPhone())){
+                        listUser.get(indis).setQuiet(true);
                         listQuiet.add(listUser.get(indis).getReceiverPhone());
                         Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
                     }
+                    else {
+                        listUser.get(indis).setQuiet(false);
+                        listQuiet.remove(listUser.get(indis).getReceiverPhone());
+                        Tools.setSharedPrefences(MainActivity.this,"quietList",listQuiet.toString().replace("[","").replace("]","").replace(" ",""));
+                    }
                 }
+                adapterOldUserMessage = new AdapterOldUserMessage(MainActivity.this, listUser);
+                _lvUser.setAdapter(adapterOldUserMessage);
             }
         }
 
@@ -340,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void uiInitialization() {
-        getSupportActionBar().setTitle("Son Konuşmalar");
+        getSupportActionBar().setTitle("son konuşmalar");
         _lvUser = findViewById(R.id.lvUser);
         _svUserList = findViewById(R.id.svUserName);
         _bnView = findViewById(R.id.bottom_navigation);
