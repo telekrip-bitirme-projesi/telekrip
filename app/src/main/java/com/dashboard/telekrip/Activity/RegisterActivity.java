@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -56,7 +58,7 @@ public class RegisterActivity extends Activity {
     }
 
     private void makeRequestPostRegister() {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/users/registerUser",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "https://yazlab.xyz/users/registerUser",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -104,6 +106,13 @@ public class RegisterActivity extends Activity {
 
         ) {
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
             @Override
             protected Map<String, String> getParams()
             {

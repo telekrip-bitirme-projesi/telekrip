@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -17,6 +18,9 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import dmax.dialog.SpotsDialog;
@@ -101,7 +105,7 @@ public class UserPanelActivity extends Activity {
     private void getUserInformation() {
         spotsDialog = Tools.createDialog(UserPanelActivity.this, "Yükleniyor...");
         spotsDialog.show();
-        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciDetay/" + Tools.getSharedPrefences(UserPanelActivity.this, "phoneNumber", String.class),
+        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "https://yazlab.xyz/chat/kullaniciDetay/" + Tools.getSharedPrefences(UserPanelActivity.this, "phoneNumber", String.class),
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -124,9 +128,16 @@ public class UserPanelActivity extends Activity {
                     public void onErrorResponse(VolleyError error) {
                         spotsDialog.dismiss();
                     }
-                }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
 
-        );
         Volley.newRequestQueue(this).add(postRequest);
     }
     private void uiInitialization() {

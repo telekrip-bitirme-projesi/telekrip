@@ -58,7 +58,7 @@ public class AdapterStartSpeech extends BaseAdapter {
             _tvNameSurname.setText(listUser.get(i).getName()+' '+listUser.get(i).getSurname());
         }
         if(listUser.get(i).getAvatar() != null && !listUser.get(i).getAvatar().equals("")){
-            Picasso.with(ctx).load("http://yazlab.xyz:8000/media/"+listUser.get(i).getAvatar()).fit().centerCrop()
+            Picasso.with(ctx).load("https://yazlab.xyz/media/"+listUser.get(i).getAvatar()).fit().centerCrop()
                     .placeholder(R.drawable.default_avatar)
                     .error(R.drawable.default_avatar)
                     .into(_ivAvatar);

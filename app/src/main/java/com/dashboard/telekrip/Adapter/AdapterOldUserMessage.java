@@ -94,10 +94,23 @@ public class AdapterOldUserMessage extends BaseAdapter {
         }
         else if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
             if(!listUser.get(i).getReceiverName().equals("")){
-                _tvNameSurname.setText(listUser.get(i).getReceiverName());
+                if(listUser.get(i).getReceiverName().trim().equals("")){
+                    _tvNameSurname.setText(listUser.get(i).getReceiverPhone());
+                }
+                else {
+                    _tvNameSurname.setText(listUser.get(i).getReceiverName());
+                }
             }
             else {
                 _tvNameSurname.setText(listUser.get(i).getReceiverPhone());
+            }
+        }
+        else {
+            if (!listUser.get(i).getReceiverPhone().equals((String) Tools.getSharedPrefences(ctx, "phoneNumber", String.class))) {
+                _tvNameSurname.setText(listUser.get(i).getReceiverPhone());
+            }
+            else {
+                _tvNameSurname.setText(listUser.get(i).getSenderPhone());
             }
         }
         //--------------------

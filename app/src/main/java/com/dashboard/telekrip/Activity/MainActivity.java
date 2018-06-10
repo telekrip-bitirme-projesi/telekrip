@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -301,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void deleteTalk(final String key, final int sil, final String tip) {
 
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/chat/mesajSil/",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "https://yazlab.xyz/chat/mesajSil/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -326,6 +327,14 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         ) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
 
             @Override
             protected Map<String, String> getParams() {
@@ -360,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
     private void getListConversations() {
         spotsDialog = Tools.createDialog(MainActivity.this, "Yükleniyor...");
         spotsDialog.show();
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/eskiMesajlar/" + Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "https://yazlab.xyz/chat/eskiMesajlar/" + Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -383,9 +392,15 @@ public class MainActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         spotsDialog.dismiss();
                     }
-                }
-
-        );
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
         Volley.newRequestQueue(this).add(postRequest);
 
     }

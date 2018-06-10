@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -84,7 +85,7 @@ public class ChatActivity extends Activity {
         if (getIntent().hasExtra("user")) {
             oldUser = (OldMessage) getIntent().getSerializableExtra("user");
             if(oldUser.getAvatar()!=null && !oldUser.getAvatar().equals("")){
-                if(!oldUser.getAvatar().contains("http://")){oldUser.setAvatar("http://yazlab.xyz:8000/media/"+oldUser.getAvatar());}
+                if(!oldUser.getAvatar().contains("https://")){oldUser.setAvatar("http://yazlab.xyz/media/"+oldUser.getAvatar());}
                 Picasso.with(getApplicationContext()).load(oldUser.getAvatar()).fit().centerCrop()
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)
@@ -94,7 +95,7 @@ public class ChatActivity extends Activity {
                 _ivAvatar.setImageResource(R.drawable.default_avatar);
             }
             if (!oldUser.getSenderPhone().equals((String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class))) {
-                if(!oldUser.getSenderName().equals("")){
+                if(!oldUser.getSenderName().trim().equals("")){
                     _tvNameSurname.setText(oldUser.getSenderName());
                 }
                 else {
@@ -102,7 +103,7 @@ public class ChatActivity extends Activity {
                 }
             }
             else if (!oldUser.getReceiverPhone().equals((String) Tools.getSharedPrefences(ChatActivity.this, "phoneNumber", String.class))) {
-                if(!oldUser.getReceiverName().equals("")){
+                if(!oldUser.getReceiverName().trim().equals("")){
                     _tvNameSurname.setText(oldUser.getReceiverName());
                 }
                 else {
@@ -112,7 +113,7 @@ public class ChatActivity extends Activity {
         } else {
             usr = (User) getIntent().getSerializableExtra("old");
             if(usr.getAvatar()!=null && !usr.getAvatar().equals("")){
-                if(!usr.getAvatar().contains("http://")){usr.setAvatar("http://yazlab.xyz:8000/media/"+usr.getAvatar());}
+                if(!usr.getAvatar().contains("https://")){usr.setAvatar("https://yazlab.xyz/media/"+usr.getAvatar());}
                 Picasso.with(getApplicationContext()).load(usr.getAvatar()).fit().centerCrop()
                         .placeholder(R.drawable.default_avatar)
                         .error(R.drawable.default_avatar)
@@ -191,7 +192,7 @@ public class ChatActivity extends Activity {
     }
 
     private void makeRequestPostcheckMessage() {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/chat/checkMessage/",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "https://yazlab.xyz/chat/checkMessage/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -218,6 +219,14 @@ public class ChatActivity extends Activity {
         ) {
 
             @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+
+            @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
@@ -242,7 +251,7 @@ public class ChatActivity extends Activity {
 
         URI uri;
         try {
-            uri = new URI("http://yazlab.xyz:8000/chat/message/" + chatKey);
+            uri = new URI("https://yazlab.xyz:9000/chat/message/" + chatKey);
         } catch (URISyntaxException e) {
             e.printStackTrace();
             return;
@@ -292,7 +301,7 @@ public class ChatActivity extends Activity {
     }
 
     private void previousTalk() {
-        String url="http://yazlab.xyz:8000/chat/mesajlar/"+chatKey;
+        String url="https://yazlab.xyz/chat/mesajlar/"+chatKey;
         StringRequest postRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -314,9 +323,15 @@ public class ChatActivity extends Activity {
                         spotsDialog.dismiss();
 
                     }
-                }
-
-        );
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
         Volley.newRequestQueue(this).add(postRequest);
     }
 

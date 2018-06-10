@@ -3,12 +3,15 @@ package com.dashboard.telekrip.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,6 +24,7 @@ import com.dashboard.telekrip.model.User;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,13 +101,13 @@ public class StartSpeechActivity extends AppCompatActivity {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("old", tempUser.get(i));
                     startActivity(chatActivity);
-                    overridePendingTransition(R.transition.left,R.transition.out_right);
+                    overridePendingTransition(R.transition.left, R.transition.out_right);
                     //System.out.println(tempUser.get(i).getUserName());
                 } else {
                     Intent chatActivity = new Intent(getApplicationContext(), ChatActivity.class);
                     chatActivity.putExtra("old", listUser.get(i));
                     startActivity(chatActivity);
-                    overridePendingTransition(R.transition.left,R.transition.out_right);
+                    overridePendingTransition(R.transition.left, R.transition.out_right);
                     //System.out.println(listUser.get(i).getUserName());
                 }
             }
@@ -130,8 +134,8 @@ public class StartSpeechActivity extends AppCompatActivity {
     private void getSpeechList() {
         spotsDialog = Tools.createDialog(StartSpeechActivity.this, "Yükleniyor...");
         spotsDialog.show();
-        final String speecList=Tools.getContactListComma(StartSpeechActivity.this).replace("+90","").replace(",0",",");
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz:8000/users/checkUsers/",
+        final String speecList = Tools.getContactListComma(StartSpeechActivity.this).replace("+90", "").replace(",0", ",");
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "https://yazlab.xyz/users/checkUsers/",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -140,8 +144,8 @@ public class StartSpeechActivity extends AppCompatActivity {
                         listUser = new Gson().fromJson(response,
                                 new TypeToken<List<User>>() {
                                 }.getType());
-                        for(int i=0;i<listUser.size();i++){
-                            if(listUser.get(i).getPhoneNumber().equals((String)Tools.getSharedPrefences(StartSpeechActivity.this,"phoneNumber",String.class))){
+                        for (int i = 0; i < listUser.size(); i++) {
+                            if (listUser.get(i).getPhoneNumber().equals((String) Tools.getSharedPrefences(StartSpeechActivity.this, "phoneNumber", String.class))) {
                                 listUser.remove(listUser.get(i));
                             }
                         }
@@ -156,10 +160,16 @@ public class StartSpeechActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         spotsDialog.dismiss();
                     }
-                })
+                }) {
 
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
 
-        {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -167,15 +177,16 @@ public class StartSpeechActivity extends AppCompatActivity {
                 return params;
             }
         };
+
         Volley.newRequestQueue(this).add(postRequest);
 
     }
 
     @Override
     public void onBackPressed() {
-        Intent mainActivity = new Intent(StartSpeechActivity.this,MainActivity.class);
+        Intent mainActivity = new Intent(StartSpeechActivity.this, MainActivity.class);
         startActivity(mainActivity);
-        overridePendingTransition(R.transition.left,R.transition.out_right);
+        overridePendingTransition(R.transition.left, R.transition.out_right);
         finish();
     }
 }

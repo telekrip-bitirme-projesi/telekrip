@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -27,7 +28,9 @@ import com.dashboard.telekrip.model.OldMessage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kosalgeek.android.photoutil.GalleryPhoto;
+import com.squareup.okhttp.Authenticator;
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -43,7 +46,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.Proxy;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dmax.dialog.SpotsDialog;
 
@@ -72,9 +78,10 @@ public class EditProfilActivity extends Activity {
     }
 
     private void getUserInformation() {
+        System.out.println();
         spotsDialog = Tools.createDialog(EditProfilActivity.this, "Yükleniyor...");
         spotsDialog.show();
-        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciDetay/" + Tools.getSharedPrefences(EditProfilActivity.this, "phoneNumber", String.class),
+        StringRequest postRequest = new StringRequest(com.android.volley.Request.Method.GET, "https://yazlab.xyz/chat/kullaniciDetay/" + Tools.getSharedPrefences(EditProfilActivity.this, "phoneNumber", String.class),
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -98,9 +105,15 @@ public class EditProfilActivity extends Activity {
                     public void onErrorResponse(VolleyError error) {
                         spotsDialog.dismiss();
                     }
-                }
-
-        );
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
         Volley.newRequestQueue(this).add(postRequest);
     }
 
@@ -202,6 +215,19 @@ public class EditProfilActivity extends Activity {
         String lastName = _etLastName.getText().toString();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         OkHttpClient client = new OkHttpClient();
+        client.setAuthenticator(new Authenticator() {
+
+            @Override
+            public Request authenticate(Proxy proxy, Response response) throws IOException {
+
+                return response.request().newBuilder().header("Authorization", "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6").build();
+            }
+
+            @Override
+            public Request authenticateProxy(Proxy proxy, Response response) throws IOException {
+                return null;
+            }
+        });
         MultipartBuilder form_datas = new MultipartBuilder();
         form_datas.type(MultipartBuilder.FORM);
         form_datas.addPart(
@@ -220,7 +246,7 @@ public class EditProfilActivity extends Activity {
 
         RequestBody requestBody = form_datas.build();
         final Request request = new Request.Builder()
-                .url("http://yazlab.xyz:8000/users/updateUser")
+                .url("https://yazlab.xyz/users/updateUser")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(new Callback() {
