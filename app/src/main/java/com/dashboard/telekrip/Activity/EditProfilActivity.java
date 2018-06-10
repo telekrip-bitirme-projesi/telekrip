@@ -108,7 +108,7 @@ public class EditProfilActivity extends Activity {
                 }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
@@ -220,7 +220,7 @@ public class EditProfilActivity extends Activity {
             @Override
             public Request authenticate(Proxy proxy, Response response) throws IOException {
 
-                return response.request().newBuilder().header("Authorization", "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6").build();
+                return response.request().newBuilder().header("Authorization", "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class)).build();
             }
 
             @Override

@@ -66,6 +66,7 @@ public class RegisterActivity extends Activity {
                         try {
                             JSONObject rp = new JSONObject(response);
                             if(rp.has("msg")){
+                                Tools.setSharedPrefences(RegisterActivity.this,"token",rp.getString("token"));
                                 Intent accountVerificationActivity = new Intent(getApplicationContext(), com.dashboard.telekrip.Activity.AccountVerificationActivity.class);
                                 accountVerificationActivity.putExtra("phoneNumber",_etPhoneNumber.getText().toString());
                                 startActivity(accountVerificationActivity);
@@ -105,14 +106,6 @@ public class RegisterActivity extends Activity {
                 }
 
         ) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", auth);
-                return headers;
-            }
             @Override
             protected Map<String, String> getParams()
             {

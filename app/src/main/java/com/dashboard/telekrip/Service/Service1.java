@@ -13,6 +13,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -36,7 +37,9 @@ import org.json.JSONException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -51,7 +54,7 @@ public class Service1 extends Service {
     }
 
     private void connectWebSocket(final Context ctx) {
-        StringRequest postRequest = new StringRequest(Request.Method.GET, "http://yazlab.xyz:8000/chat/kullaniciBasliklari/?telefonNumarasi=" + Tools.getSharedPrefences(this, "phoneNumber", String.class),
+        StringRequest postRequest = new StringRequest(Request.Method.GET, "https://yazlab.xyz/chat/kullaniciBasliklari/?telefonNumarasi=" + Tools.getSharedPrefences(this, "phoneNumber", String.class),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -60,7 +63,7 @@ public class Service1 extends Service {
                             for (int i = 0; i < ja.length(); i++) {
                                 URI uri;
                                 try {
-                                    uri = new URI("http://yazlab.xyz:8000/chat/message/" + ja.getJSONObject(i).getString("key"));
+                                    uri = new URI("https://yazlab.xyz:9000/chat/message/" + ja.getJSONObject(i).getString("key"));
                                 } catch (URISyntaxException e) {
                                     e.printStackTrace();
                                     return;
@@ -109,9 +112,15 @@ public class Service1 extends Service {
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                }
-
-        );
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String auth = "Token "+(String)Tools.getSharedPrefences(ctx,"token",String.class);
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Authorization", auth);
+                return headers;
+            }
+        };
         Volley.newRequestQueue(this).add(postRequest);
 
 

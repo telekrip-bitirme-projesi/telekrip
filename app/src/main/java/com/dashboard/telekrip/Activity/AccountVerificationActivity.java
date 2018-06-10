@@ -58,7 +58,7 @@ public class AccountVerificationActivity extends Activity {
     }
 
     private void makeRequestPostAuthCode() {
-        StringRequest postRequest = new StringRequest(Request.Method.POST, "http://yazlab.xyz/users/authCode",
+        StringRequest postRequest = new StringRequest(Request.Method.POST, "https://yazlab.xyz/users/authCode",
                 new Response.Listener<String>()
                 {
                     @Override
@@ -104,21 +104,13 @@ public class AccountVerificationActivity extends Activity {
                 }
 
         ) {
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Authorization", auth);
-                return headers;
-            }
-
             @Override
             protected Map<String, String> getParams()
             {
+                String aa  = getIntent().getStringExtra("phoneNumber");
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("authCode", _etVerificationCode.getText().toString());
                 params.put("phoneNumber", getIntent().getStringExtra("phoneNumber"));
+                params.put("authCode", _etVerificationCode.getText().toString());
                 return params;
             }
         };

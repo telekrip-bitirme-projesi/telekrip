@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -37,6 +38,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import dmax.dialog.SpotsDialog;
 
@@ -53,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView _bnView;
     AdapterOldUserMessage adapterOldUserMessage;
     SpotsDialog spotsDialog;
+    Timer timer = new Timer();
 
     @Override
     protected void onStart() {
@@ -72,12 +76,14 @@ public class MainActivity extends AppCompatActivity {
 
         uiInitialization();
 
-        if (!isMyServiceRunning(Service1.class)) {
+        /*if (!isMyServiceRunning(Service1.class)) {
             Intent i = new Intent(getApplicationContext(), Service1.class);
             startService(i);
-        }
+        }*/
+        Intent i = new Intent(getApplicationContext(), Service1.class);
+        startService(i);
 
-        getListConversations();
+        timer.schedule(doAsynchronousTask, 1000, 15000);
 
         _svUserList.setHint("Ara...");
         registerForContextMenu(_lvUser);
@@ -330,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
@@ -366,9 +372,22 @@ public class MainActivity extends AppCompatActivity {
         _bnView = findViewById(R.id.bottom_navigation);
     }
 
+    final TimerTask doAsynchronousTask = new TimerTask() {
+        Handler handler = new Handler();
+
+        @Override
+        public void run() {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    getListConversations();
+                }
+            });
+        }
+    };
     private void getListConversations() {
-        spotsDialog = Tools.createDialog(MainActivity.this, "Yükleniyor...");
-        spotsDialog.show();
+        /*spotsDialog = Tools.createDialog(MainActivity.this, "Yükleniyor...");
+        spotsDialog.show();*/
         StringRequest postRequest = new StringRequest(Request.Method.GET, "https://yazlab.xyz/chat/eskiMesajlar/" + Tools.getSharedPrefences(MainActivity.this, "phoneNumber", String.class),
                 new Response.Listener<String>() {
                     @Override
@@ -383,19 +402,19 @@ public class MainActivity extends AppCompatActivity {
                         if (listUser.size() == 0) {
                             Tools.generateAlertDialog(MainActivity.this, "BİLGİLENDİRME", "Henüz biriyle konuşmanız bulunmuyor,\"Konuşma Başlat\" butonuna basarak yeni bir konuşma başlatabilirsiniz.").show();
                         }
-                        spotsDialog.dismiss();
+                        //spotsDialog.dismiss();
                     }
 
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        spotsDialog.dismiss();
+                        //spotsDialog.dismiss();
                     }
                 }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token 3d0f58d4ac0a2644aec0aa33350d3be9960d32e6";
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
