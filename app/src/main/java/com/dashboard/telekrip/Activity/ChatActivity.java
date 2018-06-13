@@ -220,7 +220,7 @@ public class ChatActivity extends Activity {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
@@ -326,7 +326,7 @@ public class ChatActivity extends Activity {
                 }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;

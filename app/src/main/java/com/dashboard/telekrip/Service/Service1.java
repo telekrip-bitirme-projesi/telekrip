@@ -45,6 +45,7 @@ import java.util.Set;
 
 @SuppressWarnings("deprecation")
 public class Service1 extends Service {
+    List<String> keys =  new ArrayList<>();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -69,35 +70,38 @@ public class Service1 extends Service {
                                     return;
                                 }
 
-                                new WebSocketClient(uri) {
-                                    @Override
-                                    public void onOpen(ServerHandshake serverHandshake) {
-                                        System.out.println("open");
-                                    }
+                                if(!keys.contains(ja.getJSONObject(i).getString("key"))){
+                                    new WebSocketClient(uri) {
+                                        @Override
+                                        public void onOpen(ServerHandshake serverHandshake) {
+                                            System.out.println("open");
+                                        }
 
-                                    @Override
-                                    public void onMessage(final String s) {
-                                        Random r = new Random();
-                                        Message message = new Gson().fromJson(s, Message.class);
-                                        boolean sound=(boolean) Tools.getSharedPrefences(ctx, "sound", Boolean.class);
-                                        boolean vibrate=(boolean) Tools.getSharedPrefences(ctx, "vibration", Boolean.class);
-                                        if ((boolean) Tools.getSharedPrefences(ctx, "notification", Boolean.class)) {
-                                            if (!Tools.getSharedPrefences(ctx, "position", String.class).toString().equals("chating")) {
-                                                showNotification(sound, vibrate, message.getSenderNameSurname(), Tools.getDecrypt(message.getText()), r.nextInt(989456464));
+                                        @Override
+                                        public void onMessage(final String s) {
+                                            Random r = new Random();
+                                            Message message = new Gson().fromJson(s, Message.class);
+                                            boolean sound=(boolean) Tools.getSharedPrefences(ctx, "sound", Boolean.class);
+                                            boolean vibrate=(boolean) Tools.getSharedPrefences(ctx, "vibration", Boolean.class);
+                                            if ((boolean) Tools.getSharedPrefences(ctx, "notification", Boolean.class)) {
+                                                if (!Tools.getSharedPrefences(ctx, "position", String.class).toString().equals("chating")) {
+                                                    showNotification(sound, vibrate, message.getSenderNameSurname(), Tools.getDecrypt(message.getText()), r.nextInt(989456464));
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onClose(int i, String s, boolean b) {
-                                        System.out.println("closed");
-                                    }
+                                        @Override
+                                        public void onClose(int i, String s, boolean b) {
+                                            System.out.println("closed");
+                                        }
 
-                                    @Override
-                                    public void onError(Exception e) {
-                                        System.out.println("error");
-                                    }
-                                }.connect();
+                                        @Override
+                                        public void onError(Exception e) {
+                                            System.out.println("error");
+                                        }
+                                    }.connect();
+                                    keys.add(ja.getJSONObject(i).getString("key"));
+                                }
 
                             }
                         } catch (JSONException e) {

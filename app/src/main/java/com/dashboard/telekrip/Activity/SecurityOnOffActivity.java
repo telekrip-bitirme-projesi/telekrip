@@ -41,10 +41,12 @@ public class SecurityOnOffActivity extends Activity {
             public void onComplete(String pin) {
                 if (Tools.getSharedPrefences(SecurityOnOffActivity.this, "security", String.class) == null) {
                     Tools.setSharedPrefences(SecurityOnOffActivity.this, "security", pin);
+                    Tools.setSharedPrefences(SecurityOnOffActivity.this,"appLock",true);
                     onBackPressed();
                     Toast.makeText(SecurityOnOffActivity.this, "Parola Oluşturuldu.", Toast.LENGTH_SHORT).show();
                 } else if (_btnResetPassword.getVisibility() == View.VISIBLE) {
                     Tools.setSharedPrefences(SecurityOnOffActivity.this, "security", pin);
+                    Tools.setSharedPrefences(SecurityOnOffActivity.this,"appLock",true);
                     onBackPressed();
                     Toast.makeText(SecurityOnOffActivity.this, "Parola Güncellendi.", Toast.LENGTH_SHORT).show();
                 }

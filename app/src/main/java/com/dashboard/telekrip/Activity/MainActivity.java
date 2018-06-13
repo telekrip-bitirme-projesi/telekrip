@@ -59,16 +59,11 @@ public class MainActivity extends AppCompatActivity {
     Timer timer = new Timer();
 
     @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (Tools.getSharedPrefences(MainActivity.this, "security", String.class) != null && (Boolean) Tools.getSharedPrefences(MainActivity.this, "securityLogin", Boolean.class) == false) {
+        if (Tools.getSharedPrefences(MainActivity.this, "security", String.class) != null && (Boolean) Tools.getSharedPrefences(MainActivity.this, "securityLogin", Boolean.class) == false && (Boolean) Tools.getSharedPrefences(MainActivity.this, "appLock", Boolean.class) == true) {
             Intent securityActivity = new Intent(MainActivity.this, SecurityActivity.class);
             startActivity(securityActivity);
             //MainActivity.this.finish();
@@ -165,6 +160,16 @@ public class MainActivity extends AppCompatActivity {
                                 Intent userPanelActivity = new Intent(getApplicationContext(), UserPanelActivity.class);
                                 startActivity(userPanelActivity);
                                 overridePendingTransition(R.transition.left, R.transition.out_right);
+                                break;
+                            }
+                            case R.id.appLock: {
+                                if((String) Tools.getSharedPrefences(MainActivity.this, "security", String.class) == null){
+                                    Toast.makeText(MainActivity.this,"Uygulama Kilidi kapalı olduğu için bu özellik devre dışıdır.",Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    Tools.setSharedPrefences(MainActivity.this,"appLock",true);
+                                    finish();
+                                }
                                 break;
                             }
 
@@ -336,7 +341,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
@@ -414,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
                 }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);;
+                String auth = "Token "+(String)Tools.getSharedPrefences(getApplicationContext(),"token",String.class);
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Authorization", auth);
                 return headers;
@@ -437,4 +442,5 @@ public class MainActivity extends AppCompatActivity {
         Tools.setSharedPrefences(MainActivity.this, "securityLogin", false);
         MainActivity.this.finish();
     }
+
 }

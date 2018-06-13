@@ -8,6 +8,12 @@
         android:title="Konuşma Başlat"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/appLock"
+        android:enabled="true"
+        android:icon="@drawable/lock_screen"
+        android:title="Kilitleyerek Çık"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/account"
         android:enabled="true"
         android:icon="@drawable/account_settings"

@@ -36,6 +36,7 @@ public class SecurityActivity extends Activity {
 
                 if (Tools.getSharedPrefences(SecurityActivity.this, "security", String.class).equals(pin)) {
                     Tools.setSharedPrefences(SecurityActivity.this,"securityLogin",true);
+                    Tools.removeSharedPrefences(SecurityActivity.this,"appLock");
                     onBackPressed();
                 }
                 else {
